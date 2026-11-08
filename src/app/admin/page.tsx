@@ -15,8 +15,15 @@ interface Order {
   subtotal: number;
   shippingCost: number;
   grandTotal: number;
-  status: string;
-  createdAt: string;
+  status: "pending" | "paid" | "shipped" | "cancelled" | null;
+  createdAt: string | null;
+  items: {
+    id: string;
+    title: string;
+    category: string;
+    quantity: number;
+    unitPrice: number;
+  }[];
 }
 
 interface BankDetails {
@@ -33,6 +40,45 @@ const emptyBankDetails: BankDetails = {
   address: "",
 };
 
+function isAdminOrder(value: unknown): value is Order {
+  if (typeof value !== "object" || value === null) return false;
+  const order = value as Record<string, unknown>;
+  return (
+    typeof order.id === "string" &&
+    typeof order.firstName === "string" &&
+    typeof order.lastName === "string" &&
+    typeof order.country === "string" &&
+    typeof order.streetAddress === "string" &&
+    typeof order.whatsapp === "string" &&
+    typeof order.email === "string" &&
+    typeof order.subtotal === "number" &&
+    typeof order.shippingCost === "number" &&
+    typeof order.grandTotal === "number" &&
+    (order.status === null ||
+      order.status === "pending" ||
+      order.status === "paid" ||
+      order.status === "shipped" ||
+      order.status === "cancelled") &&
+    (typeof order.createdAt === "string" || order.createdAt === null) &&
+    Array.isArray(order.items) &&
+    order.items.every(
+      (item) =>
+        typeof item === "object" &&
+        item !== null &&
+        "id" in item &&
+        typeof item.id === "string" &&
+        "title" in item &&
+        typeof item.title === "string" &&
+        "category" in item &&
+        typeof item.category === "string" &&
+        "quantity" in item &&
+        typeof item.quantity === "number" &&
+        "unitPrice" in item &&
+        typeof item.unitPrice === "number",
+    )
+  );
+}
+
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [username, setUsername] = useState("");
@@ -41,6 +87,7 @@ export default function AdminPage() {
 
   const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
+  const [orderStatusError, setOrderStatusError] = useState("");
   const [bankDetails, setBankDetails] = useState<BankDetails>(emptyBankDetails);
   const [loadingBankDetails, setLoadingBankDetails] = useState(true);
   const [savingBankDetails, setSavingBankDetails] = useState(false);
@@ -82,16 +129,48 @@ export default function AdminPage() {
     setLoadingOrders(true);
     try {
       const res = await fetch("/api/orders");
-      if (res.ok) {
-        const data = await res.json();
-        setOrders(data);
+      const data: unknown = await res.json();
+      if (!res.ok || !Array.isArray(data) || !data.every(isAdminOrder)) {
+        throw new Error("Bestellungen konnten nicht geladen werden.");
       }
+      setOrders(data);
     } catch (err) {
       console.error("Fehler beim Laden der Bestellungen:", err);
+      setOrderStatusError(
+        err instanceof Error ? err.message : "Bestellungen konnten nicht geladen werden.",
+      );
     } finally {
       setLoadingOrders(false);
     }
   }, []);
+
+  const handleOrderStatusChange = async (
+    orderId: string,
+    status: NonNullable<Order["status"]>,
+  ) => {
+    setOrderStatusError("");
+    try {
+      const response = await fetch(`/api/admin/orders/${encodeURIComponent(orderId)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Bestellstatus konnte nicht gespeichert werden.");
+      }
+      setOrders((previous) =>
+        previous.map((order) => (order.id === orderId ? { ...order, status } : order)),
+      );
+    } catch (error) {
+      console.error("Fehler beim Aktualisieren des Bestellstatus:", error);
+      setOrderStatusError(
+        error instanceof Error
+          ? error.message
+          : "Bestellstatus konnte nicht gespeichert werden.",
+      );
+    }
+  };
 
   const loadBankDetails = useCallback(async () => {
     setLoadingBankDetails(true);
@@ -203,7 +282,7 @@ export default function AdminPage() {
           <div className="admin-login-header">
             <i className="fa-solid fa-lock admin-login-icon"></i>
             <h1 className="admin-login-title">Admin Login</h1>
-            <p className="admin-login-subtitle">Swiss Holz Administration</p>
+            <p className="admin-login-subtitle">VELORA Administration</p>
           </div>
 
           {loginError && (
@@ -221,7 +300,7 @@ export default function AdminPage() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Admin"
+                placeholder="Administrateur"
               />
             </div>
 
@@ -338,6 +417,11 @@ export default function AdminPage() {
         )}
       </section>
 
+      {orderStatusError && (
+        <p className="admin-bank-status admin-bank-status-error" role="alert">
+          {orderStatusError}
+        </p>
+      )}
       {loadingOrders ? (
         <p className="admin-loading">Bestellungen werden geladen...</p>
       ) : orders.length === 0 ? (
@@ -355,7 +439,8 @@ export default function AdminPage() {
                 <th>Kontakt</th>
                 <th>Gesamtsumme</th>
                 <th>Datum</th>
-                {/* <th>Status</th> */}
+                <th>Produkte</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -384,13 +469,37 @@ export default function AdminPage() {
                     CHF {order.grandTotal.toFixed(2)}
                   </td>
                   <td>
-                    {new Date(order.createdAt).toLocaleDateString("de-CH")}
+                    {order.createdAt
+                      ? new Date(order.createdAt).toLocaleDateString("de-CH")
+                      : "—"}
                   </td>
-                  {/* <td>
-                    <span className={`admin-badge admin-badge-${order.status}`}>
-                      {order.status === "pending" ? "Ausstehend" : order.status}
-                    </span>
-                  </td> */}
+                  <td>
+                    <ul className="admin-order-items">
+                      {order.items.map((item) => (
+                        <li key={item.id}>
+                          {item.quantity} × {item.title}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <select
+                      aria-label={`Status ${order.id}`}
+                      className="admin-order-status-select"
+                      value={order.status ?? "pending"}
+                      onChange={(event) =>
+                        handleOrderStatusChange(
+                          order.id,
+                          event.target.value as NonNullable<Order["status"]>,
+                        )
+                      }
+                    >
+                      <option value="pending">En attente</option>
+                      <option value="paid">Payée</option>
+                      <option value="shipped">Expédiée</option>
+                      <option value="cancelled">Annulée</option>
+                    </select>
+                  </td>
                 </tr>
               ))}
             </tbody>

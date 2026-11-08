@@ -1,14 +1,22 @@
 // app/api/admin/check/route.ts
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 export async function GET() {
-  const cookieStore = await cookies(); // Ajout de "await" ici
-  const token = cookieStore.get("admin_token")?.value;
+  try {
+    if (await isAdminAuthenticated()) {
+      return NextResponse.json(
+        { authenticated: true },
+        { headers: { "Cache-Control": "no-store" } },
+      );
+    }
 
-  if (token === "authenticated_admin_holz_session") {
-    return NextResponse.json({ authenticated: true });
+    return NextResponse.json(
+      { authenticated: false },
+      { status: 401, headers: { "Cache-Control": "no-store" } },
+    );
+  } catch (error) {
+    console.error("Erreur lors de la vérification de la session admin :", error);
+    return NextResponse.json({ error: "Vérification impossible." }, { status: 500 });
   }
-
-  return NextResponse.json({ authenticated: false }, { status: 401 });
 }

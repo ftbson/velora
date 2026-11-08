@@ -25,7 +25,7 @@ export const notificationEmail = process.env.SMTP_USER;
 
 export async function sendMail(options: SendMailOptions) {
   return transporter.sendMail({
-    from: `Swiss Holz <${notificationEmail}>`,
+    from: `VELORA <${notificationEmail}>`,
     to: notificationEmail,
     ...options,
   });

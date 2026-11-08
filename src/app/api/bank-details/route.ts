@@ -1,11 +1,10 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { bankDetails } from "@/lib/schema";
+import { isAdminAuthenticated, isSameOriginRequest } from "@/lib/auth";
 
 const BANK_DETAILS_ID = "default";
-const ADMIN_TOKEN = "authenticated_admin_holz_session";
 
 async function ensureBankDetailsTable() {
   await db.run(sql`
@@ -18,11 +17,6 @@ async function ensureBankDetailsTable() {
       updated_at TEXT NOT NULL
     )
   `);
-}
-
-async function isAdminAuthenticated() {
-  const cookieStore = await cookies();
-  return cookieStore.get("admin_token")?.value === ADMIN_TOKEN;
 }
 
 export async function GET() {
@@ -52,6 +46,10 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  if (!isSameOriginRequest(request)) {
+    return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 403 });
+  }
+
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Accès non autorisé." }, { status: 401 });
   }

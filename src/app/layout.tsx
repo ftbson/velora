@@ -5,6 +5,7 @@ import "./layout.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 // Configuration SEO Avancée - VELORA Switzerland (E-Bikes)
 export const metadata: Metadata = {
@@ -109,25 +110,22 @@ export default async function RootLayout({
       </head>
       <body>
         <CartProvider>
-          <div
-            className="app-container"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh",
-            }}
-          >
-            {/* Masquer la Navbar sur les routes /admin */}
-            {!isAdminRoute && <Navbar />}
-
-            {/* Hauptinhalt */}
-            <main className="main-content" style={{ flex: 1 }}>
-              {children}
-            </main>
-
-            {/* Masquer le Footer sur les routes /admin */}
-            {!isAdminRoute && <Footer />}
-          </div>
+          <AuthProvider>
+            <div
+              className="app-container"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh",
+              }}
+            >
+              {!isAdminRoute && <Navbar />}
+              <main className="main-content" style={{ flex: 1 }}>
+                {children}
+              </main>
+              {!isAdminRoute && <Footer />}
+            </div>
+          </AuthProvider>
         </CartProvider>
       </body>
     </html>

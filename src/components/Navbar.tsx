@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const { favorites, totalItems } = useCart();
+  const { user, isLoading } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
@@ -52,6 +54,17 @@ export default function Navbar() {
 
           {/* Droite : Recherche Mobile, Favoris & Panier */}
           <div className="velora-nav-right">
+            <Link
+              href={user ? "/compte" : "/connexion"}
+              className="velora-account-link"
+              aria-label={user ? `Konto von ${user.name}` : "Anmelden oder Konto erstellen"}
+            >
+              <i className="fa-regular fa-user" aria-hidden="true"></i>
+              {!isLoading && (
+                <span>{user ? user.name : "Anmelden"}</span>
+              )}
+            </Link>
+
             {/* Bouton Loupe (Mobile uniquement) */}
             <button 
               className="velora-icon-btn mobile-only" 

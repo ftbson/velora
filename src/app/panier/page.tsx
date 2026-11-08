@@ -32,6 +32,7 @@ export default function CartPage() {
 
   const [finalTotal, setFinalTotal] = useState<number>(0);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [emailNotificationSent, setEmailNotificationSent] = useState(true);
 
   // État du formulaire d'informations client
   const [formData, setFormData] = useState({
@@ -93,7 +94,9 @@ export default function CartPage() {
         !("orderId" in orderResult) ||
         typeof orderResult.orderId !== "string" ||
         !("grandTotal" in orderResult) ||
-        typeof orderResult.grandTotal !== "number"
+        typeof orderResult.grandTotal !== "number" ||
+        !("emailNotificationSent" in orderResult) ||
+        typeof orderResult.emailNotificationSent !== "boolean"
       ) {
         const message =
           typeof orderResult === "object" &&
@@ -107,6 +110,7 @@ export default function CartPage() {
 
       setFinalTotal(orderResult.grandTotal);
       setOrderId(orderResult.orderId);
+      setEmailNotificationSent(orderResult.emailNotificationSent);
       clearCart();
       setStep("bank");
     } catch (error) {
@@ -454,6 +458,11 @@ export default function CartPage() {
                     die folgende Bankverbindung:
                   </p>
                   {orderId && <p className="checkout-order-reference">Bestellnummer: {orderId}</p>}
+                  {!emailNotificationSent && (
+                    <p className="checkout-notification-warning" role="status">
+                      Ihre Bestellung ist gespeichert. Die automatische Benachrichtigung ist fehlgeschlagen; bitte kontaktieren Sie uns mit Ihrer Bestellnummer.
+                    </p>
+                  )}
                 </div>
 
                 <div className="bank-details-list">

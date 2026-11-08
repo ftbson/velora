@@ -1254,6 +1254,17 @@ a {
   margin-top: 8px;
 }
 
+.checkout-notification-warning {
+  background: #fff7e6;
+  border: 1px solid #f1d89c;
+  border-radius: 8px;
+  color: #72500b;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 12px;
+  padding: 10px 12px;
+}
+
 .bank-details-list {
   border: 1px solid #eee;
   border-radius: 10px;
@@ -1602,5 +1613,426 @@ a {
   .scroll-top-btn-fixed {
     bottom: 16px;
     right: 16px;
+  }
+}
+
+.velora-account-link {
+  align-items: center;
+  border-radius: 999px;
+  color: #222;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 600;
+  gap: 8px;
+  max-width: 170px;
+  min-height: 40px;
+  padding: 0 10px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.velora-account-link:hover {
+  background: #f5f5f5;
+  color: #d52b1e;
+}
+
+.velora-account-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-auth-page {
+  align-items: center;
+  background:
+    radial-gradient(ellipse at 10% 5%, rgba(213, 43, 30, 0.08), transparent 40%),
+    #f7f7f8;
+  display: flex;
+  justify-content: center;
+  min-height: 72vh;
+  padding: 48px 20px;
+}
+
+.account-auth-card {
+  background: #fff;
+  border: 1px solid #ececef;
+  border-radius: 20px;
+  box-shadow: 0 18px 56px rgba(30, 30, 30, 0.08);
+  max-width: 480px;
+  padding: 32px;
+  width: 100%;
+}
+
+.account-back-link {
+  align-items: center;
+  color: #666;
+  display: inline-flex;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.account-back-link:hover,
+.account-resend-link:hover {
+  color: #d52b1e;
+}
+
+.account-auth-heading {
+  margin: 30px 0 24px;
+  text-align: center;
+}
+
+.account-verify-back {
+  font-size: 12px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.account-verify-back a {
+  color: #555;
+  text-decoration: underline;
+}
+
+.account-auth-icon {
+  align-items: center;
+  background: #fff0ee;
+  border-radius: 50%;
+  color: #d52b1e;
+  display: flex;
+  font-size: 22px;
+  height: 54px;
+  justify-content: center;
+  margin: 0 auto 18px;
+  width: 54px;
+}
+
+.account-auth-heading h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 8px 0;
+}
+
+.account-auth-heading > p:last-child {
+  color: #686868;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.account-auth-tabs {
+  background: #f4f4f5;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 22px;
+  padding: 4px;
+}
+
+.account-auth-tabs button {
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: #666;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 40px;
+}
+
+.account-auth-tabs button.active {
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  color: #d52b1e;
+}
+
+.account-auth-form {
+  display: grid;
+  gap: 16px;
+}
+
+.account-auth-form label {
+  color: #333;
+  display: grid;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 7px;
+}
+
+.account-auth-form input {
+  background: #fff;
+  border: 1px solid #d9d9dd;
+  border-radius: 9px;
+  color: #222;
+  font: inherit;
+  font-size: 14px;
+  min-height: 48px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.account-auth-form input:focus {
+  border-color: #d52b1e;
+  outline: 3px solid rgba(213, 43, 30, 0.12);
+}
+
+.account-auth-form small {
+  color: #777;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.account-submit {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  margin-top: 4px;
+  width: 100%;
+}
+
+.account-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.account-form-message {
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.55;
+  padding: 11px 12px;
+}
+
+.account-form-message.error {
+  background: #fff1ef;
+  color: #a32118;
+}
+
+.account-form-message.success {
+  background: #effaf2;
+  color: #246b3d;
+}
+
+.account-resend-link {
+  background: transparent;
+  border: 0;
+  color: #444;
+  cursor: pointer;
+  display: block;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 18px auto 0;
+  text-decoration: underline;
+}
+
+.account-resend-link:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.account-page {
+  background: #f7f7f8;
+  margin: 0 auto;
+  max-width: 1240px;
+  min-height: 65vh;
+  padding: 52px 24px 72px;
+  width: 100%;
+}
+
+.account-page-header,
+.account-orders-heading {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.account-page-header {
+  background: #fff;
+  border: 1px solid #ececef;
+  border-radius: 16px;
+  margin-bottom: 38px;
+  padding: 28px;
+}
+
+.account-page-header h1,
+.account-orders-heading h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 6px 0;
+}
+
+.account-page-header > div > p:last-child {
+  color: #666;
+  font-size: 13px;
+}
+
+.account-logout-button {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  color: #333;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+}
+
+.account-logout-button:hover {
+  border-color: #d52b1e;
+  color: #d52b1e;
+}
+
+.account-orders-heading {
+  margin-bottom: 20px;
+}
+
+.account-order-list {
+  display: grid;
+  gap: 16px;
+}
+
+.account-order-card {
+  background: #fff;
+  border: 1px solid #e8e8eb;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.account-order-header {
+  align-items: center;
+  border-bottom: 1px solid #ededed;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  padding-bottom: 16px;
+}
+
+.account-order-label {
+  color: #777;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.account-order-header h3 {
+  font-size: 15px;
+  margin: 3px 0;
+}
+
+.account-order-header time {
+  color: #777;
+  font-size: 11px;
+}
+
+.account-order-status {
+  background: #fff7e6;
+  border-radius: 999px;
+  color: #855b0a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 12px;
+}
+
+.account-order-status.status-paid {
+  background: #eaf8ed;
+  color: #246b3d;
+}
+
+.account-order-status.status-shipped {
+  background: #edf4ff;
+  color: #275491;
+}
+
+.account-order-status.status-cancelled {
+  background: #fff0ee;
+  color: #a32118;
+}
+
+.account-order-items {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  padding: 16px 0;
+}
+
+.account-order-items li,
+.account-order-total {
+  align-items: center;
+  color: #555;
+  display: flex;
+  font-size: 12px;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.account-order-items strong,
+.account-order-total strong {
+  color: #222;
+  white-space: nowrap;
+}
+
+.account-order-total {
+  border-top: 1px solid #ededed;
+  color: #222;
+  font-weight: 700;
+  padding-top: 14px;
+}
+
+.account-loading {
+  color: #666;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.admin-order-items {
+  font-size: 11px;
+  line-height: 1.6;
+  min-width: 160px;
+  padding-left: 16px;
+}
+
+.admin-order-status-select {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 11px;
+  min-width: 112px;
+  padding: 7px;
+}
+
+@media (max-width: 520px) {
+  .velora-account-link {
+    gap: 0;
+    padding: 0 7px;
+  }
+
+  .velora-account-link span {
+    display: none;
+  }
+
+  .account-auth-card {
+    padding: 24px 18px;
+  }
+
+  .account-page {
+    padding: 32px 14px 48px;
+  }
+
+  .account-page-header,
+  .account-order-card {
+    padding: 20px 16px;
+  }
+
+  .account-logout-button {
+    width: 100%;
   }
 }
