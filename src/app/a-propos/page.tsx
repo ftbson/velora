@@ -1,122 +1,125 @@
-import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Über VELORA",
+  description:
+    "Lernen Sie VELORA und unsere Auswahl an E-Bikes für Stadt, Alltag und Gelände kennen.",
+};
+
+const categories = [
+  {
+    name: "VILLE",
+    title: "Für die Stadt",
+    description:
+      "Entdecken Sie Modelle für tägliche Wege und urbane Mobilität.",
+    href: "/categorie/ville",
+  },
+  {
+    name: "VTC",
+    title: "Für Alltag und Touren",
+    description:
+      "Finden Sie E-Bikes für vielseitige Wege und längere Ausfahrten.",
+    href: "/categorie/vtc",
+  },
+  {
+    name: "VTT",
+    title: "Für Wege abseits der Stadt",
+    description:
+      "Sehen Sie sich unsere Auswahl für Gelände und anspruchsvollere Strecken an.",
+    href: "/categorie/vtt",
+  },
+];
 
 export default function AboutPage() {
   return (
-    <div className="about-page">
-      {/* SECTION 1: MISSION & COLONNES */}
-      <section className="about-intro-section">
-        <div className="about-container">
-          <div className="about-grid-3">
-            {/* Colonne 1: Notre mission */}
-            <div className="about-col">
-              <span className="about-subtitle-tag">
-                Über uns – Swiss Holz
-              </span>
-              <h1 className="about-col-title">Unsere Mission</h1>
-              <p className="about-text">
-                Bei Swiss Holz sind wir davon überzeugt, dass Heizen mit Holz
-                wirtschaftlich, komfortabel und umweltfreundlich sein sollte.
-                Deshalb wählen wir hochwertige Brennstoffe aus verantwortungsvollen
-                Quellen aus, um eine konstante Wärme und optimale Leistung bei
-                jeder Nutzung zu gewährleisten.
-              </p>
-            </div>
-
-            {/* Colonne 2: Expertise */}
-            <div className="about-col flex-between">
-              <div>
-                <h3 className="about-col-h3">
-                  Wir stellen unsere Expertise in den Dienst Ihres Komforts.
-                  Sparen Sie mit dem, was wir tun.
-                </h3>
-                <p className="about-text">
-                  Mit jahrelanger Erfahrung im Vertrieb von Brennholz
-                  unterstützt Swiss Holz Privatpersonen und Unternehmen
-                  bei all ihren Heizbedürfnissen.
-                </p>
-              </div>
-              <Link href="/boutique" className="about-link-btn">
-                SHOP BESUCHEN
-              </Link>
-            </div>
-
-            {/* Colonne 3: Sélection de produits */}
-            <div className="about-col flex-between">
-              <div>
-                <h3 className="about-col-h3">
-                  Eine verantwortungsvolle und sorgfältig ausgewählte Produktauswahl
-                </h3>
-                <p className="about-text">
-                  Ob Brennholz, Buchenbriketts, Holzpellets,
-                  Pressholz oder Kaminöfen – wir bieten sorgfältig ausgewählte
-                  Produkte, die sich durch ihre Leistungsfähigkeit und Zuverlässigkeit auszeichnen.
-                </p>
-              </div>
-              <Link href="/boutique" className="about-link-btn">
-                SHOP BESUCHEN
-              </Link>
-            </div>
+    <main className="about-page">
+      <section className="about-hero">
+        <div className="about-hero-content">
+          <p className="storefront-eyebrow">DIE MARKE VELORA</p>
+          <h1>Das passende E-Bike für deinen Weg.</h1>
+          <p>
+            VELORA ist ein Onlineshop für E-Bikes. Wir machen es einfacher,
+            Modelle nach ihrem Einsatzbereich zu entdecken – für die Stadt,
+            vielseitige Touren oder Wege im Gelände.
+          </p>
+          <div className="about-actions">
+            <Link href="/products" className="storefront-primary-link">
+              Sortiment entdecken
+              <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+            </Link>
+            <Link href="/contact" className="storefront-secondary-link">
+              Kontakt aufnehmen
+            </Link>
           </div>
+        </div>
+        <div className="about-hero-aside" aria-hidden="true">
+          <span>VELORA</span>
+          <span>VILLE · VTC · VTT</span>
         </div>
       </section>
 
-      {/* SECTION 2: AVEC SWISS HOLZ, VOUS CHOISISSEZ */}
-      <section className="about-feature-section">
-        <div className="about-container">
-          <div className="about-feature-grid">
-            {/* Image d'entrepôt bois */}
-            <div className="about-image-wrapper">
-              <Image
-                src="/img/about.jpeg"
-                alt="Holzlagerung Swiss Holz"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="about-img"
-                priority
-              />
-            </div>
-
-            {/* Contenu texte */}
-            <div className="about-feature-content">
-              <span className="about-subtitle-tag">
-                Ihr Spezialist für Holzheizsysteme
-              </span>
-              <h2 className="about-main-title">
-                Mit Swiss Holz entscheiden Sie sich für:
-              </h2>
-
-              <p className="about-highlight-text">
-                Qualität, Leistung, Nachhaltigkeit und persönlichen Service. Wir
-                sind stolz darauf, zu einem natürlicheren, wirtschaftlicheren und
-                verantwortungsvolleren Heizsystem beizutragen.
-              </p>
-
-              <p className="about-text">
-                Qualität steht im Mittelpunkt all unserer Aktivitäten. Wir
-                arbeiten mit Partnern zusammen, die sich für eine nachhaltige
-                Waldbewirtschaftung einsetzen, und garantieren Brennstoffe mit hohem
-                Heizwert, geringer Restfeuchte, Sauberkeit und gleichbleibender
-                Qualität.
-              </p>
-
-              <p className="about-text">
-                Sie bieten eine optimierte und hochwertige Verbrennung. Jedes
-                Produkt wird getestet, um zu jeder Jahreszeit ein optimales
-                Heizerlebnis zu gewährleisten.
-              </p>
-
-              {/* Réseaux sociaux */}
-              <div className="about-social-divider">
-                <div className="about-social-links">
-                 
-                 
-                </div>
-              </div>
-            </div>
-          </div>
+      <section className="about-values">
+        <div className="about-section-heading">
+          <p className="storefront-eyebrow">UNSER ANSPRUCH</p>
+          <h2>Einfacher zum passenden Modell</h2>
+          <p>
+            Gute Orientierung beginnt mit den Fragen, die im Alltag zählen:
+            Wo fahren Sie, welche Strecken planen Sie und welches Modell passt
+            zu Ihren Anforderungen?
+          </p>
+        </div>
+        <div className="about-value-grid">
+          <article>
+            <span>01</span>
+            <h3>Nach Einsatzbereich sortiert</h3>
+            <p>
+              Die Kategorien VILLE, VTC und VTT helfen Ihnen, die Auswahl nach
+              geplantem Einsatzbereich einzugrenzen.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Modelle vergleichen</h3>
+            <p>
+              Produktseiten bündeln die verfügbaren Angaben zu den einzelnen
+              Modellen. Prüfen Sie die Details, bevor Sie Ihre Wahl treffen.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Fragen? Wir sind erreichbar</h3>
+            <p>
+              Über unser Kontaktformular können Sie Fragen zu Produkten und
+              Bestellungen an unser Team richten.
+            </p>
+          </article>
         </div>
       </section>
-    </div>
+
+      <section className="about-category-section">
+        <div className="about-section-heading">
+          <p className="storefront-eyebrow">DREI KATEGORIEN</p>
+          <h2>Finde deinen Einsatzbereich</h2>
+        </div>
+        <div className="about-category-grid">
+          {categories.map((category) => (
+            <Link
+              className="about-category-card"
+              href={category.href}
+              key={category.name}
+            >
+              <span>{category.name}</span>
+              <h3>{category.title}</h3>
+              <p>{category.description}</p>
+              <span className="about-category-link">
+                Kategorie ansehen
+                <i className="fa-solid fa-arrow-right" aria-hidden="true" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
