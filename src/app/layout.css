@@ -1,0 +1,823 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-wood: #424034;
+  --color-white: #FFFFFF;
+  --color-blue-main: #2563EB;
+  --color-blue-light: #60A5FA;
+  --color-bg-light: #F8F8F8;
+  --color-text: #1E1E1E;
+  --color-success: #16A34A;
+  --color-promo: #DC2626;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-white);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HEADER & NAVIGATION */
+
+
+
+/* ==========================================
+   VELORA NAVBAR STYLING (WHITE THEME)
+   ========================================== */
+
+.velora-header {
+  width: 100%;
+  background-color: #ffffff; /* Fond Blanc */
+  color: #111111;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.velora-main-nav {
+  background-color: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+  padding: 12px 20px;
+}
+
+.velora-nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.velora-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Bouton Hamburger */
+.velora-hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #111111;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.velora-logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.velora-logo-img {
+  object-fit: contain;
+  max-height: 42px;
+  width: auto;
+}
+
+/* Barre de recherche (Desktop) */
+.velora-search-container {
+  flex: 1;
+  max-width: 650px;
+}
+
+.velora-search-box {
+  position: relative;
+  width: 100%;
+}
+
+.velora-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777777;
+  font-size: 15px;
+}
+
+.velora-search-input {
+  width: 100%;
+  background-color: #f5f5f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  padding: 10px 20px 10px 45px;
+  font-size: 14px;
+  color: #111111;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.velora-search-input:focus {
+  background-color: #ffffff;
+  border-color: #D52B1E;
+  box-shadow: 0 0 0 3px rgba(213, 43, 30, 0.15);
+}
+
+/* Icônes de Droite (Favoris & Panier) */
+.velora-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.velora-icon-btn {
+  background: none;
+  border: none;
+  color: #111111;
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.velora-icon-btn:hover {
+  background-color: #f5f5f5;
+  color: #D52B1E;
+}
+
+.velora-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: #D52B1E; /* Rouge suisse */
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   SUB-NAV / LIENS CENTRÉS (DESKTOP)
+   ========================================== */
+.velora-sub-nav {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 20px;
+}
+
+.velora-sub-nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center; /* Centrer les liens */
+}
+
+.velora-nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrage milieu */
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.velora-nav-links li a {
+  display: block;
+  color: #222222;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 0;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.velora-nav-links li a:hover,
+.velora-nav-links li a.highlight-link {
+  color: #D52B1E;
+}
+
+.velora-nav-links li a.highlight-link {
+  font-weight: 600;
+}
+
+/* Affichage par défaut Desktop / Mobile */
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: block;
+}
+
+/* ==========================================
+   MODALE DE RECHERCHE MOBILE (MODAL & BLUR)
+   ========================================== */
+.velora-mobile-search-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px); /* Effet de flou en arrière-plan */
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: flex-start;
+  padding: 15px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.velora-mobile-search-content {
+  width: 100%;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.velora-mobile-search-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.velora-close-search-btn {
+  background: #f5f5f5;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #333333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   RESPONSIVE MOBILE VIEW (< 992px)
+   ========================================== */
+@media (max-width: 992px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+
+  .velora-hamburger-btn {
+    display: block;
+  }
+
+  /* Hamburger Menu Lateral */
+  .velora-sub-nav {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: #ffffff;
+    z-index: 1100;
+    transition: left 0.3s ease-in-out;
+    padding: 25px 20px;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .velora-sub-nav.mobile-open {
+    left: 0;
+  }
+
+  .velora-sub-nav-container {
+    justify-content: flex-start;
+  }
+
+  .velora-nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .velora-nav-links li {
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+  }
+
+  .velora-nav-links li a {
+    font-size: 15px;
+  }
+
+  .velora-menu-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+  }
+}
+
+
+
+/* ==========================================
+   VELORA HERO SECTION STYLING & ANIMATIONS
+   ========================================== */
+
+.velora-hero {
+  position: relative;
+  width: 100%;
+  height: 480px; /* Hauteur réduite pour laisser voir la suite */
+  background-color: #111111;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.velora-hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.velora-hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Gestion de l'image d'arrière-plan */
+.velora-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.velora-hero-img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Overlay sombre pour faire ressortir le texte blanc */
+.velora-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.45) 60%, rgba(0, 0, 0, 0.2) 100%);
+  z-index: 2;
+}
+
+/* Conteneur et Textes */
+.velora-hero-container {
+  position: relative;
+  z-index: 3;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+}
+
+.velora-hero-content {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- EFFETS D'ANIMATION DES TEXTES À L'ACTIVATION --- */
+.velora-hero-slide .velora-hero-tag,
+.velora-hero-slide .velora-hero-title,
+.velora-hero-slide .velora-hero-subtitle,
+.velora-hero-slide .velora-hero-actions {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.velora-hero-slide.active .velora-hero-tag {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.velora-hero-slide.active .velora-hero-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.35s;
+}
+
+.velora-hero-slide.active .velora-hero-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
+.velora-hero-slide.active .velora-hero-actions {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.65s;
+}
+/* ---------------------------------------------------- */
+
+.velora-hero-tag {
+  display: inline-block;
+  background-color: #D52B1E; /* Rouge suisse */
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  width: max-content;
+}
+
+.velora-hero-title {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.velora-hero-subtitle {
+  font-size: 15px;
+  color: #dddddd;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 520px;
+}
+
+.velora-hero-actions {
+  margin-top: 10px;
+}
+
+.velora-hero-btn {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.velora-hero-btn:hover {
+  background-color: #D52B1E;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Contrôles (Flèches et Points en bas à droite) */
+.velora-hero-controls {
+  position: absolute;
+  bottom: 25px;
+  right: 40px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.velora-hero-arrow {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.velora-hero-arrow:hover {
+  background-color: #D52B1E;
+}
+
+.velora-hero-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.velora-hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.velora-hero-dot.active {
+  background-color: #ffffff;
+  transform: scale(1.2);
+}
+
+/* ==========================================
+   RESPONSIVE MOBILE
+   ========================================== */
+@media (max-width: 768px) {
+  .velora-hero {
+    height: 400px;
+  }
+
+  .velora-hero-container {
+    padding: 0 20px;
+  }
+
+  .velora-hero-title {
+    font-size: 26px;
+  }
+
+  .velora-hero-subtitle {
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .velora-hero-controls {
+    bottom: 15px;
+    right: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   VELORA FOOTER STYLING
+   ========================================== */
+
+.velora-footer {
+  background-color: #0b0b0b;
+  color: #cccccc;
+  padding: 70px 20px 30px 20px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.velora-footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.velora-footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.velora-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.velora-footer-logo-link {
+  display: inline-block;
+}
+
+.velora-footer-logo {
+  object-fit: contain;
+  max-height: 38px;
+  width: auto;
+}
+
+.velora-footer-tagline {
+  font-size: 14px;
+  color: #999999;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 300px;
+}
+
+/* Réseaux Sociaux */
+.velora-social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+.velora-social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.velora-social-icons a:hover {
+  background-color: #D52B1E; /* Rouge Suisse */
+  transform: translateY(-2px);
+}
+
+/* Titres des colonnes */
+.velora-footer-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Listes de liens */
+.velora-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.velora-footer-links li a {
+  color: #aaaaaa;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.velora-footer-links li a:hover {
+  color: #D52B1E;
+}
+
+/* Textes de contact */
+.velora-footer-contact-text {
+  font-size: 14px;
+  color: #aaaaaa;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.velora-footer-contact-text i {
+  color: #D52B1E;
+  width: 16px;
+}
+
+.velora-footer-badge-box {
+  margin-top: 5px;
+}
+
+.swiss-quality-badge {
+  display: inline-block;
+  background-color: rgba(213, 43, 30, 0.15);
+  color: #ff4d3d;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(213, 43, 30, 0.3);
+}
+
+/* Grand Nom de Marque en Arrière-plan (Style ultra-moderne inspiré de la 1ère image) */
+.velora-huge-brand-text {
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  margin: 30px 0 20px 0;
+  user-select: none;
+}
+
+.velora-huge-brand-text span {
+  font-size: 14vw;
+  font-weight: 900;
+  line-height: 0.85;
+  color: rgba(255, 255, 255, 0.03); /* Très subtil et élégant en arrière-plan */
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  display: block;
+}
+
+/* Bas du Footer (Copyright) */
+.velora-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+  color: #777777;
+}
+
+.velora-footer-bottom p {
+  margin: 0;
+}
+
+.velora-footer-bottom-links {
+  display: flex;
+  gap: 20px;
+}
+
+.velora-footer-bottom-links a {
+  color: #777777;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.velora-footer-bottom-links a:hover {
+  color: #ffffff;
+}
+
+/* ==========================================
+   RESPONSIVE MOBILE
+   ========================================== */
+@media (max-width: 992px) {
+  .velora-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .velora-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .velora-footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .velora-footer-bottom-links {
+    justify-content: center;
+  }
+}
