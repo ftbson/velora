@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
-import { getProductSlug, stoveProductsData } from "@/data/products";
+import { productsData } from "@/data/products";
 
 export default function Poele() {
   const { addToCart } = useCart();
@@ -13,7 +13,7 @@ export default function Poele() {
       <div className="bestsellers-container">
         {/* En-tête */}
         <div className="bestsellers-header">
-          <h2 className="bestsellers-title">Unsere besten Kaminöfen</h2>
+          <h2 className="bestsellers-title">Unsere E-Bikes</h2>
           <p className="bestsellers-subtitle">
             Sorgfältig ausgewählt, geprüft und sofort lieferbar.
           </p>
@@ -22,11 +22,11 @@ export default function Poele() {
 
         {/* Grille de produits */}
         <div className="products-grid">
-          {stoveProductsData.map((product) => (
+          {productsData.map((product) => (
             <div key={product.id} className="product-card">
               {/* Image & Badge de réduction */}
               <Link
-                href={`/produkt/${getProductSlug(product)}`}
+                href={`/produkt/${product.id}`}
                 className="product-image-wrap"
                 aria-label={`Details für ${product.title}`}
               >
@@ -45,7 +45,7 @@ export default function Poele() {
               <div className="product-info">
                 <span className="product-category">{product.category}</span>
                 <h3 className="product-title">
-                  <Link href={`/produkt/${getProductSlug(product)}`}>
+                  <Link href={`/produkt/${product.id}`}>
                     {product.title}
                   </Link>
                 </h3>

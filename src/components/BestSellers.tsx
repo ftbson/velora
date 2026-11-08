@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
-import { featuredProductsData, getProductSlug } from "@/data/products";
+import { productsData } from "@/data/products";
 
 export default function BestSellers() {
   const { addToCart } = useCart();
@@ -22,11 +22,11 @@ export default function BestSellers() {
 
         {/* Grille de produits */}
         <div className="products-grid">
-          {featuredProductsData.map((product) => (
+          {productsData.map((product) => (
             <div key={product.id} className="product-card">
               {/* Image & Badge de réduction */}
               <Link
-                href={`/produkt/${getProductSlug(product)}`}
+                href={`/produkt/${product.id}`}
                 className="product-image-wrap"
                 aria-label={`Details für ${product.title}`}
               >
@@ -45,7 +45,7 @@ export default function BestSellers() {
               <div className="product-info">
                 <span className="product-category">{product.category}</span>
                 <h3 className="product-title">
-                  <Link href={`/produkt/${getProductSlug(product)}`}>
+                  <Link href={`/produkt/${product.id}`}>
                     {product.title}
                   </Link>
                 </h3>
