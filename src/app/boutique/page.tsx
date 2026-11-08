@@ -1,8 +1,8 @@
 import ShopGrid from "@/components/ShopGrid";
 
 export const metadata = {
-  title: "Shop | Swiss Holz",
-  description: "Entdecken Sie unsere komplette Auswahl an Brennholz, Holzpellets und Holzbriketts.",
+  title: "E-Bikes | VELORA",
+  description: "Entdecken Sie unsere E-Bikes für Stadt, Trekking und anspruchsvolle Trails.",
 };
 
 export default function BoutiquePage() {
