@@ -355,7 +355,7 @@ a {
 .velora-hero {
   position: relative;
   width: 100%;
-  height: 480px; /* Hauteur réduite pour laisser voir la suite */
+  height: 500px; /* Hauteur réduite pour laisser voir la suite */
   background-color: #111111;
   overflow: hidden;
   color: #ffffff;
@@ -575,7 +575,7 @@ a {
    ========================================== */
 @media (max-width: 768px) {
   .velora-hero {
-    height: 400px;
+    height: 550px;
   }
 
   .velora-hero-container {

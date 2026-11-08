@@ -46,7 +46,7 @@ export default function Footer() {
           <div className="velora-footer-col">
             <h4 className="velora-footer-title">Unsere Dienstleistungen</h4>
             <ul className="velora-footer-links">
-              <li><Link href="/shop">E-Bike Shop</Link></li>
+              <li><Link href="/produkt">E-Bike Shop</Link></li>
               <li><Link href="/offers">Sonderangebote</Link></li>
               <li><Link href="/services/test-ride">Probefahrt buchen</Link></li>
               <li><Link href="/services/workshop">Werkstatt & Reparatur</Link></li>

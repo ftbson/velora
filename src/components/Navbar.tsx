@@ -85,7 +85,7 @@ export default function Navbar() {
       </Link>
     </li>
     <li>
-      <Link href="/shop" onClick={() => setIsMobileMenuOpen(false)}>
+      <Link href="/produkt" onClick={() => setIsMobileMenuOpen(false)}>
         Shop
       </Link>
     </li>

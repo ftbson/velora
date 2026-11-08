@@ -25,7 +25,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <div className="velora-detail-container">
         {/* Fil d'ariane / Breadcrumb */}
         <div className="velora-breadcrumb">
-          <Link href="/">Startseite</Link> / <Link href="/shop">Shop</Link> / <span>{product.title}</span>
+          <Link href="/">Startseite</Link> / <Link href="/produkt">Shop</Link> / <span>{product.title}</span>
         </div>
 
         <div className="velora-detail-grid">

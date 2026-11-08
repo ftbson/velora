@@ -225,9 +225,8 @@ a {
 }
 
 
-
 /* ==========================================
-   VELORA PRODUCT CARDS STYLING
+   VELORA PRODUCT CARDS STYLING (EPURÉ)
    ========================================== */
 
 .velora-product-card {
@@ -242,49 +241,57 @@ a {
 }
 
 .velora-product-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   border-color: #D52B1E;
 }
 
+/* Badge Promo */
 .velora-badge-promo {
   position: absolute;
   top: 12px;
   right: 12px;
   background-color: #D52B1E;
   color: #ffffff;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 4px;
   z-index: 5;
+  letter-spacing: 0.5px;
 }
 
+/* Zone image & top */
 .velora-card-top {
   padding: 15px;
-  background: #fafafa;
+  background: #ffffff;
   text-align: center;
   position: relative;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .velora-brand-label {
   position: absolute;
   top: 12px;
   left: 12px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #777;
+  font-size: 12px;
+  font-weight: 800;
+  color: #111111;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .velora-card-img-wrapper {
   display: block;
-  margin-top: 10px;
+  width: 100%;
 }
 
 .velora-card-img {
   object-fit: contain;
   width: 100%;
-  height: 180px;
+  height: 170px;
   transition: transform 0.3s ease;
 }
 
@@ -292,288 +299,423 @@ a {
   transform: scale(1.04);
 }
 
-.velora-card-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 15px;
-  background: #ffffff;
-}
-
+/* Bouton favori sous l'image à gauche */
 .velora-wishlist-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
   background: none;
   border: none;
-  color: #888;
+  color: #777777;
   cursor: pointer;
   font-size: 16px;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.velora-wishlist-btn:hover {
+.velora-wishlist-btn:hover,
+.velora-wishlist-btn.active {
   color: #D52B1E;
+  transform: scale(1.15);
 }
 
-.velora-card-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.velora-stars {
-  color: #ffb400;
-  font-size: 14px;
-}
-
-.velora-reviews-count {
-  font-size: 12px;
-  color: #1a73e8;
-}
-
+/* Badge de catégorie (VILLE, VTC, VTT) en bas à droite de l'image */
 .velora-badge-cat {
-  font-size: 11px;
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 10px;
   font-weight: 700;
   color: #ffffff;
   padding: 3px 8px;
   border-radius: 3px;
   background: #1a2b4c;
+  letter-spacing: 0.5px;
 }
 
+/* Zone d'information (fond gris clair) */
 .velora-card-info {
-  padding: 10px 15px;
+  padding: 15px;
   background: #f4f4f6;
   flex: 1;
 }
 
 .velora-sub-cat {
   font-size: 11px;
-  color: #888;
+  color: #888888;
   text-transform: uppercase;
   font-weight: 600;
+  font-style: italic;
+  display: block;
 }
 
 .velora-product-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
-  margin: 5px 0;
+  margin: 6px 0;
+  line-height: 1.3;
 }
 
 .velora-product-title a {
-  color: #111;
+  color: #111111;
   text-decoration: none;
+}
+
+.velora-product-title a:hover {
+  color: #D52B1E;
 }
 
 .velora-specs-row {
   display: flex;
   gap: 15px;
-  margin-top: 8px;
+  margin-top: 10px;
   font-size: 12px;
-  color: #555;
+  color: #666666;
 }
 
+.velora-spec-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Bas de carte (Prix & Bouton Panier) */
 .velora-card-bottom {
   padding: 12px 15px;
   background: #f4f4f6;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid #e5e5e8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.velora-price-block {
+  display: flex;
+  flex-direction: column;
 }
 
 .velora-price-main {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .velora-current-price {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
-  color: #111;
+  color: #111111;
 }
 
 .velora-old-price {
-  font-size: 13px;
-  color: #999;
+  font-size: 12px;
+  color: #999999;
   text-decoration: line-through;
 }
 
 .velora-discount-tag {
   background: #D52B1E;
-  color: #fff;
-  font-size: 11px;
+  color: #ffffff;
+  font-size: 10px;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 3px;
 }
 
 .velora-savings-text {
   font-size: 11px;
-  color: #888;
-  display: block;
+  color: #777777;
   margin-top: 2px;
 }
 
+/* Bouton Ajouter au Panier (Carré bleu foncé / rouge au survol) */
 .velora-card-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
 }
 
-.velora-color-dots {
-  display: flex;
-  gap: 5px;
-}
-
-.velora-color-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-}
-
-.velora-btn-group {
-  display: flex;
-  gap: 8px;
-}
-
-.velora-add-cart-btn,
-.velora-quick-view-btn {
+.velora-add-cart-btn {
   background: #1a2b4c;
-  color: #fff;
+  color: #ffffff;
   border: none;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
-  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.velora-add-cart-btn:hover,
-.velora-quick-view-btn:hover {
+.velora-add-cart-btn:hover {
   background: #D52B1E;
+  transform: translateY(-2px);
 }
+
+
+
+
+
 
 /* ==========================================
-   PAGE DETAIL PRODUIT
+   VELORA PRODUCT DETAIL PAGE STYLING
    ========================================== */
+
 .velora-product-detail-page {
-  padding: 40px 20px;
-  background: #ffffff;
+  padding: 50px 20px;
+  background-color: #ffffff;
+  color: #111111;
+  min-height: 80vh;
 }
 
 .velora-detail-container {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
+/* Fil d'ariane (Breadcrumb) */
 .velora-breadcrumb {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 25px;
+  font-size: 13px;
+  color: #777777;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .velora-breadcrumb a {
-  color: #111;
+  color: #111111;
   text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
 }
 
+.velora-breadcrumb a:hover {
+  color: #D52B1E; /* Rouge Suisse */
+}
+
+.velora-breadcrumb span {
+  color: #888888;
+}
+
+/* Grille principale (Image à gauche, Infos à droite) */
 .velora-detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 50px;
+  align-items: start;
 }
 
+/* Boîte Image */
 .velora-detail-image-box {
   position: relative;
-  background: #f9f9f9;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
+  background-color: #f8f8fa;
+  border-radius: 14px;
+  border: 1px solid #eaeaea;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .velora-detail-promo-badge {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  background: #D52B1E;
-  color: #fff;
-  font-weight: bold;
-  padding: 5px 12px;
-  border-radius: 4px;
+  top: 20px;
+  left: 20px;
+  background-color: #D52B1E;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+  z-index: 2;
 }
 
 .velora-detail-main-img {
   object-fit: contain;
   width: 100%;
   height: auto;
+  max-height: 450px;
+  transition: transform 0.4s ease;
+}
+
+.velora-detail-image-box:hover .velora-detail-main-img {
+  transform: scale(1.03);
+}
+
+/* Boîte Informations */
+.velora-detail-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .velora-detail-brand {
   font-size: 12px;
-  font-weight: 700;
-  color: #888;
+  font-weight: 800;
+  color: #777777;
   text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .velora-detail-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 800;
-  margin: 5px 0 10px 0;
+  color: #111111;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.velora-detail-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.velora-detail-reviews {
+  color: #666666;
+}
+
+/* Bloc Prix */
+.velora-detail-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 5px 0;
 }
 
 .velora-detail-current-price {
-  font-size: 26px;
-  font-weight: 800;
-  color: #D52B1E;
+  font-size: 28px;
+  font-weight: 900;
+  color: #111111;
 }
 
 .velora-detail-old-price {
   font-size: 18px;
-  color: #999;
+  color: #999999;
   text-decoration: line-through;
-  margin-left: 10px;
 }
 
 .velora-detail-desc {
-  color: #555;
+  font-size: 15px;
+  color: #555555;
   line-height: 1.6;
-  margin: 15px 0;
+  margin: 0;
 }
 
+/* Spécifications rapides (Cartes gris clair) */
 .velora-detail-key-specs {
-  display: flex;
-  gap: 15px;
-  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 10px 0;
 }
 
 .spec-card {
-  background: #f4f4f6;
-  padding: 10px 15px;
+  background-color: #f4f4f6;
+  border: 1px solid #e5e5e8;
+  padding: 12px;
   border-radius: 8px;
   font-size: 13px;
+  color: #333333;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spec-card strong {
+  font-size: 11px;
+  color: #777777;
+  text-transform: uppercase;
+}
+
+/* Bouton d'action "In den Warenkorb" */
+.velora-detail-actions {
+  margin-top: 10px;
 }
 
 .velora-detail-add-btn {
-  background: #D52B1E;
-  color: #fff;
+  background-color: #1a2b4c;
+  color: #ffffff;
   border: none;
-  padding: 14px 30px;
-  font-size: 16px;
+  padding: 16px 36px;
+  font-size: 15px;
   font-weight: 700;
   border-radius: 30px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 43, 76, 0.2);
 }
 
 .velora-detail-add-btn:hover {
-  background: #b01f14;
+  background-color: #D52B1E; /* Rouge Suisse au survol */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(213, 43, 30, 0.3);
 }
 
-@media (max-width: 768px) {
+/* Détails techniques complets (Liste en bas) */
+.velora-detail-full-specs {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eaeaea;
+}
+
+.velora-detail-full-specs h3 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: #111111;
+  letter-spacing: 0.5px;
+}
+
+.velora-detail-full-specs ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.velora-detail-full-specs li {
+  font-size: 14px;
+  color: #555555;
+  background-color: #fafafa;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #f0f0f2;
+}
+
+.velora-detail-full-specs li strong {
+  color: #111111;
+  margin-right: 8px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN (MOBILE & TABLETTE)
+   ========================================== */
+@media (max-width: 992px) {
   .velora-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .velora-detail-title {
+    font-size: 26px;
+  }
+
+  .velora-detail-key-specs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .velora-detail-key-specs {
     grid-template-columns: 1fr;
   }
 }
