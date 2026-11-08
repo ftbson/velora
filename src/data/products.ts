@@ -485,30 +485,7 @@ export const productsData: Product[] = [
       weight: "25.8 kg"
     }
   },
-  {
-    id: "vtt-superior-exp-63",
-    title: "SUPERIOR Exp 6.3 E-MTB 29",
-    brand: "SUPERIOR",
-    category: "VTT",
-    categoryLabel: "HARDTAIL E-MOUNTAINBIKE",
-    price: 3499.00,
-    oldPrice: 8299.00,
-    discount: "-58 %",
-    savings: 4800,
-    rating: 5.0,
-    reviewsCount: 26,
-    motorTorque: "85 Nm",
-    batteryCapacity: "750 Wh",
-    image: "/img/prod/vtt-superior-exp.jpg",
-    badgePromo: true,
-    description: "Rekord-Rabatt auf dieses professionelle XC-E-Hardtail mit Bosch Performance CX Motor.",
-    specs: {
-      frame: "Alu X6 Ultralite E-MTB Geometry",
-      brakes: "Shimano Deore M6100 180/180",
-      range: "Bis zu 160 km",
-      weight: "22.3 kg"
-    }
-  },
+  
   {
     id: "vtt-cube-ams-hybrid-one44-pro",
     title: "CUBE AMS Hybrid ONE44 C:62 Pro 400X",

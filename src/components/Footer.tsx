@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="velora-footer-col velora-footer-brand-col">
             <Link href="/" className="velora-footer-logo-link">
               <Image 
-                src="/img/logo.jpeg" 
+                src="/img/logo.png" 
                 alt="VELORA Logo" 
                 width={120} 
                 height={40} 
