@@ -412,30 +412,7 @@ export const productsData: Product[] = [
       weight: "24.1 kg"
     }
   },
-  {
-    id: "vtt-rossignol-mandate-shift",
-    title: "ROSSIGNOL Mandate Shift Deore 11",
-    brand: "ROSSIGNOL",
-    category: "VTT",
-    categoryLabel: "FULL-SUSPENSION E-MTB",
-    price: 2849.00,
-    oldPrice: 4299.00,
-    discount: "-34 %",
-    savings: 1450,
-    rating: 4.8,
-    reviewsCount: 8,
-    motorTorque: "85 Nm",
-    batteryCapacity: "630 Wh",
-    image: "/img/prod/vtt-rossignol-mandate.jpg",
-    badgePromo: true,
-    description: "Vollgefedertes All-Mountain VTTAE mit Shimano EP8 Motor für maximale Souveränität in Wurzelpassagen.",
-    specs: {
-      frame: "Alloy 6061 Full Suspension 145mm Travel",
-      brakes: "Shimano MT420 4-Piston",
-      range: "Bis zu 120 km",
-      weight: "24.5 kg"
-    }
-  },
+
   {
     id: "vtt-rock-machine-vyory-e90",
     title: "ROCK MACHINE Vyory E90-29",
