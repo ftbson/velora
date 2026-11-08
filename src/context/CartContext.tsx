@@ -40,6 +40,7 @@ function isCartItem(item: unknown): item is CartItem {
     "image" in item &&
     typeof item.image === "string" &&
     "quantity" in item &&
+    typeof item.quantity === "number" &&
     Number.isInteger(item.quantity) &&
     item.quantity > 0
   );
@@ -53,29 +54,34 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    try {
-      const savedCart = localStorage.getItem("swissholz_cart");
-      const savedFavorites = localStorage.getItem("velora_favorites");
-      if (savedCart) {
-        const parsedCart: unknown = JSON.parse(savedCart);
-        if (Array.isArray(parsedCart)) {
-          setCart(parsedCart.filter(isCartItem));
+    const frameId = requestAnimationFrame(() => {
+      try {
+        const savedCart = localStorage.getItem("swissholz_cart");
+        const savedFavorites = localStorage.getItem("velora_favorites");
+        if (savedCart) {
+          const parsedCart: unknown = JSON.parse(savedCart);
+          if (Array.isArray(parsedCart)) {
+            setCart(parsedCart.filter(isCartItem));
+          }
         }
-      }
-      if (savedFavorites) {
-        const parsedFavorites: unknown = JSON.parse(savedFavorites);
-        if (
-          Array.isArray(parsedFavorites) &&
-          parsedFavorites.every((id): id is string => typeof id === "string")
-        ) {
-          setFavorites(parsedFavorites);
+        if (savedFavorites) {
+          const parsedFavorites: unknown = JSON.parse(savedFavorites);
+          if (
+            Array.isArray(parsedFavorites) &&
+            parsedFavorites.every((id): id is string => typeof id === "string")
+          ) {
+            setFavorites(parsedFavorites);
+          }
         }
+      } catch (error) {
+        console.error("Fehler beim Laden gespeicherter Shop-Daten:", error);
+      } finally {
+        setIsHydrated(true);
       }
-    } catch (error) {
-      console.error("Fehler beim Laden gespeicherter Shop-Daten:", error);
-    } finally {
-      setIsHydrated(true);
-    }
+
+    });
+
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   useEffect(() => {

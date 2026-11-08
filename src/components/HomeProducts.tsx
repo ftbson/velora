@@ -20,7 +20,11 @@ export default function HomeProducts() {
   const [products, setProducts] = useState(() => productsData.slice(0, 4));
 
   useEffect(() => {
-    setProducts(chooseRandomProducts(productsData, 20));
+    const frameId = requestAnimationFrame(() => {
+      setProducts(chooseRandomProducts(productsData, 4));
+    });
+
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   return (
