@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
+  const { favorites, totalItems } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
@@ -60,15 +62,23 @@ export default function Navbar() {
             </button>
 
             {/* Favoris */}
-            <Link href="/wishlist" className="velora-icon-btn" aria-label="Wunschliste">
+            <Link
+              href="/wishlist"
+              className="velora-icon-btn"
+              aria-label={`Wunschliste, ${favorites.length} Produkte`}
+            >
               <i className="fa-regular fa-heart"></i>
-              <span className="velora-badge">0</span>
+              <span className="velora-badge">{favorites.length}</span>
             </Link>
 
             {/* Panier */}
-            <Link href="/cart" className="velora-icon-btn" aria-label="Warenkorb">
+            <Link
+              href="/panier"
+              className="velora-icon-btn"
+              aria-label={`Warenkorb, ${totalItems} Artikel`}
+            >
               <i className="fa-solid fa-cart-shopping"></i>
-              <span className="velora-badge">0</span>
+              <span className="velora-badge">{totalItems}</span>
             </Link>
           </div>
 
@@ -77,35 +87,35 @@ export default function Navbar() {
 
       {/* Sous-barre de Catégories (Centrée sur Desktop) */}
       <nav className={`velora-sub-nav ${isMobileMenuOpen ? "mobile-open" : ""}`}>
-       <div className="velora-sub-nav-container">
-  <ul className="velora-nav-links">
-    <li>
-      <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-        Startseite
-      </Link>
-    </li>
-    <li>
-      <Link href="/produkt" onClick={() => setIsMobileMenuOpen(false)}>
-        Shop
-      </Link>
-    </li>
-    <li>
-      <Link href="/offers" onClick={() => setIsMobileMenuOpen(false)} className="highlight-link">
-        Angebote
-      </Link>
-    </li>
-    <li>
-      <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
-        Über uns
-      </Link>
-    </li>
-    <li>
-      <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-        Kontakt
-      </Link>
-    </li>
-  </ul>
-</div>
+        <div className="velora-sub-nav-container">
+          <ul className="velora-nav-links">
+            <li>
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                Startseite
+              </Link>
+            </li>
+            <li>
+              <Link href="/products" onClick={() => setIsMobileMenuOpen(false)}>
+                Shop
+              </Link>
+            </li>
+            <li>
+              <Link href="/categorie" onClick={() => setIsMobileMenuOpen(false)} className="highlight-link">
+                Kategorien
+              </Link>
+            </li>
+            <li>
+              <Link href="/a-propos" onClick={() => setIsMobileMenuOpen(false)}>
+                Über uns
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                Kontakt
+              </Link>
+            </li>
+          </ul>
+        </div>
       </nav>
 
       {/* Overlay Sombre pour le Menu Hamburger (Mobile) */}

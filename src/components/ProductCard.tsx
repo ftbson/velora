@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/data/products";
@@ -11,18 +11,22 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const {
+    addToCart,
+    toggleFavorite: updateFavorite,
+    isFavorite,
+  } = useCart();
 
-  // Sécurité si le produit n'est pas transmis
   if (!product) {
     return null;
   }
 
+  const favorite = isFavorite(product.id);
+
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
+    updateFavorite(product.id);
   };
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -54,11 +58,12 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Bouton Favori en bas à gauche du visuel */}
         <button 
-          className={`velora-wishlist-btn ${isFavorite ? "active" : ""}`} 
+          className={`velora-wishlist-btn ${favorite ? "active" : ""}`} 
           onClick={toggleFavorite}
-          aria-label="Zur Wunschliste hinzufügen"
+          aria-label={favorite ? "Aus Wunschliste entfernen" : "Zur Wunschliste hinzufügen"}
+          aria-pressed={favorite}
         >
-          <i className={isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
+          <i className={favorite ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
         </button>
 
         {/* Badge Catégorie (VILLE, VTC, VTT) en bas à droite de l'image */}
@@ -109,6 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="velora-add-cart-btn" 
             onClick={handleAddToCart}
             title="In den Warenkorb"
+            aria-label={`${product.title} in den Warenkorb legen`}
           >
             <i className="fa-solid fa-cart-shopping"></i>
           </button>

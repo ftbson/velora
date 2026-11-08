@@ -9,29 +9,24 @@ export default function ContactPage() {
 
   const faqs = [
     {
-      question: "Welche Holzarten bietet Swiss Holz an?",
+      question: "Welches E-Bike passt zu meinem Alltag?",
       answer:
-        "Wir bieten hauptsächlich Harthölzer mit hohem Heizwert an: Eiche, Buche, Hainbuche und Esche. Diese Holzarten brennen lange und gleichmässig und eignen sich ideal für Kaminöfen, Cheminées und Kamineinsätze.",
+        "Für den täglichen Stadtverkehr empfehlen wir ein VILLE-Modell. Für längere Touren ist ein VTC ideal, während ein VTT für anspruchsvolle Trails ausgelegt ist.",
     },
     {
-      question: "Ist das Holz trocken und sofort benutzbar?",
+      question: "Wie weit kann ich mit einer Akkuladung fahren?",
       answer:
-        "Ja, unser gesamtes Brennholz ist kammergetrocknet (Restfeuchte unter 20%) und direkt nach der Lieferung einsatzbereit für eine optimale, raucharme Verbrennung.",
+        "Die Reichweite hängt von Akku, Gelände, Unterstützungsstufe und Fahrergewicht ab. Die technischen Angaben zur Reichweite finden Sie auf der jeweiligen Produktseite.",
     },
     {
-      question: "Welche Scheitlängen sind verfügbar?",
+      question: "Kann ich ein E-Bike zurückgeben oder warten lassen?",
       answer:
-        "Unsere Holzscheite sind standardmässig auf 25 cm oder 33 cm zugeschnitten, was für die meisten modernen Kaminöfen und Cheminées ideal ist.",
+        "Unser Team hilft Ihnen gern mit Informationen zu Service, Garantie und Rückgabe. Schreiben Sie uns über das Kontaktformular und nennen Sie Ihr Modell.",
     },
     {
-      question: "Bieten Sie eine Lieferung nach Hause an?",
+      question: "Wie wird meine Bestellung bezahlt?",
       answer:
-        "Absolut. Wir liefern Ihre Holzpaletten direkt zu Ihnen nach Hause und stellen sie mit einem Hubwagen möglichst nahe an Ihrem Lagerplatz ab.",
-    },
-    {
-      question: "Wie viel Holz sollte ich bestellen?",
-      answer:
-        "Für gelegentliche Nutzung reicht eine Halbpalette meist aus. Wenn Sie den ganzen Winter über primär mit Holz heizen, empfehlen wir je nach Haushaltsgrösse 2 bis 3 Ganze Paletten.",
+        "Nach dem Absenden Ihrer Bestellung erhalten Sie die Bankverbindung und den Gesamtbetrag für die Überweisung direkt im Checkout.",
     },
   ];
 
@@ -76,13 +71,18 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="contact-section">
+    <main className="contact-section">
       <div className="contact-container">
+        <header className="contact-heading">
+          <p className="storefront-eyebrow">VELORA SERVICE</p>
+          <h1>Wir sind für Sie da</h1>
+          <p>Fragen zu unseren E-Bikes, einer Bestellung oder zum Service? Schreiben Sie uns.</p>
+        </header>
         <div className="contact-grid">
           {/* SPALTE LINKS: FAQ */}
           <div className="faq-column">
-            <span className="section-subtitle">INFORMATIONEN & FRAGEN</span>
-            <h2 className="section-title">HÄUFIG GESTELLTE FRAGEN</h2>
+            <span className="section-subtitle">HILFE & INFORMATIONEN</span>
+            <h2 className="section-title">Häufig gestellte Fragen</h2>
 
             <div className="faq-accordion">
               {faqs.map((faq, index) => (
@@ -91,8 +91,10 @@ export default function ContactPage() {
                   className={`faq-item ${openFaq === index ? "active" : ""}`}
                 >
                   <button
+                    type="button"
                     className="faq-question"
                     onClick={() => toggleFaq(index)}
+                    aria-expanded={openFaq === index}
                   >
                     {faq.question}
                     <i
@@ -118,57 +120,35 @@ export default function ContactPage() {
 
           {/* SPALTE RECHTS: FORMULAR */}
           <div className="form-column">
-            <span className="section-subtitle">ÜBER UNS</span>
+            <span className="section-subtitle">KONTAKTIEREN SIE UNS</span>
             <h2 className="section-title">
-              Zögern Sie nicht, uns bei Fragen zu kontaktieren.
+              Wie können wir Ihnen helfen?
             </h2>
 
             <form className="contact-form" onSubmit={handleSubmit}>
-              {/* Vollständiges Feld mit abgerundetem Rand */}
-              <input
-                type="text"
-                className="input-full-bordered"
-                placeholder=""
-              />
-
-              {/* Grid mit 2 Spalten für Unterzeilen-Eingaben */}
               <div className="input-grid">
-                <input
-                  type="text"
-                  className="input-underline"
-                  placeholder="Ihr Name"
-                  name="name"
-                  required
-                />
-                <input
-                  type="email"
-                  className="input-underline"
-                  placeholder="Ihre E-Mail-Adresse"
-                  name="email"
-                  required
-                />
-                <input
-                  type="tel"
-                  className="input-underline"
-                  placeholder="Telefonnummer"
-                  name="phone"
-                />
-                <input
-                  type="text"
-                  className="input-underline"
-                  placeholder="Betreff"
-                  name="subject"
-                />
+                <label>
+                  Ihr Name *
+                  <input type="text" name="name" autoComplete="name" required />
+                </label>
+                <label>
+                  Ihre E-Mail-Adresse *
+                  <input type="email" name="email" autoComplete="email" required />
+                </label>
+                <label>
+                  Telefonnummer
+                  <input type="tel" name="phone" autoComplete="tel" />
+                </label>
+                <label>
+                  Betreff
+                  <input type="text" name="subject" />
+                </label>
               </div>
 
-              {/* Textbereich mit Unterzeile */}
-              <textarea
-                className="input-underline textarea"
-                placeholder="Ihre Nachricht"
-                name="message"
-                rows={3}
-                required
-              ></textarea>
+              <label className="contact-message-label">
+                Ihre Nachricht *
+                <textarea name="message" rows={5} required />
+              </label>
 
               <button
                 type="submit"
@@ -182,6 +162,6 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

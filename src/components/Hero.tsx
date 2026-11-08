@@ -11,7 +11,7 @@ const heroSlides = [
     title: "VELORA E-BIKE PRIME",
     subtitle: "Erleben Sie die nächste Generation elektrischer Mobilität in den Bergen. Kraftvoll, elegant und zuverlässig.",
     buttonText: "E-Bikes entdecken",
-    buttonLink: "/produkt",
+    buttonLink: "/products",
     image: "/img/hero1.jpg", 
     tag: "Schweizer Qualität"
   },
@@ -20,7 +20,7 @@ const heroSlides = [
     title: "20 % RABATT AUF ZUBEHÖR",
     subtitle: "Kaufen Sie ein E-Bike und erhalten Sie 20% Rabatt auf berechtigtes Zubehör. Gilt automatisch im Warenkorb!",
     buttonText: "Zubehör ansehen",
-    buttonLink: "/category/accessories",
+    buttonLink: "/products",
     image: "/img/hero2.jpg",
     tag: "Sonderaktion"
   },
@@ -29,7 +29,7 @@ const heroSlides = [
     title: "KÜSTEN- & STRASSEN-FAHRSPASS",
     subtitle: "Genießen Sie grenzenlose Freiheit an der Küste mit unseren komfortablen und stylischen Modellen für jeden Tag.",
     buttonText: "Modelle ansehen",
-    buttonLink: "/produkt",
+    buttonLink: "/products",
     image: "/img/hero3.jpg",
     tag: "Lifestyle"
   },
@@ -38,7 +38,7 @@ const heroSlides = [
     title: "STADT & QUARTIER MOBILITÄT",
     subtitle: "Perfekt für den Alltag in der Nachbarschaft: Entdecken Sie unsere wendigen und kraftvollen Alltags-E-Bikes.",
     buttonText: "Jetzt entdecken",
-    buttonLink: "/offers",
+    buttonLink: "/products",
     image: "/img/hero4.jpg",
     tag: "Neuheit"
   }

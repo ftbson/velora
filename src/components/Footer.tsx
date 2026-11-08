@@ -46,8 +46,8 @@ export default function Footer() {
           <div className="velora-footer-col">
             <h4 className="velora-footer-title">Unsere Dienstleistungen</h4>
             <ul className="velora-footer-links">
-              <li><Link href="/produkt">E-Bike Shop</Link></li>
-              <li><Link href="/offers">Sonderangebote</Link></li>
+              <li><Link href="/products">E-Bike Shop</Link></li>
+              <li><Link href="/products">Sonderangebote</Link></li>
               <li><Link href="/services/test-ride">Probefahrt buchen</Link></li>
               <li><Link href="/services/workshop">Werkstatt & Reparatur</Link></li>
               <li><Link href="/blog">Ratgeber & Blog</Link></li>
@@ -58,7 +58,7 @@ export default function Footer() {
           <div className="velora-footer-col">
             <h4 className="velora-footer-title">Über VELORA</h4>
             <ul className="velora-footer-links">
-              <li><Link href="/about">Über uns</Link></li>
+              <li><Link href="/a-propos">Über uns</Link></li>
               <li><Link href="/contact">Kontakt</Link></li>
               <li><Link href="/stores">Unsere Standorte</Link></li>
               <li><Link href="/legal/terms">AGB</Link></li>

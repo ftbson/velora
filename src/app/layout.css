@@ -475,7 +475,7 @@ a {
 }
 
 .velora-hero-title {
-  font-size: 38px;
+  font-size: 45px;
   font-weight: 700;
   line-height: 1.15;
   color: #ffffff;
@@ -484,7 +484,7 @@ a {
 }
 
 .velora-hero-subtitle {
-  font-size: 15px;
+  font-size: 18px;
   color: #dddddd;
   line-height: 1.5;
   margin: 0;
@@ -526,12 +526,14 @@ a {
 }
 
 .velora-hero-arrow {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.20);
+  background: #fff;
   border: none;
-  color: #ffffff;
+  color: #D52B1E;
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -541,7 +543,7 @@ a {
 }
 
 .velora-hero-arrow:hover {
-  background-color: #D52B1E;
+  background-color: #fff;
 }
 
 .velora-hero-dots {

@@ -30,8 +30,8 @@ export default function CartPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Nouvel état pour conserver le montant total de la commande après vidage du panier
   const [finalTotal, setFinalTotal] = useState<number>(0);
+  const [orderId, setOrderId] = useState<string | null>(null);
 
   // État du formulaire d'informations client
   const [formData, setFormData] = useState({
@@ -39,6 +39,8 @@ export default function CartPage() {
     lastName: "",
     country: "Schweiz",
     streetAddress: "",
+    postalCode: "",
+    city: "",
     whatsapp: "",
     email: "",
   });
@@ -53,14 +55,10 @@ export default function CartPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // SOUMISSION VERS LE BACKEND / TURSO
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage(null);
-
-    // Sauvegarder le montant total avant de vider le panier
-    const orderTotal = grandTotal;
 
     try {
       const bankResponse = await fetch("/api/bank-details");
@@ -83,27 +81,41 @@ export default function CartPage() {
         },
         body: JSON.stringify({
           customer: formData,
-          subtotal,
-          shippingCost,
-          grandTotal: orderTotal,
+          items: cart.map(({ id, quantity }) => ({ id, quantity })),
         }),
       });
+      const orderResult: unknown = await response.json();
 
-      if (!response.ok) {
-        throw new Error("Fehler beim Speichern der Bestellung");
+      if (
+        !response.ok ||
+        typeof orderResult !== "object" ||
+        orderResult === null ||
+        !("orderId" in orderResult) ||
+        typeof orderResult.orderId !== "string" ||
+        !("grandTotal" in orderResult) ||
+        typeof orderResult.grandTotal !== "number"
+      ) {
+        const message =
+          typeof orderResult === "object" &&
+          orderResult !== null &&
+          "error" in orderResult &&
+          typeof orderResult.error === "string"
+            ? orderResult.error
+            : "Fehler beim Speichern der Bestellung";
+        throw new Error(message);
       }
 
-      // Stocker le montant final pour la vue bancaire
-      setFinalTotal(orderTotal);
-
-      // Vider le panier
+      setFinalTotal(orderResult.grandTotal);
+      setOrderId(orderResult.orderId);
       clearCart();
-
-      // Passer à l'étape bancaire
       setStep("bank");
     } catch (error) {
       console.error("Erreur commande:", error);
-      setErrorMessage("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -119,6 +131,7 @@ export default function CartPage() {
     setShowCheckoutModal(false);
     setStep("form");
     setErrorMessage(null);
+    setOrderId(null);
   };
 
   return (
@@ -363,6 +376,35 @@ export default function CartPage() {
 
                   <div className="form-row">
                     <div className="form-group">
+                      <label htmlFor="postalCode">Postleitzahl *</label>
+                      <input
+                        type="text"
+                        id="postalCode"
+                        name="postalCode"
+                        autoComplete="postal-code"
+                        required
+                        value={formData.postalCode}
+                        onChange={handleInputChange}
+                        placeholder="8001"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="city">Ort *</label>
+                      <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        autoComplete="address-level2"
+                        required
+                        value={formData.city}
+                        onChange={handleInputChange}
+                        placeholder="Zürich"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
                       <label htmlFor="whatsapp">WhatsApp-Nummer *</label>
                       <input
                         type="tel"
@@ -411,6 +453,7 @@ export default function CartPage() {
                     <strong>CHF {finalTotal.toFixed(2).replace(".", ",")}</strong> an
                     die folgende Bankverbindung:
                   </p>
+                  {orderId && <p className="checkout-order-reference">Bestellnummer: {orderId}</p>}
                 </div>
 
                 <div className="bank-details-list">
@@ -480,7 +523,7 @@ export default function CartPage() {
                 <div className="modal-info-box">
                   <i className="fa-solid fa-circle-info"></i>
                   <p>
-                    Geben Sie bei der Überweisung bitte Ihren Namen (<strong>{formData.firstName} {formData.lastName}</strong>) als Verwendungszweck an.
+                    Geben Sie bei der Überweisung bitte Ihre Bestellnummer (<strong>{orderId}</strong>) als Verwendungszweck an.
                   </p>
                 </div>
 

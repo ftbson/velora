@@ -3,8 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { productsData } from "@/data/products";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import ProductDetailActions from "@/components/ProductDetailActions";
 
 export async function generateStaticParams() {
   return productsData.map((product) => ({
@@ -25,7 +24,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <div className="velora-detail-container">
         {/* Fil d'ariane / Breadcrumb */}
         <div className="velora-breadcrumb">
-          <Link href="/">Startseite</Link> / <Link href="/produkt">Shop</Link> / <span>{product.title}</span>
+          <Link href="/">Startseite</Link> / <Link href="/products">Shop</Link> / <span>{product.title}</span>
         </div>
 
         <div className="velora-detail-grid">
@@ -73,11 +72,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
 
             {/* Boutons d'action */}
-            <div className="velora-detail-actions">
-              <button className="velora-detail-add-btn">
-                <i className="fa-solid fa-cart-shopping"></i> In den Warenkorb
-              </button>
-            </div>
+            <ProductDetailActions product={product} />
 
             {/* Détails techniques */}
             <div className="velora-detail-full-specs">
