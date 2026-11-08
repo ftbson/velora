@@ -16,9 +16,9 @@ export async function POST(request: Request) {
     clearSessionCookie(response, "customer");
     return response;
   } catch (error) {
-    console.error("Erreur lors de la déconnexion du client :", error);
+    console.error("Fehler bei der Kundenabmeldung:", error);
     return NextResponse.json(
-      { error: "Impossible de terminer la session." },
+      { error: "Die Abmeldung ist derzeit nicht möglich." },
       { status: 500 },
     );
   }

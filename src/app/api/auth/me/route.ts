@@ -11,7 +11,7 @@ export async function GET() {
   } catch (error) {
     console.error("Erreur lors du chargement de la session client :", error);
     return NextResponse.json(
-      { error: "Impossible de vérifier la session." },
+      { error: "Die Sitzung konnte nicht überprüft werden." },
       { status: 500 },
     );
   }

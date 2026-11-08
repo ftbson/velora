@@ -14,24 +14,8 @@ export default function SignInPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [verificationRequired, setVerificationRequired] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    const frameId = requestAnimationFrame(() => {
-      const verified = new URLSearchParams(window.location.search).get("verified");
-      if (verified === "success") {
-        setMessage("Adresse vérifiée. Vous pouvez maintenant vous connecter.");
-      } else if (verified === "invalid") {
-        setError("Ce lien est invalide ou a expiré. Demandez-en un nouveau.");
-      } else if (verified === "error") {
-        setError("La vérification a échoué. Réessayez plus tard.");
-      }
-    });
-    return () => cancelAnimationFrame(frameId);
-  }, []);
 
   useEffect(() => {
     if (!isLoading && user) router.replace("/compte");
@@ -40,8 +24,6 @@ export default function SignInPage() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
-    setMessage("");
-    setVerificationRequired(false);
     setIsSubmitting(true);
 
     try {
@@ -56,13 +38,6 @@ export default function SignInPage() {
         },
       );
       const data: unknown = await response.json();
-      const responseMessage =
-        typeof data === "object" &&
-        data !== null &&
-        "message" in data &&
-        typeof data.message === "string"
-          ? data.message
-          : "";
 
       if (!response.ok) {
         const responseError =
@@ -71,20 +46,8 @@ export default function SignInPage() {
           "error" in data &&
           typeof data.error === "string"
             ? data.error
-            : "Une erreur est survenue. Réessayez.";
+            : "Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut.";
         setError(responseError);
-        setVerificationRequired(
-          typeof data === "object" &&
-            data !== null &&
-            "verificationRequired" in data &&
-            data.verificationRequired === true,
-        );
-        return;
-      }
-
-      if (mode === "register") {
-        setMessage(responseMessage);
-        setPassword("");
         return;
       }
 
@@ -92,45 +55,8 @@ export default function SignInPage() {
       router.replace("/compte");
       router.refresh();
     } catch (requestError) {
-      console.error("Erreur lors de l'authentification :", requestError);
-      setError("Connexion impossible. Vérifiez votre réseau puis réessayez.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const resendVerification = async () => {
-    setError("");
-    setMessage("");
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/auth/resend-verification", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data: unknown = await response.json();
-      if (!response.ok) {
-        const responseError =
-          typeof data === "object" &&
-          data !== null &&
-          "error" in data &&
-          typeof data.error === "string"
-            ? data.error
-            : "Le lien ne peut pas être envoyé pour le moment.";
-        throw new Error(responseError);
-      }
-      setMessage(
-        typeof data === "object" && data !== null && "message" in data && typeof data.message === "string"
-          ? data.message
-          : "Consultez votre boîte e-mail.",
-      );
-    } catch (requestError) {
-      setError(
-        requestError instanceof Error
-          ? requestError.message
-          : "Le lien ne peut pas être envoyé pour le moment.",
-      );
+      console.error("Fehler bei der Anmeldung:", requestError);
+      setError("Verbindung fehlgeschlagen. Bitte versuchen Sie es erneut.");
     } finally {
       setIsSubmitting(false);
     }
@@ -141,20 +67,20 @@ export default function SignInPage() {
       <section className="account-auth-card">
         <Link href="/" className="account-back-link">
           <i className="fa-solid fa-arrow-left" aria-hidden="true" />
-          Retour à la boutique
+          Zurück zum Shop
         </Link>
         <div className="account-auth-heading">
           <span className="account-auth-icon">
             <i className="fa-regular fa-user" aria-hidden="true" />
           </span>
-          <p className="storefront-eyebrow">MON COMPTE VELORA</p>
-          <h1>{mode === "login" ? "Bon retour" : "Créer un compte"}</h1>
+          <p className="storefront-eyebrow">MEIN VELORA-KONTO</p>
+          <h1>{mode === "login" ? "Willkommen zurück" : "Konto erstellen"}</h1>
           <p>
-            Retrouvez vos commandes et suivez leur statut dans votre espace client.
+            Sehen Sie Ihre Bestellungen ein und verfolgen Sie deren aktuellen Status.
           </p>
         </div>
 
-        <div className="account-auth-tabs" role="tablist" aria-label="Compte client">
+        <div className="account-auth-tabs" role="tablist" aria-label="Kundenkonto">
           <button
             type="button"
             role="tab"
@@ -163,10 +89,9 @@ export default function SignInPage() {
             onClick={() => {
               setMode("login");
               setError("");
-              setMessage("");
             }}
           >
-            Se connecter
+            Anmelden
           </button>
           <button
             type="button"
@@ -176,17 +101,16 @@ export default function SignInPage() {
             onClick={() => {
               setMode("register");
               setError("");
-              setMessage("");
             }}
           >
-            Créer un compte
+            Konto erstellen
           </button>
         </div>
 
         <form className="account-auth-form" onSubmit={handleSubmit}>
           {mode === "register" && (
             <label>
-              Nom complet
+              Name
               <input
                 autoComplete="name"
                 maxLength={100}
@@ -198,7 +122,7 @@ export default function SignInPage() {
             </label>
           )}
           <label>
-            Adresse e-mail
+            E-Mail-Adresse
             <input
               autoComplete="email"
               onChange={(event) => setEmail(event.target.value)}
@@ -208,44 +132,30 @@ export default function SignInPage() {
             />
           </label>
           <label>
-            Mot de passe
+            Passwort
             <input
               autoComplete={mode === "register" ? "new-password" : "current-password"}
               maxLength={128}
-              minLength={mode === "register" ? 12 : undefined}
+              minLength={mode === "register" ? 8 : undefined}
               onChange={(event) => setPassword(event.target.value)}
               required
               type="password"
               value={password}
             />
-            {mode === "register" && (
-              <small>12 caractères minimum.</small>
-            )}
+            {mode === "register" && <small>Mindestens 8 Zeichen.</small>}
           </label>
 
           {error && <p className="account-form-message error" role="alert">{error}</p>}
-          {message && <p className="account-form-message success" role="status">{message}</p>}
 
           <button className="storefront-primary-link account-submit" disabled={isSubmitting}>
             {isSubmitting
-              ? "Veuillez patienter..."
+              ? "Bitte warten…"
               : mode === "login"
-                ? "Se connecter"
-                : "Créer mon compte"}
+                ? "Anmelden"
+                : "Konto erstellen"}
             {!isSubmitting && <i className="fa-solid fa-arrow-right" aria-hidden="true" />}
           </button>
         </form>
-
-        {(verificationRequired || error) && email && (
-          <button
-            type="button"
-            className="account-resend-link"
-            disabled={isSubmitting || !email}
-            onClick={resendVerification}
-          >
-            Renvoyer le lien de vérification
-          </button>
-        )}
       </section>
     </main>
   );

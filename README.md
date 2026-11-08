@@ -37,17 +37,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Turso database setup
 
-For a new database, execute [`database/schema.sql`](./database/schema.sql) in the Turso SQL console.
+The application automatically creates and upgrades its required tables on the first API request. `database/schema.sql` is also available for manually creating a new Turso database.
 
-For the existing store database, execute [`database/migrations/001_customer_accounts.sql`](./database/migrations/001_customer_accounts.sql) once. It preserves existing orders and adds customer accounts, email verification, sessions, order ownership and item snapshots. Do not execute this one-time migration twice.
+For an existing database, [`database/migrations/001_customer_accounts.sql`](./database/migrations/001_customer_accounts.sql) contains the equivalent one-time SQL migration if you prefer to set up the tables manually. The runtime bootstrap also upgrades an existing `orders` table without deleting orders.
 
-The app uses `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` for Turso, and `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER` and `SMTP_PASS` for email. Verification links go to customers; order notifications go to `SMTP_USER`.
+The app uses `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` for Turso, and `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER` and `SMTP_PASS` for email. Order notifications go to `SMTP_USER`.
 
 ## Admin credentials
 
 Set `ADMIN_USERNAME` and `ADMIN_PASSWORD` in local and Vercel environment settings before using `/admin`. Use a unique random password with at least 32 characters. The previous hard-coded admin credentials are no longer accepted. Admin and customer sessions are stored hashed in Turso and use HTTP-only cookies.
 
-New customer accounts require email verification. Passwords must contain at least 12 characters. Order history is available only to the authenticated customer who placed the order; guest orders remain visible only in the admin area.
+Customer accounts can be used immediately after registration. Passwords must contain at least 8 characters. Order history is available only to the authenticated customer who placed the order; guest orders remain visible only in the admin area.
 
 ## Build and lint
 

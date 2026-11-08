@@ -24,14 +24,14 @@ interface AccountOrder {
 }
 
 const orderStatusLabels: Record<string, string> = {
-  pending: "En attente",
-  paid: "Payée",
-  shipped: "Expédiée",
-  cancelled: "Annulée",
+  pending: "Ausstehend",
+  paid: "Bezahlt",
+  shipped: "Versendet",
+  cancelled: "Storniert",
 };
 
 function formatPrice(value: number) {
-  return new Intl.NumberFormat("fr-CH", {
+  return new Intl.NumberFormat("de-CH", {
     style: "currency",
     currency: "CHF",
   }).format(value);
@@ -79,7 +79,7 @@ export default function CustomerAccountPage() {
       const response = await fetch("/api/account/orders", { cache: "no-store" });
       const data: unknown = await response.json();
       if (!response.ok) {
-        throw new Error("Impossible de charger votre historique de commandes.");
+        throw new Error("Bestellverlauf konnte nicht geladen werden.");
       }
       if (
         typeof data !== "object" ||
@@ -88,15 +88,15 @@ export default function CustomerAccountPage() {
         !Array.isArray(data.orders) ||
         !data.orders.every(isAccountOrder)
       ) {
-        throw new Error("La réponse de l'historique est invalide.");
+        throw new Error("Die Antwort des Bestellverlaufs ist ungültig.");
       }
       setOrders(data.orders);
     } catch (loadError) {
-      console.error("Erreur lors du chargement des commandes client :", loadError);
+      console.error("Fehler beim Laden der Kundenbestellungen:", loadError);
       setError(
         loadError instanceof Error
           ? loadError.message
-          : "Impossible de charger votre historique.",
+          : "Bestellverlauf konnte nicht geladen werden.",
       );
     } finally {
       setIsLoadingOrders(false);
@@ -119,13 +119,13 @@ export default function CustomerAccountPage() {
     setIsSigningOut(true);
     try {
       const response = await fetch("/api/auth/logout", { method: "POST" });
-      if (!response.ok) throw new Error("La déconnexion n'a pas abouti.");
+      if (!response.ok) throw new Error("Die Abmeldung ist fehlgeschlagen.");
       notifyAuthChanged();
       router.replace("/");
       router.refresh();
     } catch (logoutError) {
-      console.error("Erreur lors de la déconnexion :", logoutError);
-      setError("Impossible de vous déconnecter. Réessayez.");
+      console.error("Fehler bei der Kundenabmeldung:", logoutError);
+      setError("Abmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.");
     } finally {
       setIsSigningOut(false);
     }
@@ -134,7 +134,7 @@ export default function CustomerAccountPage() {
   if (isAuthLoading || !user) {
     return (
       <main className="account-page">
-        <p className="account-loading">Chargement de votre compte…</p>
+        <p className="account-loading">Konto wird geladen…</p>
       </main>
     );
   }
@@ -143,8 +143,8 @@ export default function CustomerAccountPage() {
     <main className="account-page">
       <header className="account-page-header">
         <div>
-          <p className="storefront-eyebrow">ESPACE CLIENT</p>
-          <h1>Bonjour, {user.name}</h1>
+          <p className="storefront-eyebrow">MEIN KONTO</p>
+          <h1>Hallo, {user.name}</h1>
           <p>{user.email}</p>
         </div>
         <button
@@ -153,31 +153,31 @@ export default function CustomerAccountPage() {
           onClick={handleLogout}
         >
           <i className="fa-solid fa-arrow-right-from-bracket" aria-hidden="true" />
-          {isSigningOut ? "Déconnexion…" : "Se déconnecter"}
+          {isSigningOut ? "Abmeldung…" : "Abmelden"}
         </button>
       </header>
 
       <section className="account-orders-section">
         <div className="account-orders-heading">
           <div>
-            <p className="storefront-eyebrow">VOTRE ACTIVITÉ</p>
-            <h2>Mes commandes</h2>
+            <p className="storefront-eyebrow">IHRE AKTIVITÄTEN</p>
+            <h2>Meine Bestellungen</h2>
           </div>
           <Link href="/products" className="storefront-secondary-link">
-            Continuer mes achats
+            Weiter einkaufen
           </Link>
         </div>
 
         {error && <p className="account-form-message error" role="alert">{error}</p>}
         {isLoadingOrders ? (
-          <p className="account-loading">Chargement de vos commandes…</p>
+          <p className="account-loading">Bestellungen werden geladen…</p>
         ) : orders.length === 0 ? (
           <div className="storefront-empty-state">
             <i className="fa-solid fa-box-open" aria-hidden="true" />
-            <h2>Aucune commande pour le moment</h2>
-            <p>Vos commandes passées avec ce compte apparaîtront ici.</p>
+            <h2>Noch keine Bestellungen</h2>
+            <p>Bestellungen, die Sie mit diesem Konto aufgeben, erscheinen hier.</p>
             <Link href="/products" className="storefront-primary-link">
-              Découvrir les vélos
+              E-Bikes entdecken
             </Link>
           </div>
         ) : (
@@ -186,14 +186,14 @@ export default function CustomerAccountPage() {
               <article className="account-order-card" key={order.id}>
                 <header className="account-order-header">
                   <div>
-                    <span className="account-order-label">Commande</span>
+                    <span className="account-order-label">Bestellung</span>
                     <h3>{order.id}</h3>
                     <time>
                       {order.createdAt
-                        ? new Intl.DateTimeFormat("fr-CH", { dateStyle: "long" }).format(
+                        ? new Intl.DateTimeFormat("de-CH", { dateStyle: "long" }).format(
                             new Date(order.createdAt),
                           )
-                        : "Date indisponible"}
+                        : "Datum nicht verfügbar"}
                     </time>
                   </div>
                   <span className={`account-order-status status-${order.status ?? "pending"}`}>
@@ -211,7 +211,7 @@ export default function CustomerAccountPage() {
                   ))}
                 </ul>
                 <footer className="account-order-total">
-                  <span>Total de la commande</span>
+                  <span>Gesamtbetrag</span>
                   <strong>{formatPrice(order.grandTotal)}</strong>
                 </footer>
               </article>

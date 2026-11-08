@@ -8,7 +8,7 @@ import {
 import { promisify } from "node:util";
 import { and, count, eq, gt, lt } from "drizzle-orm";
 import { cookies } from "next/headers";
-import { db } from "@/lib/db";
+import { db, ensureDatabaseSchema } from "@/lib/db";
 import {
   authAttempts,
   authSessions,
@@ -42,6 +42,7 @@ export async function isRateLimited(
   limit: number,
   windowMs: number,
 ) {
+  await ensureDatabaseSchema();
   const identifierHash = hashToken(identifier);
   const now = new Date();
   const cutoff = new Date(now.getTime() - windowMs).toISOString();
@@ -82,6 +83,7 @@ export async function isRateLimited(
 }
 
 export async function clearRateLimit(action: string, identifier: string) {
+  await ensureDatabaseSchema();
   await db
     .delete(authAttempts)
     .where(
@@ -127,6 +129,7 @@ export function isSameOriginRequest(request: Request) {
 }
 
 export async function createSession(userId: string | null, role: SessionRole) {
+  await ensureDatabaseSchema();
   const token = newOpaqueToken();
   const now = new Date();
   const expiresAt = new Date(now.getTime() + SESSION_DURATION_MS).toISOString();
@@ -144,6 +147,7 @@ export async function createSession(userId: string | null, role: SessionRole) {
 }
 
 export async function getAuthenticatedUser(): Promise<AuthenticatedUser | null> {
+  await ensureDatabaseSchema();
   const token = (await cookies()).get(CUSTOMER_SESSION_COOKIE)?.value;
   if (!token) return null;
 
@@ -169,6 +173,7 @@ export async function getAuthenticatedUser(): Promise<AuthenticatedUser | null> 
 }
 
 export async function isAdminAuthenticated() {
+  await ensureDatabaseSchema();
   const token = (await cookies()).get(ADMIN_SESSION_COOKIE)?.value;
   if (!token) return false;
 
@@ -188,6 +193,7 @@ export async function isAdminAuthenticated() {
 }
 
 export async function revokeSession(role: SessionRole) {
+  await ensureDatabaseSchema();
   const cookieName =
     role === "admin" ? ADMIN_SESSION_COOKIE : CUSTOMER_SESSION_COOKIE;
   const token = (await cookies()).get(cookieName)?.value;

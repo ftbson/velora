@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS users (
   name TEXT NOT NULL,
   email TEXT NOT NULL,
   password_hash TEXT NOT NULL,
-  email_verified_at TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 );
@@ -21,17 +20,6 @@ CREATE TABLE IF NOT EXISTS auth_sessions (
 );
 CREATE INDEX IF NOT EXISTS auth_sessions_user_id_idx ON auth_sessions(user_id);
 CREATE INDEX IF NOT EXISTS auth_sessions_expires_at_idx ON auth_sessions(expires_at);
-
-CREATE TABLE IF NOT EXISTS email_verification_tokens (
-  token_hash TEXT PRIMARY KEY NOT NULL,
-  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  expires_at TEXT NOT NULL,
-  created_at TEXT NOT NULL
-);
-CREATE INDEX IF NOT EXISTS email_verification_user_id_idx
-  ON email_verification_tokens(user_id);
-CREATE INDEX IF NOT EXISTS email_verification_expires_at_idx
-  ON email_verification_tokens(expires_at);
 
 CREATE TABLE IF NOT EXISTS auth_attempts (
   id TEXT PRIMARY KEY NOT NULL,

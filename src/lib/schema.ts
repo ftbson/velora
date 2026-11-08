@@ -15,7 +15,6 @@ export const users = sqliteTable(
     name: text("name").notNull(),
     email: text("email").notNull(),
     passwordHash: text("password_hash").notNull(),
-    emailVerifiedAt: text("email_verified_at"),
     createdAt: text("created_at").notNull(),
     updatedAt: text("updated_at").notNull(),
   },
@@ -34,22 +33,6 @@ export const authSessions = sqliteTable(
   (table) => [
     index("auth_sessions_user_id_idx").on(table.userId),
     index("auth_sessions_expires_at_idx").on(table.expiresAt),
-  ],
-);
-
-export const emailVerificationTokens = sqliteTable(
-  "email_verification_tokens",
-  {
-    tokenHash: text("token_hash").primaryKey(),
-    userId: text("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    expiresAt: text("expires_at").notNull(),
-    createdAt: text("created_at").notNull(),
-  },
-  (table) => [
-    index("email_verification_user_id_idx").on(table.userId),
-    index("email_verification_expires_at_idx").on(table.expiresAt),
   ],
 );
 

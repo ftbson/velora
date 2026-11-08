@@ -49,7 +49,6 @@ export async function POST(request: Request) {
         name: users.name,
         email: users.email,
         passwordHash: users.passwordHash,
-        emailVerifiedAt: users.emailVerifiedAt,
       })
       .from(users)
       .where(eq(users.email, email))
@@ -69,13 +68,6 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!user.emailVerifiedAt) {
-      return NextResponse.json(
-        { error: "Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse.", verificationRequired: true },
-        { status: 403 },
-      );
-    }
-
     await clearRateLimit("login", email);
     const session = await createSession(user.id, "customer");
     const response = NextResponse.json({
@@ -84,9 +76,9 @@ export async function POST(request: Request) {
     setSessionCookie(response, session.token, session.expiresAt, "customer");
     return response;
   } catch (error) {
-    console.error("Erreur lors de la connexion du client :", error);
+    console.error("Fehler bei der Kundenanmeldung:", error);
     return NextResponse.json(
-      { error: "Impossible de vous connecter pour le moment." },
+      { error: "Die Anmeldung ist derzeit nicht möglich. Bitte versuchen Sie es später erneut." },
       { status: 500 },
     );
   }

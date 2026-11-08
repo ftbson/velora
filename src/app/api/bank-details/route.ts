@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { eq, sql } from "drizzle-orm";
-import { db } from "@/lib/db";
+import { db, ensureDatabaseSchema } from "@/lib/db";
 import { bankDetails } from "@/lib/schema";
 import { isAdminAuthenticated, isSameOriginRequest } from "@/lib/auth";
 
@@ -21,6 +21,7 @@ async function ensureBankDetailsTable() {
 
 export async function GET() {
   try {
+    await ensureDatabaseSchema();
     await ensureBankDetailsTable();
     const [details] = await db
       .select({
@@ -55,6 +56,7 @@ export async function PUT(request: Request) {
   }
 
   try {
+    await ensureDatabaseSchema();
     const body: unknown = await request.json();
     if (typeof body !== "object" || body === null) {
       return NextResponse.json({ error: "Données invalides." }, { status: 400 });
