@@ -38,7 +38,10 @@ export default function BestSellers() {
                     className="product-image"
                   />
                 ) : (
-                  <span className="catalog-image-placeholder">Bild folgt</span>
+                  <span className="catalog-image-placeholder">
+                    <span>Produktbild hinzufügen</span>
+                    {product.imageFile && <code>{product.imageFile}</code>}
+                  </span>
                 )}
                 {product.discount && (
                   <span className="badge-discount">{product.discount}</span>

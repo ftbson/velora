@@ -56,7 +56,10 @@ export default function ProductCard({ product }: ProductCardProps) {
               className="velora-card-img"
             />
           ) : (
-            <span className="catalog-image-placeholder">Bild folgt</span>
+            <span className="catalog-image-placeholder">
+              <span>Produktbild hinzufügen</span>
+              {product.imageFile && <code>{product.imageFile}</code>}
+            </span>
           )}
         </Link>
 
@@ -80,7 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="velora-card-info">
         <span className="velora-sub-cat">{product.categoryLabel}</span>
         {product.isDraft && (
-          <span className="catalog-draft-badge">MUSTER · ANGABEN PRÜFEN</span>
+          <span className="catalog-draft-badge">VOR VERKAUF BESTÄTIGEN</span>
         )}
         <h3 className="velora-product-title">
           <Link href={`/produkt/${product.id}`}>{product.title}</Link>

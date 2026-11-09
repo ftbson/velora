@@ -335,6 +335,16 @@ a {
   font-weight: 600;
 }
 
+.catalog-image-placeholder code,
+.catalog-detail-image-placeholder code {
+  max-width: 90%;
+  overflow-wrap: anywhere;
+  color: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+}
+
 .catalog-draft-badge {
   display: inline-block;
   margin-top: 6px;

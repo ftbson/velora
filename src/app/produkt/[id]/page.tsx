@@ -42,7 +42,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               />
             ) : (
               <div className="catalog-detail-image-placeholder">
-                Produktbild folgt
+                <span>Produktbild hinzufügen</span>
+                {product.imageFile && <code>{product.imageFile}</code>}
               </div>
             )}
           </div>
@@ -65,8 +66,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
             {product.isDraft && (
               <p className="catalog-draft-notice" role="note">
-                Musterartikel: Preis, Ausstattung und Verfügbarkeit bitte vor
-                dem Verkauf bestätigen.
+                Lieferbarkeit und Verkaufskonditionen bitte vor dem Verkauf
+                beim Lieferanten bestätigen.
               </p>
             )}
 

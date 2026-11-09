@@ -34,13 +34,15 @@ const categories = [
     name: "FAHRRADZUBEHÖR",
     subName: "ACCESSOIRES",
     link: "/categorie/accessoires",
+     image: "/img/accessoires.jpg",
     buttonText: "Entdecken",
   },
   {
     id: "vetements",
     name: "RADBEKLEIDUNG",
-    subName: "VÊTEMENTS",
+    subName: "RADBEKLEIDUNG",
     link: "/categorie/vetements",
+    image: "/img/vetements.jpg",
     buttonText: "Entdecken",
   },
   {
@@ -48,6 +50,7 @@ const categories = [
     name: "KINDERFAHRRÄDER",
     subName: "ENFANTS",
     link: "/categorie/enfants",
+    image: "/img/enfants.jpg",
     buttonText: "Entdecken",
   },
 ];
