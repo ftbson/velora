@@ -1,23 +1,33 @@
+export type ProductCategory =
+  | "VILLE"
+  | "VTC"
+  | "VTT"
+  | "ACCESSOIRES"
+  | "VETEMENTS"
+  | "ENFANTS";
+
 export interface Product {
   id: string;
   title: string;
   brand: string;
-  category: "VILLE" | "VTC" | "VTT";
+  category: ProductCategory;
   categoryLabel: string;
   price: number;
   oldPrice?: number;
   discount?: string;
   savings?: number;
-  rating: number;
-  reviewsCount: number;
-  motorTorque: string;
-  batteryCapacity: string;
+  rating?: number;
+  reviewsCount?: number;
+  motorTorque?: string;
+  batteryCapacity?: string;
   image: string;
   badgePromo?: boolean;
   isNew?: boolean;
+  isDraft?: boolean;
   colors?: string[];
   description: string;
-  specs: {
+  details?: { label: string; value: string }[];
+  specs?: {
     frame: string;
     brakes: string;
     range: string;
@@ -25,7 +35,7 @@ export interface Product {
   };
 }
 
-export const productsData: Product[] = [
+const bikeProducts: Product[] = [
   // ==========================================
   // KATEGORIE : VILLE (CITY E-BIKES) - 11 Modèles
   // ==========================================
@@ -533,4 +543,229 @@ export const productsData: Product[] = [
       weight: "17.9 kg"
     }
   }
+];
+
+const additionalProducts: Product[] = [
+  {
+    id: "accessory-urban-helmet",
+    title: "VELORA City-Helm mit Visier",
+    brand: "VELORA",
+    category: "ACCESSOIRES",
+    categoryLabel: "HELME",
+    price: 89.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Alltagshelm für Stadtfahrten mit verstellbarem Sitzsystem, herausnehmbaren Polstern und integriertem Visier. Passform, Größen und Zertifizierung vor dem Verkauf anhand des tatsächlichen Modells bestätigen.",
+    details: [
+      { label: "Einsatz", value: "Alltag und Stadtverkehr" },
+      { label: "Passform", value: "Größen und Umfang nach Modell ergänzen" },
+      { label: "Sicherheitsnorm", value: "Vor Verkaufsstart am Produkt prüfen" },
+    ],
+  },
+  {
+    id: "accessory-led-light-set",
+    title: "VELORA USB-C Fahrradlicht-Set",
+    brand: "VELORA",
+    category: "ACCESSOIRES",
+    categoryLabel: "BELEUCHTUNG",
+    price: 49.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Vorder- und Rücklicht für bessere Sichtbarkeit im Straßenverkehr. Helligkeit, Leuchtdauer, Ladezeit, Wasserschutz und Befestigung bitte anhand des ausgewählten Sets ergänzen.",
+    details: [
+      { label: "Lieferumfang", value: "Front- und Rücklicht" },
+      { label: "Ladeanschluss", value: "USB-C, vor Verkauf bestätigen" },
+      { label: "Befestigung", value: "Werkzeuglos, am Modell prüfen" },
+    ],
+  },
+  {
+    id: "accessory-folding-lock",
+    title: "VELORA Faltschloss mit Halterung",
+    brand: "VELORA",
+    category: "ACCESSOIRES",
+    categoryLabel: "SCHLÖSSER",
+    price: 59.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Kompaktes Faltschloss für den täglichen Einsatz. Länge, Gewicht, Schließzylinder und eventuelle Sicherheitsbewertung müssen mit den Lieferantendaten abgeglichen werden.",
+    details: [
+      { label: "Bauart", value: "Faltglieder" },
+      { label: "Halterung", value: "Rahmenhalterung vorgesehen" },
+      { label: "Länge und Gewicht", value: "Vor Verkaufsstart ergänzen" },
+    ],
+  },
+  {
+    id: "accessory-frame-bag",
+    title: "VELORA Rahmentasche wassergeschützt",
+    brand: "VELORA",
+    category: "ACCESSOIRES",
+    categoryLabel: "TASCHEN",
+    price: 39.9,
+    image: "/img/prod/vtt-mondraker-neat.jpg",
+    isDraft: true,
+    description:
+      "Kompakte Rahmentasche für Werkzeug, Schlüssel und kleinere Gegenstände auf dem täglichen Weg oder einer Tour. Volumen, Material und Kompatibilität mit dem konkreten Rahmenmodell bitte ergänzen.",
+    details: [
+      { label: "Montage", value: "Befestigung am Rahmen" },
+      { label: "Stauraum", value: "Volumen nach Lieferantendaten ergänzen" },
+      { label: "Material", value: "Material- und Wasserschutzangaben ergänzen" },
+    ],
+  },
+  {
+    id: "accessory-mini-pump",
+    title: "VELORA Kompakt-Minipumpe",
+    brand: "VELORA",
+    category: "ACCESSOIRES",
+    categoryLabel: "PUMPEN",
+    price: 34.9,
+    image: "/img/prod/vtt-mondraker-neat.jpg",
+    isDraft: true,
+    description:
+      "Kleine Pumpe für unterwegs, die sich platzsparend am Fahrrad verstauen lässt. Ventilkompatibilität, maximalen Druck und Befestigung vor dem Verkauf verifizieren.",
+    details: [
+      { label: "Einsatz", value: "Unterwegs und auf Tour" },
+      { label: "Ventile", value: "Kompatibilität vor Verkauf bestätigen" },
+      { label: "Maximaldruck", value: "Lieferantendaten ergänzen" },
+    ],
+  },
+  {
+    id: "clothing-short-sleeve-jersey",
+    title: "VELORA Kurzarm-Radtrikot",
+    brand: "VELORA",
+    category: "VETEMENTS",
+    categoryLabel: "TRIKOTS",
+    price: 69.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Leichtes Kurzarmtrikot für Training und längere Ausfahrten. Größen, Materialzusammensetzung und Passform bitte anhand des tatsächlichen Kleidungsstücks angeben.",
+    details: [
+      { label: "Schnitt", value: "Sportliche Passform, am Muster prüfen" },
+      { label: "Größen", value: "Verfügbare Größen ergänzen" },
+      { label: "Material", value: "Zusammensetzung ergänzen" },
+    ],
+  },
+  {
+    id: "clothing-cycling-shorts",
+    title: "VELORA Radhose mit Sitzpolster",
+    brand: "VELORA",
+    category: "VETEMENTS",
+    categoryLabel: "RADHOSEN",
+    price: 79.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Radhose für längere Ausfahrten mit Sitzpolster. Polsterform, Größen, Schnitt und Pflegehinweise müssen vor dem Verkauf am ausgewählten Produkt geprüft werden.",
+    details: [
+      { label: "Einsatz", value: "Touren und längere Ausfahrten" },
+      { label: "Sitzpolster", value: "Ausführung nach Modell ergänzen" },
+      { label: "Größen", value: "Verfügbare Größen ergänzen" },
+    ],
+  },
+  {
+    id: "clothing-rain-jacket",
+    title: "VELORA Leichte Fahrrad-Regenjacke",
+    brand: "VELORA",
+    category: "VETEMENTS",
+    categoryLabel: "JACKEN",
+    price: 119.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Leichte Außenschicht für wechselhaftes Wetter und Fahrten im Alltag. Wassersäule, Atmungsaktivität, Material und Größen vor dem Verkaufsstart beim Lieferanten bestätigen.",
+    details: [
+      { label: "Einsatz", value: "Wetterwechsel und Regen" },
+      { label: "Wasserschutz", value: "Technische Werte am Produkt prüfen" },
+      { label: "Größen", value: "Verfügbare Größen ergänzen" },
+    ],
+  },
+  {
+    id: "clothing-full-finger-gloves",
+    title: "VELORA Fahrradhandschuhe",
+    brand: "VELORA",
+    category: "VETEMENTS",
+    categoryLabel: "HANDSCHUHE",
+    price: 39.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Handschuhe für zusätzlichen Halt am Lenker und Schutz bei kühlerem Wetter. Polsterung, Material, Größen und saisonale Ausführung nach dem konkreten Modell angeben.",
+    details: [
+      { label: "Einsatz", value: "Alltag und Touren" },
+      { label: "Ausführung", value: "Fingerlänge am Modell ergänzen" },
+      { label: "Größen", value: "Verfügbare Größen ergänzen" },
+    ],
+  },
+  {
+    id: "kids-20-inch-bike",
+    title: "VELORA Kinderfahrrad 20 Zoll",
+    brand: "VELORA",
+    category: "ENFANTS",
+    categoryLabel: "KINDERFAHRRÄDER",
+    price: 299,
+    image: "",
+    isDraft: true,
+    description:
+      "Kinderfahrrad mit 20-Zoll-Laufrädern für junge Fahrerinnen und Fahrer. Rahmengröße, empfohlenes Alter oder Körpergröße, Übersetzung, Bremsen und Ausstattung anhand des tatsächlichen Modells ergänzen.",
+    details: [
+      { label: "Laufradgröße", value: "20 Zoll" },
+      { label: "Körpergröße und Alter", value: "Herstellerempfehlung ergänzen" },
+      { label: "Bremsen und Schaltung", value: "Ausstattung nach Modell ergänzen" },
+    ],
+  },
+  {
+    id: "kids-24-inch-bike",
+    title: "VELORA Kinderfahrrad 24 Zoll",
+    brand: "VELORA",
+    category: "ENFANTS",
+    categoryLabel: "KINDERFAHRRÄDER",
+    price: 399,
+    image: "",
+    isDraft: true,
+    description:
+      "Kinderfahrrad mit 24-Zoll-Laufrädern für längere Alltagswege und gemeinsame Ausfahrten. Rahmengröße, empfohlene Körpergröße, Schaltung, Bremsen und Gewicht bitte vor der Listung bestätigen.",
+    details: [
+      { label: "Laufradgröße", value: "24 Zoll" },
+      { label: "Körpergröße und Alter", value: "Herstellerempfehlung ergänzen" },
+      { label: "Ausstattung", value: "Bremsen und Schaltung ergänzen" },
+    ],
+  },
+  {
+    id: "kids-helmet-adjustable",
+    title: "VELORA Kinderhelm mit Größenverstellung",
+    brand: "VELORA",
+    category: "ENFANTS",
+    categoryLabel: "KINDERZUBEHÖR",
+    price: 49.9,
+    image: "",
+    isDraft: true,
+    description:
+      "Kinderhelm mit verstellbarem Sitzsystem. Verfügbare Größen, Kopfumfang, Gewicht und Konformitätsangaben müssen anhand des ausgewählten Helms ergänzt werden.",
+    details: [
+      { label: "Einsatz", value: "Fahrradfahren für Kinder" },
+      { label: "Größe", value: "Kopfumfang und Größenbereich ergänzen" },
+      { label: "Konformität", value: "Produktunterlagen vor Verkauf prüfen" },
+    ],
+  },
+];
+
+export const productsData: Product[] = [
+  ...bikeProducts.map((product) => {
+    const price = Math.round((product.price * 0.97) / 5) * 5;
+    if (!product.oldPrice) {
+      return { ...product, price };
+    }
+
+    const savings = product.oldPrice - price;
+    return {
+      ...product,
+      price,
+      savings,
+      discount: `-${Math.round((savings / product.oldPrice) * 100)} %`,
+    };
+  }),
+  ...additionalProducts,
 ];

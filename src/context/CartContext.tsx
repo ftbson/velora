@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { productsData } from "@/data/products";
 
 export interface CartItem {
   id: string;
@@ -61,7 +62,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
         if (savedCart) {
           const parsedCart: unknown = JSON.parse(savedCart);
           if (Array.isArray(parsedCart)) {
-            setCart(parsedCart.filter(isCartItem));
+            const currentItems = parsedCart.filter(isCartItem);
+            setCart(
+              currentItems.flatMap((item) => {
+                const product = productsData.find(
+                  (candidate) => candidate.id === item.id,
+                );
+                if (!product || product.isDraft) return [];
+                return [
+                  {
+                    ...item,
+                    title: product.title,
+                    category: product.category,
+                    price: product.price,
+                    oldPrice: product.oldPrice,
+                    image: product.image,
+                  },
+                ];
+              }),
+            );
           }
         }
         if (savedFavorites) {

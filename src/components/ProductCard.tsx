@@ -47,13 +47,17 @@ export default function ProductCard({ product }: ProductCardProps) {
         <span className="velora-brand-label">{product.brand}</span>
         
         <Link href={`/produkt/${product.id}`} className="velora-card-img-wrapper">
-          <Image
-            src={product.image}
-            alt={product.title}
-            width={320}
-            height={220}
-            className="velora-card-img"
-          />
+          {product.image ? (
+            <Image
+              src={product.image}
+              alt={product.title}
+              width={320}
+              height={220}
+              className="velora-card-img"
+            />
+          ) : (
+            <span className="catalog-image-placeholder">Bild folgt</span>
+          )}
         </Link>
 
         {/* Bouton Favori en bas à gauche du visuel */}
@@ -75,17 +79,32 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Informations & Spécifications */}
       <div className="velora-card-info">
         <span className="velora-sub-cat">{product.categoryLabel}</span>
+        {product.isDraft && (
+          <span className="catalog-draft-badge">MUSTER · ANGABEN PRÜFEN</span>
+        )}
         <h3 className="velora-product-title">
           <Link href={`/produkt/${product.id}`}>{product.title}</Link>
         </h3>
 
         <div className="velora-specs-row">
-          <span className="velora-spec-item">
-            <i className="fa-solid fa-gear"></i> {product.motorTorque}
-          </span>
-          <span className="velora-spec-item">
-            <i className="fa-solid fa-battery-three-quarters"></i> {product.batteryCapacity}
-          </span>
+          {product.motorTorque && (
+            <span className="velora-spec-item">
+              <i className="fa-solid fa-gear" aria-hidden="true" /> {product.motorTorque}
+            </span>
+          )}
+          {product.batteryCapacity && (
+            <span className="velora-spec-item">
+              <i className="fa-solid fa-battery-three-quarters" aria-hidden="true" />{" "}
+              {product.batteryCapacity}
+            </span>
+          )}
+          {!product.motorTorque &&
+            product.details?.slice(0, 2).map((detail) => (
+              <span className="velora-spec-item" key={detail.label}>
+                <i className="fa-solid fa-circle-info" aria-hidden="true" />{" "}
+                {detail.value}
+              </span>
+            ))}
         </div>
       </div>
 
@@ -110,13 +129,21 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Bouton Ajouter au panier direct sur la carte */}
         <div className="velora-card-actions">
-          <button 
-            className="velora-add-cart-btn" 
+          <button
+            className="velora-add-cart-btn"
+            disabled={product.isDraft}
             onClick={handleAddToCart}
-            title="In den Warenkorb"
-            aria-label={`${product.title} in den Warenkorb legen`}
+            title={product.isDraft ? "Produktdaten werden ergänzt" : "In den Warenkorb"}
+            aria-label={
+              product.isDraft
+                ? `${product.title} ist noch ein Musterartikel`
+                : `${product.title} in den Warenkorb legen`
+            }
           >
-            <i className="fa-solid fa-cart-shopping"></i>
+            <i
+              className={product.isDraft ? "fa-regular fa-clock" : "fa-solid fa-cart-shopping"}
+              aria-hidden="true"
+            />
           </button>
         </div>
       </div>

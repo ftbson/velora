@@ -31,7 +31,7 @@ export default function HomeProducts() {
     <section className="home-products-section" aria-labelledby="home-products-title">
       <div className="storefront-section-header">
         <p className="storefront-eyebrow">VELORA AUSWAHL</p>
-        <h2 id="home-products-title">Entdecken Sie unsere E-Bikes</h2>
+        <h2 id="home-products-title">Entdecken Sie unsere Produkte</h2>
         <p>Eine wechselnde Auswahl aus unserem gesamten Sortiment.</p>
       </div>
       <div className="storefront-product-grid">

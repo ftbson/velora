@@ -30,12 +30,16 @@ export default function BestSellers() {
                 className="product-image-wrap"
                 aria-label={`Details für ${product.title}`}
               >
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  fill
-                  className="product-image"
-                />
+                {product.image ? (
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="product-image"
+                  />
+                ) : (
+                  <span className="catalog-image-placeholder">Bild folgt</span>
+                )}
                 {product.discount && (
                   <span className="badge-discount">{product.discount}</span>
                 )}
@@ -62,7 +66,9 @@ export default function BestSellers() {
                       ></i>
                     ))}
                   </div>
-                  <span className="reviews-count">({product.reviewsCount})</span>
+                  {product.reviewsCount !== undefined && (
+                    <span className="reviews-count">({product.reviewsCount})</span>
+                  )}
                 </div>
 
                {/* Prix */}
@@ -80,6 +86,7 @@ export default function BestSellers() {
                 {/* Bouton d'ajout */}
                 <button
                   className="btn-add-cart"
+                  disabled={product.isDraft}
                   onClick={() =>
                     addToCart({
                       id: product.id,
@@ -93,7 +100,7 @@ export default function BestSellers() {
                   }
                 >
                   <i className="fa-solid fa-cart-shopping"></i>
-                  In den Warenkorb
+                  {product.isDraft ? "Produktdaten werden ergänzt" : "In den Warenkorb"}
                 </button>
               </div>
             </div>

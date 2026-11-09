@@ -1,8 +1,9 @@
 import ShopGrid from "@/components/ShopGrid";
 
 export const metadata = {
-  title: "E-Bikes | VELORA",
-  description: "Entdecken Sie unsere E-Bikes für Stadt, Trekking und anspruchsvolle Trails.",
+  title: "Fahrräder und Zubehör | VELORA",
+  description:
+    "Entdecken Sie E-Bikes, Fahrradzubehör, Radbekleidung und Kinderfahrräder.",
 };
 
 export default function BoutiquePage() {

@@ -107,6 +107,24 @@ a {
   transition: transform 0.6s ease;
 }
 
+.velora-category-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1e293b, #475569);
+}
+
+.velora-category-placeholder.category-accessoires {
+  background: linear-gradient(135deg, #1e3a5f, #6b8ba8);
+}
+
+.velora-category-placeholder.category-vetements {
+  background: linear-gradient(135deg, #374151, #94a3b8);
+}
+
+.velora-category-placeholder.category-enfants {
+  background: linear-gradient(135deg, #14532d, #86a873);
+}
+
 .velora-category-card:hover .velora-category-img {
   transform: scale(1.05);
 }
@@ -211,7 +229,7 @@ a {
    ========================================== */
 @media (max-width: 992px) {
   .velora-categories-grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 15px;
   }
 
@@ -293,6 +311,53 @@ a {
   width: 100%;
   height: 170px;
   transition: transform 0.3s ease;
+}
+
+.catalog-image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 170px;
+  place-items: center;
+  background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.catalog-detail-image-placeholder {
+  display: grid;
+  min-height: 360px;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+  color: #64748b;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.catalog-draft-badge {
+  display: inline-block;
+  margin-top: 6px;
+  color: #8a4b08;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.catalog-draft-notice {
+  max-width: 760px;
+  margin: 14px auto 0;
+  color: #7c4a03;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.cart-image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: #64748b;
 }
 
 .velora-product-card:hover .velora-card-img {
@@ -715,8 +780,19 @@ a {
 }
 
 @media (max-width: 576px) {
+  .velora-categories-grid {
+    grid-template-columns: 1fr;
+  }
+
   .velora-detail-key-specs {
     grid-template-columns: 1fr;
+  }
+
+  .velora-add-cart-btn:disabled,
+  .velora-detail-add-btn:disabled,
+  .btn-add-cart:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
   }
 }
 

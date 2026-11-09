@@ -29,6 +29,27 @@ const categories = [
     image: "/img/E-MOUNTAINBIKES.jpg",
     buttonText: "Entdecken",
   },
+  {
+    id: "accessoires",
+    name: "FAHRRADZUBEHÖR",
+    subName: "ACCESSOIRES",
+    link: "/categorie/accessoires",
+    buttonText: "Entdecken",
+  },
+  {
+    id: "vetements",
+    name: "RADBEKLEIDUNG",
+    subName: "VÊTEMENTS",
+    link: "/categorie/vetements",
+    buttonText: "Entdecken",
+  },
+  {
+    id: "enfants",
+    name: "KINDERFAHRRÄDER",
+    subName: "ENFANTS",
+    link: "/categorie/enfants",
+    buttonText: "Entdecken",
+  },
 ];
 
 export default function CategorySection() {
@@ -72,13 +93,20 @@ export default function CategorySection() {
               className={`velora-category-card velora-reveal delay-${index + 1}`}
             >
               <div className="velora-category-image-wrapper">
-                <Image
-                  src={cat.image}
-                  alt={cat.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="velora-category-img"
-                />
+                {cat.image ? (
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="velora-category-img"
+                  />
+                ) : (
+                  <div
+                    className={`velora-category-placeholder category-${cat.id}`}
+                    aria-hidden="true"
+                  />
+                )}
                 <div className="velora-category-overlay"></div>
               </div>
 

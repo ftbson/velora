@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
-import { productsData, type Product } from "@/data/products";
+import { productsData, type ProductCategory } from "@/data/products";
 
 const categories = {
   ville: { label: "E-Bikes für die Stadt", code: "VILLE" },
   vtc: { label: "Trekking- und Touren-E-Bikes", code: "VTC" },
   vtt: { label: "E-Mountainbikes", code: "VTT" },
-} as const satisfies Record<string, { label: string; code: Product["category"] }>;
+  accessoires: { label: "Fahrradzubehör", code: "ACCESSOIRES" },
+  vetements: { label: "Radbekleidung", code: "VETEMENTS" },
+  enfants: { label: "Kinderfahrräder und Kinderzubehör", code: "ENFANTS" },
+} as const satisfies Record<string, { label: string; code: ProductCategory }>;
 
 type CategorySlug = keyof typeof categories;
 
@@ -37,7 +40,7 @@ export default async function CategoryPage({
       <header className="catalog-heading">
         <p className="storefront-eyebrow">UNSERE KATEGORIEN</p>
         <h1>{selectedCategory.label}</h1>
-        <p>{products.length} Modelle in dieser Kategorie</p>
+        <p>{products.length} Produkte in dieser Kategorie</p>
       </header>
       <div className="storefront-product-grid">
         {products.map((product) => (

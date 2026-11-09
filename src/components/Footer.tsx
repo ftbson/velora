@@ -20,14 +20,14 @@ export default function Footer() {
               />
             </Link>
             <p className="velora-footer-tagline">
-              E-Bikes für Alltag, Stadt und Abenteuer.
+              Fahrräder, Zubehör und Bekleidung für Alltag, Stadt und Tour.
             </p>
           </div>
 
           <div className="velora-footer-col">
             <h4 className="velora-footer-title">Entdecken</h4>
             <ul className="velora-footer-links">
-              <li><Link href="/products">E-Bike Shop</Link></li>
+              <li><Link href="/products">Alle Produkte</Link></li>
               <li><Link href="/categorie">Kategorien</Link></li>
               <li><Link href="/cart">Warenkorb</Link></li>
               <li><Link href="/wishlist">Merkliste</Link></li>

@@ -31,14 +31,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           {/* Gauche : Image / Galerie */}
           <div className="velora-detail-image-box">
             {product.badgePromo && <span className="velora-detail-promo-badge">{product.discount}</span>}
-            <Image
-              src={product.image}
-              alt={product.title}
-              width={600}
-              height={450}
-              priority
-              className="velora-detail-main-img"
-            />
+            {product.image ? (
+              <Image
+                src={product.image}
+                alt={product.title}
+                width={600}
+                height={450}
+                priority
+                className="velora-detail-main-img"
+              />
+            ) : (
+              <div className="catalog-detail-image-placeholder">
+                Produktbild folgt
+              </div>
+            )}
           </div>
 
           {/* Droite : Infos & Achat */}
@@ -46,10 +52,23 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <span className="velora-detail-brand">{product.brand}</span>
             <h1 className="velora-detail-title">{product.title}</h1>
 
-            <div className="velora-detail-rating-row">
-              <span className="velora-stars">{"★".repeat(Math.floor(product.rating))}</span>
-              <span className="velora-detail-reviews">({product.reviewsCount} Kundenbewertungen)</span>
-            </div>
+            {product.rating !== undefined && product.reviewsCount !== undefined && (
+              <div className="velora-detail-rating-row">
+                <span className="velora-stars">
+                  {"★".repeat(Math.floor(product.rating))}
+                </span>
+                <span className="velora-detail-reviews">
+                  ({product.reviewsCount} Kundenbewertungen)
+                </span>
+              </div>
+            )}
+
+            {product.isDraft && (
+              <p className="catalog-draft-notice" role="note">
+                Musterartikel: Preis, Ausstattung und Verfügbarkeit bitte vor
+                dem Verkauf bestätigen.
+              </p>
+            )}
 
             <div className="velora-detail-price-box">
               <span className="velora-detail-current-price">CHF {product.price.toFixed(2)}</span>
@@ -58,31 +77,45 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
             <p className="velora-detail-desc">{product.description}</p>
 
-            {/* Spécifications rapides */}
-            <div className="velora-detail-key-specs">
-              <div className="spec-card">
-                <strong>Drehmoment:</strong> {product.motorTorque}
+            {product.motorTorque && product.batteryCapacity && product.specs ? (
+              <div className="velora-detail-key-specs">
+                <div className="spec-card">
+                  <strong>Drehmoment:</strong> {product.motorTorque}
+                </div>
+                <div className="spec-card">
+                  <strong>Akku:</strong> {product.batteryCapacity}
+                </div>
+                <div className="spec-card">
+                  <strong>Reichweite:</strong> {product.specs.range}
+                </div>
               </div>
-              <div className="spec-card">
-                <strong>Akku:</strong> {product.batteryCapacity}
+            ) : product.details?.length ? (
+              <div className="velora-detail-full-specs">
+                <h3>Produktdetails</h3>
+                <ul>
+                  {product.details.map((detail) => (
+                    <li key={detail.label}>
+                      <strong>{detail.label}:</strong> {detail.value}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="spec-card">
-                <strong>Reichweite:</strong> {product.specs.range}
-              </div>
-            </div>
+            ) : null}
 
             {/* Boutons d'action */}
             <ProductDetailActions product={product} />
 
             {/* Détails techniques */}
-            <div className="velora-detail-full-specs">
-              <h3>Technische Daten</h3>
-              <ul>
-                <li><strong>Rahmen:</strong> {product.specs.frame}</li>
-                <li><strong>Bremsen:</strong> {product.specs.brakes}</li>
-                <li><strong>Gewicht:</strong> {product.specs.weight}</li>
-              </ul>
-            </div>
+            {product.specs && (
+              <div className="velora-detail-full-specs">
+                <h3>Technische Daten</h3>
+                <ul>
+                  <li><strong>Rahmen:</strong> {product.specs.frame}</li>
+                  <li><strong>Bremsen:</strong> {product.specs.brakes}</li>
+                  <li><strong>Gewicht:</strong> {product.specs.weight}</li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

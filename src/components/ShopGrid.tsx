@@ -5,9 +5,15 @@ export default function ShopGrid() {
   return (
     <section className="catalog-page" aria-labelledby="shop-title">
       <header className="catalog-heading">
-        <p className="storefront-eyebrow">VELORA E-BIKE SHOP</p>
-        <h1 id="shop-title">Alle E-Bikes</h1>
-        <p>{productsData.length} Modelle für Stadt, Tour und Gelände</p>
+        <p className="storefront-eyebrow">VELORA BIKE-SHOP</p>
+        <h1 id="shop-title">Alle Produkte</h1>
+        <p>
+          Fahrräder, Zubehör und Bekleidung für Stadt, Tour und Gelände
+        </p>
+        <p className="catalog-draft-notice">
+          Musterartikel sind gekennzeichnet. Bitte Preise, Verfügbarkeit und
+          Produktdaten vor der Freigabe bestätigen.
+        </p>
       </header>
       <div className="storefront-product-grid">
         {productsData.map((product) => (

@@ -170,12 +170,18 @@ export default function CartPage() {
                     {/* Produit */}
                     <div className="cart-item-info">
                       <div className="cart-item-image">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          sizes="80px"
-                        />
+                        {item.image ? (
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            sizes="80px"
+                          />
+                        ) : (
+                          <span className="cart-image-placeholder" aria-hidden="true">
+                            <i className="fa-solid fa-bicycle" />
+                          </span>
+                        )}
                       </div>
                       <div>
                         <p className="cart-item-category">{item.category}</p>

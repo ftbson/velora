@@ -78,7 +78,14 @@ export async function POST(request: Request) {
       }
 
       const quantity = (quantities.get(rawItem.id) ?? 0) + rawItem.quantity;
-      if (!productsData.some((product) => product.id === rawItem.id) || quantity > 99 || quantity < 1) {
+      const product = productsData.find((candidate) => candidate.id === rawItem.id);
+      if (product?.isDraft) {
+        return NextResponse.json(
+          { error: "Dieses Produkt ist noch nicht verfügbar." },
+          { status: 409 },
+        );
+      }
+      if (!product || quantity > 99 || quantity < 1) {
         return NextResponse.json({ error: "Ungültiges Produkt oder ungültige Menge." }, { status: 400 });
       }
       quantities.set(rawItem.id, quantity);

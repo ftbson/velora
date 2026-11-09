@@ -21,9 +21,16 @@ export default function ProductDetailActions({
 
   return (
     <div className="velora-detail-actions">
-      <button className="velora-detail-add-btn" onClick={handleAddToCart}>
-        <i className="fa-solid fa-cart-shopping" aria-hidden="true" />
-        In den Warenkorb
+      <button
+        className="velora-detail-add-btn"
+        disabled={product.isDraft}
+        onClick={handleAddToCart}
+      >
+        <i
+          className={product.isDraft ? "fa-regular fa-clock" : "fa-solid fa-cart-shopping"}
+          aria-hidden="true"
+        />
+        {product.isDraft ? "Produktdaten werden ergänzt" : "In den Warenkorb"}
       </button>
       <button
         className="velora-detail-favorite-btn"
@@ -39,6 +46,11 @@ export default function ProductDetailActions({
       {added && (
         <p className="product-added-message" role="status">
           Zum Warenkorb hinzugefügt. <Link href="/panier">Warenkorb ansehen</Link>
+        </p>
+      )}
+      {product.isDraft && (
+        <p className="product-added-message" role="status">
+          Dieser Musterartikel kann noch nicht bestellt werden.
         </p>
       )}
     </div>
