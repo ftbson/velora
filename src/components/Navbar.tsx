@@ -40,7 +40,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Recherche Desktop (Élargie & Centrée) */}
+          {/* Recherche Desktop */}
           <div className="velora-search-container desktop-only">
             <div className="velora-search-box">
               <i className="fa-solid fa-magnifying-glass velora-search-icon"></i>
@@ -98,61 +98,99 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Sous-barre de Catégories (Liens principaux + Nouveaux liens de catégories) */}
+      {/* Sous-barre de Nav (Menu Mobile avec Icônes & Flèches) */}
       <nav className={`velora-sub-nav ${isMobileMenuOpen ? "mobile-open" : ""}`}>
         <div className="velora-sub-nav-container">
           <ul className="velora-nav-links">
             <li>
               <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-                Startseite
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-house nav-icon-mobile"></i>
+                  Startseite
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
+
             <li>
               <Link href="/products" onClick={() => setIsMobileMenuOpen(false)}>
-                Shop
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-store nav-icon-mobile"></i>
+                  Shop
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
+
             <li>
               <Link href="/categorie" onClick={() => setIsMobileMenuOpen(false)} className="highlight-link">
-                Kategorien
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-layer-group nav-icon-mobile"></i>
+                  Kategorien
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
-            {/* Nouveaux liens ajoutés */}
+
             <li>
               <Link href="/categorie/enfants" onClick={() => setIsMobileMenuOpen(false)}>
-                Enfants
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-child nav-icon-mobile"></i>
+                  Enfants
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
+
             <li>
               <Link href="/categorie/vetements" onClick={() => setIsMobileMenuOpen(false)}>
-                Vêtements
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-shirt nav-icon-mobile"></i>
+                  Vêtements
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
+
             <li>
               <Link href="/categorie/accessoires" onClick={() => setIsMobileMenuOpen(false)}>
-                Accessoires
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-helmet-safety nav-icon-mobile"></i>
+                  Accessoires
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
+
             <li>
               <Link href="/a-propos" onClick={() => setIsMobileMenuOpen(false)}>
-                Über uns
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-circle-info nav-icon-mobile"></i>
+                  Über uns
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
+
             <li>
               <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                Kontakt
+                <span className="nav-link-content">
+                  <i className="fa-solid fa-envelope nav-icon-mobile"></i>
+                  Kontakt
+                </span>
+                <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
             </li>
           </ul>
         </div>
       </nav>
 
-      {/* Overlay Sombre pour le Menu Hamburger (Mobile) */}
+      {/* Overlay Sombre */}
       {isMobileMenuOpen && (
         <div className="velora-menu-overlay" onClick={() => setIsMobileMenuOpen(false)}></div>
       )}
 
-      {/* Pop-up de Recherche Mobile (Flou d'arrière-plan + Premier Plan) */}
+      {/* Pop-up Recherche Mobile */}
       {isMobileSearchOpen && (
         <div className="velora-mobile-search-modal">
           <div className="velora-mobile-search-content">

@@ -274,6 +274,56 @@ a {
   justify-content: center;
 }
 
+
+
+/* ==========================================
+   MOBILE MENU NAVIGATION (ICONS & ARROWS)
+   ========================================== */
+
+/* Masqué par défaut sur Desktop */
+.nav-icon-mobile,
+.nav-arrow-mobile {
+  display: none;
+}
+
+/* Affiché uniquement sur écran mobile (Menu Hamburger Ouvert) */
+@media (max-width: 992px) {
+  .velora-nav-links li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .nav-link-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-icon-mobile {
+    display: inline-block;
+    font-size: 16px;
+    color: #D52B1E; /* Rouge Suisse */
+    width: 20px;
+    text-align: center;
+  }
+
+  .nav-arrow-mobile {
+    display: inline-block;
+    font-size: 12px;
+    color: #aaaaaa;
+    transition: transform 0.2s ease;
+  }
+
+  .velora-nav-links li a:active .nav-arrow-mobile {
+    transform: translateX(3px);
+    color: #D52B1E;
+  }
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
