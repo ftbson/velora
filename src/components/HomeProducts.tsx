@@ -21,7 +21,7 @@ export default function HomeProducts() {
 
   useEffect(() => {
     const frameId = requestAnimationFrame(() => {
-      setProducts(chooseRandomProducts(productsData, 4));
+      setProducts(chooseRandomProducts(productsData, 15));
     });
 
     return () => cancelAnimationFrame(frameId);

@@ -98,7 +98,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Sous-barre de Catégories (Centrée sur Desktop) */}
+      {/* Sous-barre de Catégories (Liens principaux + Nouveaux liens de catégories) */}
       <nav className={`velora-sub-nav ${isMobileMenuOpen ? "mobile-open" : ""}`}>
         <div className="velora-sub-nav-container">
           <ul className="velora-nav-links">
@@ -115,6 +115,22 @@ export default function Navbar() {
             <li>
               <Link href="/categorie" onClick={() => setIsMobileMenuOpen(false)} className="highlight-link">
                 Kategorien
+              </Link>
+            </li>
+            {/* Nouveaux liens ajoutés */}
+            <li>
+              <Link href="/categorie/enfants" onClick={() => setIsMobileMenuOpen(false)}>
+                Enfants
+              </Link>
+            </li>
+            <li>
+              <Link href="/categorie/vetements" onClick={() => setIsMobileMenuOpen(false)}>
+                Vêtements
+              </Link>
+            </li>
+            <li>
+              <Link href="/categorie/accessoires" onClick={() => setIsMobileMenuOpen(false)}>
+                Accessoires
               </Link>
             </li>
             <li>

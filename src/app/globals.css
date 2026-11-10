@@ -30,7 +30,6 @@ a {
 
 
 
-
 /* ==========================================
    VELORA CATEGORIES SECTION STYLING & REVEAL
    ========================================== */
@@ -70,17 +69,17 @@ a {
   text-transform: uppercase;
 }
 
-/* Grille à 3 Colonnes (Plus large et compacte) */
+/* Grille Desktop (3 Colonnes) */
 .velora-categories-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-/* Carte de Catégorie (Dimensions ajustées plus panoramiques/compactes) */
+/* Carte de Catégorie */
 .velora-category-card {
   position: relative;
-  height: 280px; /* Hauteur réduite pour coller aux captures */
+  height: 280px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
@@ -89,7 +88,7 @@ a {
 
 .velora-category-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 12%);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
 .velora-category-image-wrapper {
@@ -145,7 +144,7 @@ a {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.65) 100%);
 }
 
-/* Contenu aligné / centré de façon compacte */
+/* Contenu aligné / centré */
 .velora-category-content {
   position: relative;
   z-index: 3;
@@ -225,16 +224,22 @@ a {
 }
 
 /* ==========================================
-   RESPONSIVE
+   RESPONSIVE DESIGN (TABLETTE & SMARTPHONE 2 PAR 2)
    ========================================== */
+
+/* Tablette (992px et moins) */
 @media (max-width: 992px) {
+  .velora-categories-section {
+    padding: 40px 15px;
+  }
+
   .velora-categories-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
 
   .velora-category-card {
-    height: 240px;
+    height: 220px;
   }
 
   .velora-categories-title {
@@ -242,6 +247,85 @@ a {
   }
 }
 
+/* Smartphone (768px et moins) - OPTIMISÉ 2 PAR 2 */
+@media (max-width: 768px) {
+  .velora-categories-section {
+    padding: 30px 12px;
+  }
+
+  .velora-categories-header {
+    margin-bottom: 20px;
+  }
+
+  .velora-categories-subtitle {
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .velora-categories-title {
+    font-size: 18px;
+  }
+
+  /* Force la grille à rester à 2 colonnes strictes sur téléphone */
+  .velora-categories-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+  }
+
+  /* Diminution de la hauteur des cartes */
+  .velora-category-card {
+    height: 170px;
+    border-radius: 8px;
+  }
+
+  /* Diminution du padding interne de la carte */
+  .velora-category-content {
+    padding: 10px 8px;
+  }
+
+  /* Diminution des badges */
+  .velora-category-badge {
+    font-size: 8px;
+    padding: 2px 6px;
+    margin-bottom: 4px;
+    border-radius: 10px;
+  }
+
+  /* Diminution de la taille du titre */
+  .velora-category-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+
+  /* Diminution du bouton */
+  .velora-category-btn {
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 15px;
+  }
+}
+
+/* Très petits écrans smartphone (360px et moins) */
+@media (max-width: 360px) {
+  .velora-categories-grid {
+    gap: 8px;
+  }
+
+  .velora-category-card {
+    height: 150px;
+  }
+
+  .velora-category-name {
+    font-size: 12px;
+  }
+
+  .velora-category-btn {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+}
 
 /* ==========================================
    VELORA PRODUCT CARDS STYLING (EPURÉ)
