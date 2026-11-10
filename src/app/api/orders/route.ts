@@ -104,7 +104,7 @@ export async function POST(request: Request) {
     });
 
     const subtotal = items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
-    const shippingCost = subtotal > 150 ? 0 : 15;
+    const shippingCost = 0;
     const grandTotal = subtotal + shippingCost;
     const customerSession = await getAuthenticatedUser();
     const orderEmail = customerSession?.email ?? email;

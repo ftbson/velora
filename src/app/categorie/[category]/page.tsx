@@ -4,12 +4,12 @@ import ProductCard from "@/components/ProductCard";
 import { productsData, type ProductCategory } from "@/data/products";
 
 const categories = {
-  ville: { label: "E-Bikes für die Stadt", code: "VILLE" },
+  ville: { label: "E-Bikes für die Stadt", code: "VILLE" },  
   vtc: { label: "Trekking- und Touren-E-Bikes", code: "VTC" },
   vtt: { label: "E-Mountainbikes", code: "VTT" },
   accessoires: { label: "Fahrradzubehör", code: "ACCESSOIRES" },
-  vetements: { label: "Radbekleidung", code: "VETEMENTS" },
-  enfants: { label: "Kinderfahrräder und Kinderzubehör", code: "ENFANTS" },
+  vetements: { label: "Fahrradbekleidung", code: "Kleidung" },
+  enfants: { label: "Kinderfahrräder", code: "kinder" },
 } as const satisfies Record<string, { label: string; code: ProductCategory }>;
 
 type CategorySlug = keyof typeof categories;

@@ -21,6 +21,7 @@ export default function Footer() {
             </Link>
             <p className="velora-footer-tagline">
               Fahrräder, Zubehör und Bekleidung für Alltag, Stadt und Tour.
+              Kostenloser Versand in die angebotenen Liefergebiete.
             </p>
           </div>
 

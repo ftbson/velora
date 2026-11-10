@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
-import { productsData } from "@/data/products";
+import { getProductCategoryName, productsData } from "@/data/products";
 
 export default function Poele() {
   const { addToCart } = useCart();
@@ -50,7 +50,9 @@ export default function Poele() {
 
               {/* Détails du produit */}
               <div className="product-info">
-                <span className="product-category">{product.category}</span>
+                <span className="product-category">
+                  {getProductCategoryName(product.category)}
+                </span>
                 <h3 className="product-title">
                   <Link href={`/produkt/${product.id}`}>
                     {product.title}

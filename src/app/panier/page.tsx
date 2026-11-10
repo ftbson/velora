@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { getProductCategoryName } from "@/data/products";
 
 interface BankDetails {
   beneficiary: string;
@@ -46,7 +47,7 @@ export default function CartPage() {
     email: "",
   });
 
-  const shippingCost = subtotal > 150 || cart.length === 0 ? 0 : 15.0;
+  const shippingCost = 0;
   const grandTotal = subtotal + shippingCost;
 
   const handleInputChange = (
@@ -184,7 +185,9 @@ export default function CartPage() {
                         )}
                       </div>
                       <div>
-                        <p className="cart-item-category">{item.category}</p>
+                        <p className="cart-item-category">
+                          {getProductCategoryName(item.category)}
+                        </p>
                         <h4 className="cart-item-title">{item.title}</h4>
                       </div>
                     </div>
@@ -250,11 +253,7 @@ export default function CartPage() {
 
                 <div className="summary-row">
                   <span>Lieferung</span>
-                  <span>
-                    {shippingCost === 0
-                      ? "Kostenlos"
-                      : `CHF ${shippingCost.toFixed(2).replace(".", ",")}`}
-                  </span>
+                  <span>Kostenlos</span>
                 </div>
 
                 <div className="summary-divider"></div>

@@ -4,43 +4,42 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// Données des slides avec les chemins d'images corrects
 const heroSlides = [
   {
     id: 1,
-    title: "VELORA E-BIKE PRIME",
-    subtitle: "Erleben Sie die nächste Generation elektrischer Mobilität in den Bergen. Kraftvoll, elegant und zuverlässig.",
-    buttonText: "E-Bikes entdecken",
+    title: "Fahrräder für jeden Weg",
+    subtitle: "Entdecken Sie City-, Trekking- und Mountainbike-Modelle für Alltag, Tour und Gelände.",
+    buttonText: "Alle Produkte entdecken",
     buttonLink: "/products",
-    image: "/img/hero1.jpg", 
-    tag: "Schweizer Qualität"
+    image: "/img/hero1.jpg",
+    tag: "VELORA"
   },
   {
     id: 2,
-    title: "20 % RABATT AUF ZUBEHÖR",
-    subtitle: "Kaufen Sie ein E-Bike und erhalten Sie 20% Rabatt auf berechtigtes Zubehör. Gilt automatisch im Warenkorb!",
-    buttonText: "Zubehör ansehen",
+    title: "Kostenloser Versand",
+    subtitle: "Ihre Bestellung wird ohne zusätzliche Versandkosten geliefert.",
+    buttonText: "Sortiment ansehen",
     buttonLink: "/products",
     image: "/img/hero2.jpg",
-    tag: "Sonderaktion"
+    tag: "IHR PLUS BEI VELORA"
   },
   {
     id: 3,
-    title: "KÜSTEN- & STRASSEN-FAHRSPASS",
-    subtitle: "Genießen Sie grenzenlose Freiheit an der Küste mit unseren komfortablen und stylischen Modellen für jeden Tag.",
-    buttonText: "Modelle ansehen",
-    buttonLink: "/products",
+    title: "Gut unterwegs mit der ganzen Familie",
+    subtitle: "Entdecken Sie passende Kinderfahrräder für Schule, Alltag und gemeinsame Ausflüge.",
+    buttonText: "Kinderfahrräder ansehen",
+    buttonLink: "/categorie/enfants",
     image: "/img/hero3.jpg",
-    tag: "Lifestyle"
+    tag: "FÜR JUNGE RADFAHRER"
   },
   {
     id: 4,
-    title: "STADT & QUARTIER MOBILITÄT",
-    subtitle: "Perfekt für den Alltag in der Nachbarschaft: Entdecken Sie unsere wendigen und kraftvollen Alltags-E-Bikes.",
-    buttonText: "Jetzt entdecken",
-    buttonLink: "/products",
+    title: "Alles für Ihre nächste Tour",
+    subtitle: "Praktisches Zubehör und funktionale Bekleidung für Ihre Zeit auf dem Rad.",
+    buttonText: "Zubehör entdecken",
+    buttonLink: "/categorie/accessoires",
     image: "/img/hero4.jpg",
-    tag: "Neuheit"
+    tag: "ZUBEHÖR & BEKLEIDUNG"
   }
 ];
 export default function Hero() {
@@ -97,9 +96,9 @@ export default function Hero() {
         </div>
       ))}
 
-      {/* Contrôles du Carrousel (Flèches et Points) */}
+      {/* Karussell-Steuerung */}
       <div className="velora-hero-controls">
-        <button className="velora-hero-arrow" onClick={prevSlide} aria-label="Précédent">
+            <button className="velora-hero-arrow" onClick={prevSlide} aria-label="Vorherige Folie">
           <i className="fa-solid fa-chevron-left"></i>
         </button>
         <div className="velora-hero-dots">
@@ -108,11 +107,11 @@ export default function Hero() {
               key={index}
               className={`velora-hero-dot ${index === currentSlide ? "active" : ""}`}
               onClick={() => setCurrentSlide(index)}
-              aria-label={`Aller au slide ${index + 1}`}
+              aria-label={`Zu Folie ${index + 1}`}
             ></button>
           ))}
         </div>
-        <button className="velora-hero-arrow" onClick={nextSlide} aria-label="Suivant">
+        <button className="velora-hero-arrow" onClick={nextSlide} aria-label="Nächste Folie">
           <i className="fa-solid fa-chevron-right"></i>
         </button>
       </div>

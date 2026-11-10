@@ -3,8 +3,8 @@ export type ProductCategory =
   | "VTC"
   | "VTT"
   | "ACCESSOIRES"
-  | "VETEMENTS"
-  | "ENFANTS";
+  | "Kleidung"
+  | "kinder";
 
 export interface Product {
   id: string;
@@ -34,6 +34,44 @@ export interface Product {
     range: string;
     weight: string;
   };
+}
+
+const categoryNames: Record<string, string> = {
+  VILLE: "City-E-Bikes",
+  VTC: "Trekking-E-Bikes",
+  VTT: "E-Mountainbikes",
+  ACCESSOIRES: "Zubehör",
+  VETEMENTS: "Fahrradbekleidung",
+  ENFANTS: "Kinderfahrräder",
+  Kleidung: "Fahrradbekleidung",
+  kinder: "Kinderfahrräder",
+};
+
+const subcategoryNames: Record<string, string> = {
+  "CITY E-BIKE": "City-E-Bike",
+  "LONGTAIL CITY E-BIKE": "Longtail-City-E-Bike",
+  "COMPACT CITY E-BIKE": "Kompaktes City-E-Bike",
+  "PREMIUM CITY E-BIKE": "Premium-City-E-Bike",
+  "CARGO E-BIKE": "Cargo-E-Bike",
+  "TREKKING E-BIKE": "Trekking-E-Bike",
+  "ALL-ROAD E-BIKE": "Allroad-E-Bike",
+  "SUV ALL-ROAD E-BIKE": "SUV-Allroad-E-Bike",
+  "SPORT VTC E-BIKE": "Sportliches Trekking-E-Bike",
+  "HARDTAIL E-MOUNTAINBIKE": "E-Mountainbike (Hardtail)",
+  "FULL-SUSPENSION E-MTB": "E-Mountainbike (Fully)",
+  "ENDURO E-MOUNTAINBIKE": "Enduro-E-Mountainbike",
+  "EQUIPPED E-MTB HARDTAIL": "Ausgestattetes E-Mountainbike (Hardtail)",
+  "ULTRA-LIGHT E-MTB": "Leichtes E-Mountainbike",
+  "JUGEND-GRAVELBIKES": "Jugend-Gravelbikes",
+  kinderFAHRRÄDER: "Kinderfahrräder",
+};
+
+export function getProductCategoryName(category: string): string {
+  return categoryNames[category] ?? category;
+}
+
+export function getProductSubcategoryName(categoryLabel: string): string {
+  return subcategoryNames[categoryLabel] ?? categoryLabel;
 }
 
 const bikeProducts: Product[] = [
@@ -590,7 +628,7 @@ const additionalProducts: Product[] = [
     id: "cube-mtb-trikot-razzle-dazzle",
     title: "Cube MTB Trikot Razzle Dazzle kurzarm black´n´white",
     brand: "CUBE",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "TRIKOTS",
     price: 34.9,
     oldPrice: 44.9,
@@ -658,14 +696,14 @@ const additionalProducts: Product[] = [
     id: "cube-acid-200-lightolive-orange-2027",
     title: "Cube Acid 200 lightolive´n´orange (2027)",
     brand: "Cube",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 329,
     image: "/img/prod/cube-acid-200-lightolive-orange-2027.webp",
     imageFile: "/img/prod/cube-acid-200-lightolive-orange-2027.webp",
     isDraft: false,
     description:
-      "20-Zoll-Kinderfahrrad von Cube mit Shimano-Kettenschaltung mit 7 Gängen und kindgerecht abgestimmten V-Bremshebeln.",
+      "20-Zoll-kinderfahrrad von Cube mit Shimano-Kettenschaltung mit 7 Gängen und kindgerecht abgestimmten V-Bremshebeln.",
     details: [
       { label: "Laufradgröße", value: "20 Zoll" },
       { label: "Schaltung", value: "Shimano, 7 Gänge" },
@@ -676,14 +714,14 @@ const additionalProducts: Product[] = [
     id: "academy-grade-5-24-blue-2027",
     title: 'ACADEMY Grade 5 24" Blue (2027)',
     brand: "ACADEMY",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 549.99,
     image: "/img/prod/academy-grade-5-24-blue-2027.webp",
     imageFile: "/img/prod/academy-grade-5-24-blue-2027.webp",
     isDraft: false,
     description:
-      "24-Zoll-Kinderfahrrad von ACADEMY mit Shimano-Claris-Schaltung mit 8 Gängen und V-Bremsen.",
+      "24-Zoll-kinderfahrrad von ACADEMY mit Shimano-Claris-Schaltung mit 8 Gängen und V-Bremsen.",
     details: [
       { label: "Laufradgröße", value: "24 Zoll" },
       { label: "Schaltung", value: "Shimano Claris, 8 Gänge" },
@@ -826,7 +864,7 @@ const additionalProducts: Product[] = [
     id: "shimano-xc302-mtb-schuhe-ice-gray",
     title: "Shimano XC302 MTB-Schuhe ice gray",
     brand: "Shimano",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "FAHRRADSCHUHE",
     price: 114.9,
     image: "/img/prod/shimano-xc302-mtb-schuhe-ice-gray.webp",
@@ -844,7 +882,7 @@ const additionalProducts: Product[] = [
     id: "gonso-save-pants-therm-mercury-gray",
     title: "Gonso Save Pants Therm Mercury Gray",
     brand: "Gonso",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "FAHRRADHOSEN",
     price: 149.9,
     image: "/img/prod/gonso-save-pants-therm-mercury-gray.webp",
@@ -862,7 +900,7 @@ const additionalProducts: Product[] = [
     id: "vaude-minaki-jacket-iv-herren-neon-yellow",
     title: "VAUDE Minaki Jacket IV Herren neon yellow",
     brand: "VAUDE",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "JACKEN",
     price: 149.9,
     image: "/img/prod/vaude-minaki-jacket-iv-herren-neon-yellow.webp",
@@ -879,7 +917,7 @@ const additionalProducts: Product[] = [
     id: "zimtstern-bulletz-shirt-ls-men",
     title: "Zimtstern Bulletz Shirt LS Men Pirate Black/Jester Red",
     brand: "Zimtstern",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "LANGARMSHIRTS",
     price: 45.9,
     image:
@@ -902,7 +940,7 @@ const additionalProducts: Product[] = [
     id: "zimtstern-pureflowz-shirt-3-4-men",
     title: "Zimtstern PureFlowz Shirt 3/4 Men Pacific / High Rise",
     brand: "Zimtstern",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "TRIKOTS",
     price: 45.9,
     oldPrice: 47.9,
@@ -931,7 +969,7 @@ const additionalProducts: Product[] = [
     id: "vaude-tura-gloves-ii-schwarz",
     title: "VAUDE Tura Gloves II schwarz",
     brand: "VAUDE",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "HANDSCHUHE",
     price: 58.9,
     image: "/img/prod/vaude-tura-gloves-ii-schwarz.jpg",
@@ -952,7 +990,7 @@ const additionalProducts: Product[] = [
     id: "gonso-save-jacket-trail-herren",
     title: "Gonso SAVE JACKET TRAIL - Herren-All-Jacke-2,5L black",
     brand: "Gonso",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "REGENJACKEN",
     price: 199.9,
     image: "/img/prod/gonso-save-jacket-trail-herren-all-jacke-black.webp",
@@ -970,7 +1008,7 @@ const additionalProducts: Product[] = [
     id: "vaude-m-fluid-full-zip-rain-pants-ii",
     title: "VAUDE M's Fluid Full-Zip Rain Pants II Herren schwarz",
     brand: "VAUDE",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "REGENHOSEN",
     price: 106.9,
     image: "/img/prod/vaude-m-fluid-full-zip-rain-pants-ii-herren-schwarz.webp",
@@ -989,7 +1027,7 @@ const additionalProducts: Product[] = [
     id: "cube-gravel-short-black",
     title: "Cube GRAVEL Short black",
     brand: "CUBE",
-    category: "VETEMENTS",
+    category: "Kleidung",
     categoryLabel: "GRAVEL-SHORTS",
     price: 69.9,
     oldPrice: 79.95,
@@ -1012,14 +1050,14 @@ const additionalProducts: Product[] = [
     id: "academy-grade-5-24-ocean-2027",
     title: 'ACADEMY Grade 5 24" Ocean (2027)',
     brand: "ACADEMY",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 549.99,
     image: "/img/prod/academy-grade-5-24-ocean-2027.webp",
     imageFile: "/img/prod/academy-grade-5-24-ocean-2027.webp",
     isDraft: false,
     description:
-      "Leichtes 24-Zoll-Kinderfahrrad von ACADEMY für den Alltag und den Weg zur Schule.",
+      "Leichtes 24-Zoll-kinderfahrrad von ACADEMY für den Alltag und den Weg zur Schule.",
     details: [
       { label: "Laufradgröße", value: "24 Zoll" },
       { label: "Einsatz", value: "Alltag und Schulweg" },
@@ -1030,14 +1068,14 @@ const additionalProducts: Product[] = [
     id: "academy-grade-4-20-blue-2027",
     title: 'ACADEMY Grade 4 20" Blue (2027)',
     brand: "ACADEMY",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 489.99,
     image: "/img/prod/academy-grade-4-20-blue-2027.webp",
     imageFile: "/img/prod/academy-grade-4-20-blue-2027.webp",
     isDraft: false,
     description:
-      "20-Zoll-Kinderfahrrad von ACADEMY mit leichter Bauweise und ergonomisch entwickeltem Rahmen.",
+      "20-Zoll-kinderfahrrad von ACADEMY mit leichter Bauweise und ergonomisch entwickeltem Rahmen.",
     details: [
       { label: "Laufradgröße", value: "20 Zoll" },
       { label: "Farbe", value: "Blue" },
@@ -1051,7 +1089,7 @@ const additionalProducts: Product[] = [
     id: "academy-s-grade-gravel-5-24-forest-2027",
     title: 'ACCADEMY S-grade Gravel 5 24" Forest (2027)',
     brand: "ACADEMY",
-    category: "ENFANTS",
+    category: "kinder",
     categoryLabel: "JUGEND-GRAVELBIKES",
     price: 829.99,
     image: "/img/prod/academy-s-grade-gravel-5-24-forest-2027.webp",
@@ -1069,14 +1107,14 @@ const additionalProducts: Product[] = [
     id: "academy-grade-4-belt-20-ocean-2027",
     title: 'ACADEMY Grade 4 Belt 20" Ocean (2027)',
     brand: "ACADEMY",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 599.99,
     image: "/img/prod/academy-grade-4-belt-20-ocean-2027.webp",
     imageFile: "/img/prod/academy-grade-4-belt-20-ocean-2027.webp",
     isDraft: false,
     description:
-      "20-Zoll-Kinderfahrrad von ACADEMY mit Riemenantrieb, leichter Bauweise und ergonomisch entwickelter Geometrie.",
+      "20-Zoll-kinderfahrrad von ACADEMY mit Riemenantrieb, leichter Bauweise und ergonomisch entwickelter Geometrie.",
     details: [
       { label: "Laufradgröße", value: "20 Zoll" },
       { label: "Antrieb", value: "Riemenantrieb" },
@@ -1087,14 +1125,14 @@ const additionalProducts: Product[] = [
     id: "academy-grade-4-belt-20-yellow-2027",
     title: 'ACADEMY Grade 4 Belt 20" Yellow (2027)',
     brand: "ACADEMY",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 599.99,
     image: "/img/prod/academy-grade-4-belt-20-yellow-2027.webp",
     imageFile: "/img/prod/academy-grade-4-belt-20-yellow-2027.webp",
     isDraft: false,
     description:
-      "20-Zoll-Kinderfahrrad von ACADEMY mit Riemenantrieb, leichter Bauweise und ergonomisch entwickelter Geometrie.",
+      "20-Zoll-kinderfahrrad von ACADEMY mit Riemenantrieb, leichter Bauweise und ergonomisch entwickelter Geometrie.",
     details: [
       { label: "Laufradgröße", value: "20 Zoll" },
       { label: "Antrieb", value: "Riemenantrieb" },
@@ -1105,8 +1143,8 @@ const additionalProducts: Product[] = [
     id: "cannondale-kids-trail-26-tungsten-blue-2027",
     title: "Cannondale Kids Trail 26 Tungsten Blue (2027)",
     brand: "Cannondale",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 599,
     image: "/img/prod/cannondale-kids-trail-26-tungsten-blue-2027.webp",
     imageFile: "/img/prod/cannondale-kids-trail-26-tungsten-blue-2027.webp",
@@ -1124,8 +1162,8 @@ const additionalProducts: Product[] = [
     id: "puky-cyke-24-8-active-dusty-sand-black-2027",
     title: "PUKY CYKE 24-8 ACTIVE dusty sand/black (2027)",
     brand: "PUKY",
-    category: "ENFANTS",
-    categoryLabel: "KINDERFAHRRÄDER",
+    category: "kinder",
+    categoryLabel: "kinderFAHRRÄDER",
     price: 569,
     oldPrice: 579.9,
     discount: "-2 %",
@@ -1135,7 +1173,7 @@ const additionalProducts: Product[] = [
     badgePromo: true,
     isDraft: false,
     description:
-      "24-Zoll-Kinderfahrrad für Kinder ab 8 Jahren mit Aluminiumrahmen, Shimano-Schaltung mit acht Gängen und Straßenausstattung.",
+      "24-Zoll-kinderfahrrad für kinder ab 8 Jahren mit Aluminiumrahmen, Shimano-Schaltung mit acht Gängen und Straßenausstattung.",
     details: [
       { label: "Laufradgröße", value: "24 Zoll" },
       { label: "Empfohlenes Alter", value: "Ab 8 Jahren" },

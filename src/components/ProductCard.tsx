@@ -3,7 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Product } from "@/data/products";
+import {
+  getProductCategoryName,
+  getProductSubcategoryName,
+  type Product,
+} from "@/data/products";
 import { useCart } from "@/context/CartContext";
 
 interface ProductCardProps {
@@ -37,9 +41,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="velora-product-card">
-      {/* Badge PROMO conditionnel (affiché seulement si le produit est en promo) */}
+      {/* Angebots-Badge nur bei reduzierten Produkten */}
       {product.badgePromo && (
-        <span className="velora-badge-promo">PROMO</span>
+        <span className="velora-badge-promo">ANGEBOT</span>
       )}
 
       {/* Zone Supérieure : Marque, Image & Favori */}
@@ -73,15 +77,17 @@ export default function ProductCard({ product }: ProductCardProps) {
           <i className={favorite ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
         </button>
 
-        {/* Badge Catégorie (VILLE, VTC, VTT) en bas à droite de l'image */}
+        {/* Produktkategorie */}
         <span className={`velora-badge-cat cat-${product.category?.toLowerCase()}`}>
-          {product.category}
+          {getProductCategoryName(product.category)}
         </span>
       </div>
 
       {/* Informations & Spécifications */}
       <div className="velora-card-info">
-        <span className="velora-sub-cat">{product.categoryLabel}</span>
+        <span className="velora-sub-cat">
+          {getProductSubcategoryName(product.categoryLabel)}
+        </span>
         {product.isDraft && (
           <span className="catalog-draft-badge">VOR VERKAUF BESTÄTIGEN</span>
         )}

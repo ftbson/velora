@@ -31,7 +31,7 @@ export default function WishlistPage() {
           <h2>Ihre Wunschliste ist noch leer</h2>
           <p>Speichern Sie Produkte mit dem Herzsymbol, um sie hier wiederzufinden.</p>
           <Link href="/products" className="storefront-primary-link">
-            E-Bikes entdecken
+            Produkte entdecken
           </Link>
         </div>
       )}

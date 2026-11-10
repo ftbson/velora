@@ -10,7 +10,7 @@ export default function ShippingReturnsPage() {
   return (
     <LegalDocument
       title="Versand, Zahlung und Rückgabe"
-      description="Die Angaben zu Versandkosten und Zahlung entsprechen dem aktuellen Checkout. Nicht bestätigte Bedingungen sind gekennzeichnet."
+      description="Der Versand in die angebotenen Liefergebiete ist kostenlos. Hier finden Sie Informationen zu Zahlung und Rückgabe."
     >
       <section className="legal-section">
         <h2>Liefergebiet</h2>
@@ -26,10 +26,8 @@ export default function ShippingReturnsPage() {
       <section className="legal-section">
         <h2>Versandkosten</h2>
         <p>
-          Gemäss aktuellem Checkout betragen die Versandkosten CHF 15.00 bei
-          einem Warenwert bis einschliesslich CHF 150.00. Bei einem Warenwert
-          über CHF 150.00 ist der Versand kostenlos. Der im Checkout
-          ausgewiesene Betrag ist vor dem Absenden der Bestellung massgeblich.
+          Der Versand ist für alle Bestellungen kostenlos. Im Checkout werden
+          keine zusätzlichen Versandkosten berechnet.
         </p>
       </section>
 

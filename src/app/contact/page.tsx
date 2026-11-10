@@ -11,7 +11,7 @@ export default function ContactPage() {
     {
       question: "Welches E-Bike passt zu meinem Alltag?",
       answer:
-        "Für den täglichen Stadtverkehr empfehlen wir ein VILLE-Modell. Für längere Touren ist ein VTC ideal, während ein VTT für anspruchsvolle Trails ausgelegt ist.",
+        "Für den täglichen Stadtverkehr eignet sich ein City-E-Bike. Für längere Touren ist ein Trekking-E-Bike ideal, während ein E-Mountainbike für anspruchsvolle Trails ausgelegt ist.",
     },
     {
       question: "Wie weit kann ich mit einer Akkuladung fahren?",
@@ -76,7 +76,7 @@ export default function ContactPage() {
         <header className="contact-heading">
           <p className="storefront-eyebrow">VELORA SERVICE</p>
           <h1>Wir sind für Sie da</h1>
-          <p>Fragen zu unseren E-Bikes, einer Bestellung oder zum Service? Schreiben Sie uns.</p>
+          <p>Fragen zu Fahrrädern, Zubehör, Bekleidung, einer Bestellung oder zum Service? Schreiben Sie uns.</p>
         </header>
         <div className="contact-grid">
           {/* SPALTE LINKS: FAQ */}

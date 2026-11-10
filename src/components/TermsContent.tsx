@@ -37,11 +37,8 @@ export default function TermsContent() {
           <strong>[MWST-/ABGABENHINWEIS ERGÄNZEN]</strong>.
         </p>
         <p>
-          Gemäss aktuellem Checkout betragen die Versandkosten CHF 15.00 bei
-          einem Warenwert bis einschliesslich CHF 150.00; bei einem Warenwert
-          über CHF 150.00 ist der Versand kostenlos. Falls diese Bedingungen
-          nicht dauerhaft gelten, müssen sie vor Veröffentlichung angepasst
-          werden.
+          Der Versand ist für alle Bestellungen kostenlos. Es werden keine
+          zusätzlichen Versandkosten berechnet.
         </p>
       </section>
 

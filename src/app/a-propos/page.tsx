@@ -4,26 +4,26 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Über VELORA",
   description:
-    "Lernen Sie VELORA und unsere Auswahl an E-Bikes für Stadt, Alltag und Gelände kennen.",
+    "Lernen Sie VELORA und unsere Auswahl an Fahrrädern, Zubehör und Bekleidung kennen.",
 };
 
 const categories = [
   {
-    name: "VILLE",
+    name: "City-E-Bikes",
     title: "Für die Stadt",
     description:
       "Entdecken Sie Modelle für tägliche Wege und urbane Mobilität.",
     href: "/categorie/ville",
   },
   {
-    name: "VTC",
+    name: "Trekking-E-Bikes",
     title: "Für Alltag und Touren",
     description:
       "Finden Sie E-Bikes für vielseitige Wege und längere Ausfahrten.",
     href: "/categorie/vtc",
   },
   {
-    name: "VTT",
+    name: "E-Mountainbikes",
     title: "Für Wege abseits der Stadt",
     description:
       "Sehen Sie sich unsere Auswahl für Gelände und anspruchsvollere Strecken an.",
@@ -37,11 +37,11 @@ export default function AboutPage() {
       <section className="about-hero">
         <div className="about-hero-content">
           <p className="storefront-eyebrow">DIE MARKE VELORA</p>
-          <h1>Das passende E-Bike für deinen Weg.</h1>
+          <h1>Das Passende für Ihre nächste Tour.</h1>
           <p>
-            VELORA ist ein Onlineshop für E-Bikes. Wir machen es einfacher,
-            Modelle nach ihrem Einsatzbereich zu entdecken – für die Stadt,
-            vielseitige Touren oder Wege im Gelände.
+            VELORA ist Ihr Onlineshop für Fahrräder, Zubehör und
+            Fahrradbekleidung. Entdecken Sie passende Produkte für Stadt,
+            Tour und Gelände.
           </p>
           <div className="about-actions">
             <Link href="/products" className="storefront-primary-link">
@@ -55,7 +55,7 @@ export default function AboutPage() {
         </div>
         <div className="about-hero-aside" aria-hidden="true">
           <span>VELORA</span>
-          <span>VILLE · VTC · VTT</span>
+          <span>City · Trekking · Mountainbike</span>
         </div>
       </section>
 
@@ -74,8 +74,9 @@ export default function AboutPage() {
             <span>01</span>
             <h3>Nach Einsatzbereich sortiert</h3>
             <p>
-              Die Kategorien VILLE, VTC und VTT helfen Ihnen, die Auswahl nach
-              geplantem Einsatzbereich einzugrenzen.
+              Die Kategorien City-E-Bikes, Trekking-E-Bikes und
+              E-Mountainbikes helfen Ihnen, die Auswahl nach geplantem
+              Einsatzbereich einzugrenzen.
             </p>
           </article>
           <article>

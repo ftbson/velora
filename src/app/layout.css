@@ -286,8 +286,14 @@ a {
   display: none;
 }
 
+.velora-nav-links .fa-chevron-right {
+  display: none;
+}
 /* Affiché uniquement sur écran mobile (Menu Hamburger Ouvert) */
 @media (max-width: 992px) {
+.velora-nav-links .fa-chevron-right {
+  display: flex;
+}
   .velora-nav-links li a {
     display: flex;
     align-items: center;
@@ -1153,5 +1159,169 @@ a {
   .about-value-grid,
   .about-category-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   VELORA EXPERIENCE VIDEO SECTION
+   ========================================== */
+
+.velora-experience-section {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 60px 0;
+}
+
+.velora-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.velora-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Voile sombre pour un contraste parfait avec le texte */
+.velora-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
+  z-index: 2;
+}
+
+/* Contenu centré par-dessus la vidéo */
+.velora-experience-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 20px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.velora-experience-badge {
+  background-color: #D52B1E; /* Rouge Suisse */
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.velora-experience-title {
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin: 0;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.velora-experience-subtitle {
+  font-size: 16px;
+  color: #e0e0e0;
+  max-width: 700px;
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+}
+
+/* Boutons d'action */
+.velora-experience-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.velora-btn-primary {
+  background-color: #D52B1E;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(213, 43, 30, 0.4);
+}
+
+.velora-btn-primary:hover {
+  background-color: #b01f14;
+  transform: translateY(-2px);
+}
+
+.velora-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.velora-btn-secondary:hover {
+  background-color: #ffffff;
+  color: #111111;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   RESPONSIVE MOBILE
+   ========================================== */
+@media (max-width: 768px) {
+  .velora-experience-section {
+    height: 480px;
+  }
+
+  .velora-experience-title {
+    font-size: 26px;
+  }
+
+  .velora-experience-subtitle {
+    font-size: 14px;
+  }
+
+  .velora-experience-actions {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .velora-btn-primary,
+  .velora-btn-secondary {
+    width: 100%;
+    text-align: center;
   }
 }

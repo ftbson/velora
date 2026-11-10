@@ -7,48 +7,48 @@ import Image from "next/image";
 const categories = [
   {
     id: "ville",
-    name: "CITY E-BIKES",
-    subName: "VILLE",
+    name: "City-E-Bikes",
+    subName: "STADT",
     link: "/categorie/ville",
     image: "/img/city.jpg", // Remplace par tes images
     buttonText: "Entdecken",
   },
   {
     id: "vtc",
-    name: "TREKKING E-BIKES",
-    subName: "VTC",
+    name: "Trekking-E-Bikes",
+    subName: "TOUR",
     link: "/categorie/vtc",
     image: "/img/TREKKING.jpg",
     buttonText: "Entdecken",
   },
   {
     id: "vtt",
-    name: "E-MOUNTAINBIKES",
-    subName: "VTT",
+    name: "E-Mountainbikes",
+    subName: "GELÄNDE",
     link: "/categorie/vtt",
     image: "/img/E-MOUNTAINBIKES.jpg",
     buttonText: "Entdecken",
   },
   {
     id: "accessoires",
-    name: "FAHRRADZUBEHÖR",
-    subName: "ACCESSOIRES",
+    name: "Fahrradzubehör",
+    subName: "ZUBEHÖR",
     link: "/categorie/accessoires",
-     image: "/img/accessoires.jpg",
+    image: "/img/accessoires.jpg",
     buttonText: "Entdecken",
   },
   {
     id: "vetements",
-    name: "RADBEKLEIDUNG",
-    subName: "RADBEKLEIDUNG",
+    name: "Fahrradbekleidung",
+    subName: "BEKLEIDUNG",
     link: "/categorie/vetements",
     image: "/img/vetements.jpg",
     buttonText: "Entdecken",
   },
   {
     id: "enfants",
-    name: "KINDERFAHRRÄDER",
-    subName: "ENFANTS",
+    name: "Kinderfahrräder",
+    subName: "FÜR KINDER",
     link: "/categorie/enfants",
     image: "/img/enfants.jpg",
     buttonText: "Entdecken",
@@ -68,7 +68,7 @@ export default function CategorySection() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
 
     const elements = sectionRef.current?.querySelectorAll(".velora-reveal");
@@ -88,7 +88,7 @@ export default function CategorySection() {
           </h2>
         </div>
 
-        {/* Grille des 3 catégories (Style 2ème image) */}
+        {/* Kategorienübersicht */}
         <div className="velora-categories-grid">
           {categories.map((cat, index) => (
             <div

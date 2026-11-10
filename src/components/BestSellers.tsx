@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
-import { productsData } from "@/data/products";
+import { getProductCategoryName, productsData } from "@/data/products";
 
 export default function BestSellers() {
   const { addToCart } = useCart();
@@ -50,7 +50,9 @@ export default function BestSellers() {
 
               {/* Détails du produit */}
               <div className="product-info">
-                <span className="product-category">{product.category}</span>
+                <span className="product-category">
+                  {getProductCategoryName(product.category)}
+                </span>
                 <h3 className="product-title">
                   <Link href={`/produkt/${product.id}`}>
                     {product.title}

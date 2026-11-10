@@ -136,7 +136,7 @@ export default function Navbar() {
               <Link href="/categorie/enfants" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-child nav-icon-mobile"></i>
-                  Enfants
+                  Kinderfahrräder
                 </span>
                 <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
@@ -146,7 +146,7 @@ export default function Navbar() {
               <Link href="/categorie/vetements" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-shirt nav-icon-mobile"></i>
-                  Vêtements
+                  Fahrradbekleidung
                 </span>
                 <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
@@ -156,7 +156,7 @@ export default function Navbar() {
               <Link href="/categorie/accessoires" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-helmet-safety nav-icon-mobile"></i>
-                  Accessoires
+                  Zubehör
                 </span>
                 <i className="fa-solid fa-chevron-right nav-arrow-mobile"></i>
               </Link>
