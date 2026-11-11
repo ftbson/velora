@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import SearchBar from "@/components/SearchBar";
 
 export default function Navbar() {
   const { favorites, totalItems } = useCart();
@@ -42,14 +43,7 @@ export default function Navbar() {
 
           {/* Recherche Desktop */}
           <div className="velora-search-container desktop-only">
-            <div className="velora-search-box">
-              <i className="fa-solid fa-magnifying-glass velora-search-icon"></i>
-              <input 
-                type="text" 
-                placeholder="E-Bikes, Zubehör suchen..." 
-                className="velora-search-input"
-              />
-            </div>
+            <SearchBar />
           </div>
 
           {/* Droite : Recherche Mobile, Favoris & Panier */}
@@ -195,13 +189,10 @@ export default function Navbar() {
         <div className="velora-mobile-search-modal">
           <div className="velora-mobile-search-content">
             <div className="velora-mobile-search-header">
-              <div className="velora-search-box">
-                <i className="fa-solid fa-magnifying-glass velora-search-icon"></i>
-                <input 
-                  type="text" 
-                  placeholder="E-Bikes, Zubehör suchen..." 
-                  className="velora-search-input"
+              <div className="velora-mobile-search-bar-wrap">
+                <SearchBar
                   autoFocus
+                  onNavigate={() => setIsMobileSearchOpen(false)}
                 />
               </div>
               <button 
