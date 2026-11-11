@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
+import { SITE_CONFIG } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Impressum",
@@ -35,9 +36,9 @@ export default function ImpressumPage() {
       <section className="legal-section">
         <h2>Kontakt</h2>
         <p>
-          E-Mail: <strong>[ÖFFENTLICHE KONTAKT-E-MAIL]</strong>
+          E-Mail: <a href={`mailto:${SITE_CONFIG.email}`}><strong>{SITE_CONFIG.email}</strong></a>
           <br />
-          Telefon: <strong>[TELEFONNUMMER, falls angeboten]</strong>
+          Telefon: <a href={`tel:${SITE_CONFIG.phoneRaw}`}><strong>{SITE_CONFIG.phone}</strong></a>
         </p>
       </section>
 

@@ -1,3 +1,5 @@
+import { SITE_CONFIG } from "@/config/site";
+
 export default function TermsContent() {
   return (
     <>
@@ -55,7 +57,8 @@ export default function TermsContent() {
         <p>
           Bitte prüfen Sie Ihre Angaben vor dem Absenden. Bei einem Fehler
           kontaktieren Sie den Kundenservice unter{" "}
-          <strong>[KUNDENSERVICE-E-MAIL]</strong>.
+          <a href={`mailto:${SITE_CONFIG.email}`}><strong>{SITE_CONFIG.email}</strong></a> oder telefonisch unter{" "}
+          <a href={`tel:${SITE_CONFIG.phoneRaw}`}><strong>{SITE_CONFIG.phone}</strong></a>.
         </p>
       </section>
 

@@ -4,6 +4,7 @@ import "./globals.css";
 import "./layout.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CookieBanner from "@/components/CookieBanner";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -124,6 +125,7 @@ export default async function RootLayout({
                 {children}
               </main>
               {!isAdminRoute && <Footer />}
+              {!isAdminRoute && <CookieBanner />}
             </div>
           </AuthProvider>
         </CartProvider>

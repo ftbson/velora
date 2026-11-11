@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { productsData } from "@/data/products";
 import ProductDetailActions from "@/components/ProductDetailActions";
+import { SITE_CONFIG } from "@/config/site";
 
 export async function generateStaticParams() {
   return productsData.map((product) => ({
@@ -105,6 +106,34 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
             {/* Boutons d'action */}
             <ProductDetailActions product={product} />
+
+            {/* Garanties & Avantages Livraison Gratuite */}
+            <div className="velora-detail-trust-box">
+              <div className="velora-trust-item">
+                <i className="fa-solid fa-truck-fast"></i>
+                <div>
+                  <strong>{SITE_CONFIG.shipping.title} (0.00 CHF)</strong>
+                  <span>Kostenlose Lieferung in der ganzen Schweiz &amp; Liechtenstein</span>
+                </div>
+              </div>
+              <div className="velora-trust-item">
+                <i className="fa-solid fa-clock"></i>
+                <div>
+                  <strong>Lieferzeit</strong>
+                  <span>{SITE_CONFIG.shipping.delay}</span>
+                </div>
+              </div>
+              <div className="velora-trust-item">
+                <i className="fa-solid fa-phone"></i>
+                <div>
+                  <strong>Telefonische Beratung</strong>
+                  <span>
+                    Fragen? Rufen Sie uns an:{" "}
+                    <a href={`tel:${SITE_CONFIG.phoneRaw}`}>{SITE_CONFIG.phone}</a>
+                  </span>
+                </div>
+              </div>
+            </div>
 
             {/* Détails techniques */}
             {product.specs && (

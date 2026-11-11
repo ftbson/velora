@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
+import CookieSettingsButton from "@/components/CookieSettingsButton";
 
 export const metadata: Metadata = {
   title: "Cookies und lokaler Speicher",
@@ -55,6 +56,9 @@ export default function CookiesPage() {
           Weitere Informationen zur Bearbeitung Ihrer Daten enthält die{" "}
           <a href="/legal/privacy">Datenschutzerklärung</a>.
         </p>
+        <div style={{ marginTop: "16px" }}>
+          <CookieSettingsButton />
+        </div>
       </section>
     </LegalDocument>
   );

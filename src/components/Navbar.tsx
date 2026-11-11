@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import SearchBar from "@/components/SearchBar";
+import { SITE_CONFIG } from "@/config/site";
 
 export default function Navbar() {
   const { favorites, totalItems } = useCart();
@@ -15,6 +16,31 @@ export default function Navbar() {
 
   return (
     <header className="velora-header">
+      {/* Top Announcement Bar */}
+      <div className="velora-topbar">
+        <div className="velora-topbar-container">
+          <div className="velora-topbar-left">
+            <span className="velora-topbar-badge">
+              <i className="fa-solid fa-truck-fast"></i> Kostenloser Versand
+            </span>
+            <span className="velora-topbar-text">
+              Kostenlose Lieferung in der ganzen Schweiz &amp; Liechtenstein
+            </span>
+          </div>
+          <div className="velora-topbar-right">
+            <a href={`tel:${SITE_CONFIG.phoneRaw}`} className="velora-topbar-link">
+              <i className="fa-solid fa-phone"></i>
+              <span>{SITE_CONFIG.phone}</span>
+            </a>
+            <span className="velora-topbar-divider">•</span>
+            <a href={`mailto:${SITE_CONFIG.email}`} className="velora-topbar-link">
+              <i className="fa-solid fa-envelope"></i>
+              <span>{SITE_CONFIG.email}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Barre Principale Haut (Fond Blanc) */}
       <div className="velora-main-nav">
         <div className="velora-nav-container">

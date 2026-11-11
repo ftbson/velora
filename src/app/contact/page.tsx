@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SITE_CONFIG } from "@/config/site";
 
 export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -78,6 +79,46 @@ export default function ContactPage() {
           <h1>Wir sind für Sie da</h1>
           <p>Fragen zu Fahrrädern, Zubehör, Bekleidung, einer Bestellung oder zum Service? Schreiben Sie uns.</p>
         </header>
+
+        {/* Coordonnées directes */}
+        <div className="contact-quick-cards">
+          <div className="contact-quick-card">
+            <div className="contact-quick-icon">
+              <i className="fa-solid fa-phone"></i>
+            </div>
+            <div className="contact-quick-content">
+              <h3>Telefonischer Kundenservice</h3>
+              <a href={`tel:${SITE_CONFIG.phoneRaw}`} className="contact-quick-value">
+                {SITE_CONFIG.phone}
+              </a>
+              <p>{SITE_CONFIG.openingHours}</p>
+            </div>
+          </div>
+
+          <div className="contact-quick-card">
+            <div className="contact-quick-icon">
+              <i className="fa-solid fa-envelope"></i>
+            </div>
+            <div className="contact-quick-content">
+              <h3>E-Mail-Support</h3>
+              <a href={`mailto:${SITE_CONFIG.email}`} className="contact-quick-value">
+                {SITE_CONFIG.email}
+              </a>
+              <p>Schnelle Rückmeldung werktags innerhalb von 24h</p>
+            </div>
+          </div>
+
+          <div className="contact-quick-card">
+            <div className="contact-quick-icon">
+              <i className="fa-solid fa-truck-fast"></i>
+            </div>
+            <div className="contact-quick-content">
+              <h3>Kostenlose Lieferung</h3>
+              <span className="contact-quick-value">0.00 CHF Versand</span>
+              <p>Für alle Bestellungen in der Schweiz &amp; Liechtenstein</p>
+            </div>
+          </div>
+        </div>
         <div className="contact-grid">
           {/* SPALTE LINKS: FAQ */}
           <div className="faq-column">

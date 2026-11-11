@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
+import { SITE_CONFIG } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Versand, Zahlung und Rückgabe",
@@ -66,8 +67,8 @@ export default function ShippingReturnsPage() {
         </p>
         <p>
           Bitte stimmen Sie eine Rücksendung vorab über{" "}
-          <strong>[KUNDENSERVICE-E-MAIL]</strong> ab. Dieser Hinweis ersetzt
-          nicht die noch zu ergänzenden verbindlichen Rückgabebedingungen.
+          <a href={`mailto:${SITE_CONFIG.email}`}><strong>{SITE_CONFIG.email}</strong></a> oder telefonisch unter{" "}
+          <a href={`tel:${SITE_CONFIG.phoneRaw}`}><strong>{SITE_CONFIG.phone}</strong></a> ab.
         </p>
       </section>
 
