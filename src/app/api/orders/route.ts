@@ -16,6 +16,16 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
+// Format d'ID simple et lisible : ORD-ANNEE-MOIS-JOUR-XXXX (ex: ORD-2026-11-12-4821)
+function generateOrderId(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const suffix = Math.floor(1000 + Math.random() * 9000);
+  return `ORD-${year}-${month}-${day}-${suffix}`;
+}
+
 // Create an order from catalog prices, never from client-provided totals.
 export async function POST(request: Request) {
   if (!isSameOriginRequest(request)) {
@@ -115,7 +125,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const orderId = `ORD-${randomUUID()}`;
+    const orderId = generateOrderId();
     const createdAt = new Date().toISOString();
 
     await db.transaction(async (tx) => {

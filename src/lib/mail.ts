@@ -4,16 +4,16 @@ import type { SendMailOptions, Transporter } from "nodemailer";
 let cachedTransporter: Transporter | null = null;
 
 export const notificationEmail =
-  process.env.ADMIN_EMAIL || process.env.SMTP_USER || "info@swisholz.ch";
+  process.env.ADMIN_EMAIL || process.env.SMTP_USER || "kontact@veloras.ch";
 
 function getTransporter(): Transporter {
   if (cachedTransporter) {
     return cachedTransporter;
   }
 
-  const smtpHost = process.env.SMTP_HOST || "mail.swisholz.ch";
+  const smtpHost = process.env.SMTP_HOST || "mail.veloras.ch";
   const smtpPort = Number(process.env.SMTP_PORT ?? 465);
-  const smtpUser = process.env.SMTP_USER || "info@swisholz.ch";
+  const smtpUser = process.env.SMTP_USER || "kontact@veloras.ch";
   const smtpPass = process.env.SMTP_PASS || "";
 
   cachedTransporter = nodemailer.createTransport({
@@ -36,7 +36,7 @@ function getTransporter(): Transporter {
 
 export async function sendMail(options: SendMailOptions) {
   const transporter = getTransporter();
-  const fromAddress = process.env.SMTP_USER || "info@swisholz.ch";
+  const fromAddress = process.env.SMTP_USER || "kontact@veloras.ch";
 
   return transporter.sendMail({
     from: `VELORA <${fromAddress}>`,
@@ -331,7 +331,7 @@ export async function sendCustomerOrderStatusEmail({
             <strong style="color: #111827;">Haben Sie Fragen zu Ihrer Bestellung?</strong><br>
             Unser Kundenservice hilft Ihnen gerne:<br>
             📞 Telefon: <a href="tel:+41767529493" style="color: #D52B1E; font-weight: 600; text-decoration: none;">+41 76 752 94 93</a> (Mo. – Fr. 08:30 – 18:00 Uhr)<br>
-            ✉️ E-Mail: <a href="mailto:info@swisholz.ch" style="color: #D52B1E; font-weight: 600; text-decoration: none;">info@swisholz.ch</a>
+            ✉️ E-Mail: <a href="mailto:kontact@veloras.ch" style="color: #D52B1E; font-weight: 600; text-decoration: none;">kontact@veloras.ch</a>
           </div>
 
         </div>
@@ -362,7 +362,7 @@ export async function sendCustomerOrderStatusEmail({
     "",
     "Haben Sie Fragen?",
     "Telefon: +41 76 752 94 93",
-    "E-Mail: info@swisholz.ch",
+    "E-Mail: kontact@veloras.ch",
     "",
     "Mit freundlichen Grüssen,",
     "Ihr VELORA Team",
