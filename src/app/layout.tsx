@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 import "./layout.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CookieBanner from "@/components/CookieBanner";
+import ClientLayoutShell from "@/components/ClientLayoutShell";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -85,12 +83,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Récupération du pathname pour exclure la Nav & Footer sur les routes /admin
-  const headersList = await headers();
-  const pathname = headersList.get("x-current-path") || headersList.get("next-url") || "";
-  
-  const isAdminRoute = pathname.startsWith("/admin");
-
   return (
     <html lang="de-CH">
       <head>
@@ -112,21 +104,7 @@ export default async function RootLayout({
       <body>
         <CartProvider>
           <AuthProvider>
-            <div
-              className="app-container"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100vh",
-              }}
-            >
-              {!isAdminRoute && <Navbar />}
-              <main className="main-content" style={{ flex: 1 }}>
-                {children}
-              </main>
-              {!isAdminRoute && <Footer />}
-              {!isAdminRoute && <CookieBanner />}
-            </div>
+            <ClientLayoutShell>{children}</ClientLayoutShell>
           </AuthProvider>
         </CartProvider>
       </body>

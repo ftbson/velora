@@ -9,7 +9,7 @@ import {
 } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { orderItems, orders } from "@/lib/schema";
-import { sendMail } from "@/lib/mail";
+import { sendAdminNewOrderEmail } from "@/lib/mail";
 import { productsData } from "@/data/products";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -146,31 +146,24 @@ export async function POST(request: Request) {
 
     let emailNotificationSent = true;
     try {
-      await sendMail({
-        subject: `[VELORA-Bestellung] ${orderId} - ${firstName} ${lastName}`,
-        replyTo: orderEmail,
-        text: [
-          "Neue VELORA-Bestellung",
-          "",
-          `Bestellnummer: ${orderId}`,
-          `Kunde: ${firstName} ${lastName}`,
-          `Land: ${country}`,
-          `Lieferadresse: ${streetAddress}`,
-          `Telefon: ${whatsapp}`,
-          `E-Mail: ${orderEmail}`,
-          "",
-          "Produkte:",
-          ...items.map(
-            (item) =>
-              `- ${item.quantity} x ${item.title} (${item.category}) - CHF ${(item.unitPrice * item.quantity).toFixed(2)}`,
-          ),
-          "",
-          `Zwischensumme: CHF ${subtotal.toFixed(2)}`,
-          `Lieferung: CHF ${shippingCost.toFixed(2)}`,
-          `Gesamt: CHF ${grandTotal.toFixed(2)}`,
-          "Status: pending",
-          `Datum: ${createdAt}`,
-        ].join("\n"),
+      await sendAdminNewOrderEmail({
+        orderId,
+        firstName,
+        lastName,
+        country,
+        streetAddress,
+        whatsapp,
+        email: orderEmail,
+        subtotal,
+        shippingCost,
+        grandTotal,
+        createdAt,
+        items: items.map((item) => ({
+          title: item.title,
+          category: item.category,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+        })),
       });
     } catch (error) {
       emailNotificationSent = false;

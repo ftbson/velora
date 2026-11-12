@@ -2,7 +2,8 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated, isSameOriginRequest } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { orders } from "@/lib/schema";
+import { orderItems, orders } from "@/lib/schema";
+import { sendCustomerOrderStatusEmail } from "@/lib/mail";
 
 const orderStatuses = ["pending", "paid", "shipped", "cancelled"] as const;
 
@@ -35,6 +36,22 @@ export async function PATCH(
     }
 
     const { id } = await params;
+
+    // Récupération préalable de la commande pour avoir les coordonnées du client
+    const existingOrders = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.id, id))
+      .limit(1);
+
+    if (existingOrders.length === 0) {
+      return NextResponse.json({ error: "Bestellung nicht gefunden." }, { status: 404 });
+    }
+
+    const currentOrder = existingOrders[0];
+    const previousStatus = currentOrder.status;
+
+    // Mise à jour du statut dans la base de données
     const result = await db
       .update(orders)
       .set({ status })
@@ -44,7 +61,48 @@ export async function PATCH(
       return NextResponse.json({ error: "Bestellung nicht gefunden." }, { status: 404 });
     }
 
-    return NextResponse.json({ success: true, id, status });
+    // Si le statut a changé, on envoie un e-mail au client
+    let customerEmailSent = false;
+    if (previousStatus !== status && currentOrder.email) {
+      try {
+        const items = await db
+          .select()
+          .from(orderItems)
+          .where(eq(orderItems.orderId, id));
+
+        await sendCustomerOrderStatusEmail({
+          order: {
+            id: currentOrder.id,
+            firstName: currentOrder.firstName,
+            lastName: currentOrder.lastName,
+            email: currentOrder.email,
+            country: currentOrder.country,
+            streetAddress: currentOrder.streetAddress,
+            grandTotal: currentOrder.grandTotal,
+          },
+          newStatus: status,
+          items: items.map((item) => ({
+            title: item.title,
+            category: item.category,
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+          })),
+        });
+        customerEmailSent = true;
+      } catch (emailError) {
+        console.error(
+          `Statut mis à jour pour la commande ${id}, mais l'envoi de l'e-mail client a échoué :`,
+          emailError,
+        );
+      }
+    }
+
+    return NextResponse.json({
+      success: true,
+      id,
+      status,
+      customerEmailSent,
+    });
   } catch (error) {
     console.error("Erreur lors de la mise à jour du statut de commande :", error);
     return NextResponse.json(

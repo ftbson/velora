@@ -88,6 +88,10 @@ export default function AdminPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [orderStatusError, setOrderStatusError] = useState("");
+  const [orderStatusFeedback, setOrderStatusFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
   const [bankDetails, setBankDetails] = useState<BankDetails>(emptyBankDetails);
   const [loadingBankDetails, setLoadingBankDetails] = useState(true);
   const [savingBankDetails, setSavingBankDetails] = useState(false);
@@ -149,19 +153,31 @@ export default function AdminPage() {
     status: NonNullable<Order["status"]>,
   ) => {
     setOrderStatusError("");
+    setOrderStatusFeedback(null);
     try {
       const response = await fetch(`/api/admin/orders/${encodeURIComponent(orderId)}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
+      const data = await response.json();
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.error || "Bestellstatus konnte nicht gespeichert werden.");
       }
       setOrders((previous) =>
         previous.map((order) => (order.id === orderId ? { ...order, status } : order)),
       );
+      if (data.customerEmailSent) {
+        setOrderStatusFeedback({
+          type: "success",
+          message: `Status für #${orderId} auf «${status}» aktualisiert. Bestätigungs-E-Mail wurde erfolgreich an den Kunden gesendet!`,
+        });
+      } else {
+        setOrderStatusFeedback({
+          type: "success",
+          message: `Status für #${orderId} auf «${status}» aktualisiert.`,
+        });
+      }
     } catch (error) {
       console.error("Fehler beim Aktualisieren des Bestellstatus:", error);
       setOrderStatusError(
@@ -420,6 +436,14 @@ export default function AdminPage() {
       {orderStatusError && (
         <p className="admin-bank-status admin-bank-status-error" role="alert">
           {orderStatusError}
+        </p>
+      )}
+      {orderStatusFeedback && (
+        <p
+          className={`admin-bank-status admin-bank-status-${orderStatusFeedback.type}`}
+          role="status"
+        >
+          {orderStatusFeedback.message}
         </p>
       )}
       {loadingOrders ? (

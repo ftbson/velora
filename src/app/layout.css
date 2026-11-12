@@ -2306,3 +2306,25 @@ a.contact-quick-value:hover {
     text-align: center;
   }
 }
+
+/* ==========================================
+   ADMIN LAYOUT ISOLATION (MASQUER NAV ET FOOTER)
+   ========================================== */
+.is-admin-route .velora-header,
+.is-admin-route .velora-topbar,
+.is-admin-route .velora-footer,
+.is-admin-route .velora-cookie-overlay,
+body.is-admin-route .velora-header,
+body.is-admin-route .velora-topbar,
+body.is-admin-route .velora-footer,
+body.is-admin-route .velora-cookie-overlay,
+body:has(.admin-container) .velora-header,
+body:has(.admin-container) .velora-topbar,
+body:has(.admin-container) .velora-footer,
+body:has(.admin-container) .velora-cookie-overlay,
+body:has(.admin-login-wrapper) .velora-header,
+body:has(.admin-login-wrapper) .velora-topbar,
+body:has(.admin-login-wrapper) .velora-footer,
+body:has(.admin-login-wrapper) .velora-cookie-overlay {
+  display: none !important;
+}
