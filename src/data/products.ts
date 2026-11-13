@@ -810,8 +810,8 @@ const additionalProducts: Product[] = [
     category: "ACCESSOIRES",
     categoryLabel: "FAHRRADTASCHEN",
     price: 117.9,
-    image: "/img/prod/vaude-cyclist-pack-fahrradtasche-schwarz.webp",
-    imageFile: "/img/prod/vaude-cyclist-pack-fahrradtasche-schwarz.webp",
+    image: "/img/prod/vaude-cyclist-pack-fahrradtasche-schwarz.jpg",
+    imageFile: "/img/prod/vaude-cyclist-pack-fahrradtasche-schwarz.jpg",
     isDraft: false,
     description:
       "Schwarze VAUDE-Fahrradtasche mit Stauraum für Alltag und Touren. Der Hersteller beschreibt sie als robust und wetterfest.",

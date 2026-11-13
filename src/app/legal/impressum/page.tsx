@@ -1,61 +1,103 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
-import { SITE_CONFIG } from "@/config/site";
+import { companyConfig, getFormattedAddress } from "@/config/company";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Anbieter- und Kontaktangaben von VELORA.",
+  description: "Rechtliche Angaben zum Anbieter VELORA – Firma, Adresse, Kontakt, Registereinträge und verantwortliche Person.",
 };
 
 export default function ImpressumPage() {
+  const c = companyConfig;
+  const address = getFormattedAddress();
+
   return (
     <LegalDocument
       title="Impressum"
-      description="Angaben zum Anbieter und Kontaktmöglichkeiten."
+      description="Angaben zum Anbieter, Kontakt und Registereinträgen gemäss Schweizer Recht."
     >
       <section className="legal-section">
         <h2>Anbieter</h2>
         <p>
-          <strong>[VOLLSTÄNDIGER RECHTLICHER UNTERNEHMENSNAME]</strong>
+          {c.legalName ? <strong>{c.legalName}</strong> : <em className="missing-field">[Raison sociale – À REMPLIR dans company.ts]</em>}
           <br />
-          [RECHTSFORM, falls zutreffend]
+          {c.legalForm ? c.legalForm : <em className="missing-field">[Rechtsform – À REMPLIR]</em>}
           <br />
-          [STRASSE UND HAUSNUMMER]
-          <br />
-          [PLZ UND ORT]
-          <br />
-          [LAND]
+          {address || <em className="missing-field">[Adresse complète – À REMPLIR]</em>}
         </p>
       </section>
 
       <section className="legal-section">
         <h2>Vertretungsberechtigte Person</h2>
-        <p>[VOR- UND NACHNAME, falls für die Rechtsform erforderlich]</p>
+        <p>
+          {c.responsiblePerson ? c.responsiblePerson : <em className="missing-field">[Name der vertretungsberechtigten Person – À REMPLIR]</em>}
+        </p>
       </section>
 
       <section className="legal-section">
         <h2>Kontakt</h2>
         <p>
-          E-Mail: <a href={`mailto:${SITE_CONFIG.email}`}><strong>{SITE_CONFIG.email}</strong></a>
+          E-Mail: <a href={`mailto:${c.email}`}><strong>{c.email}</strong></a>
           <br />
-          Telefon: <a href={`tel:${SITE_CONFIG.phoneRaw}`}><strong>{SITE_CONFIG.phone}</strong></a>
+          Telefon: <a href={`tel:${c.phoneRaw}`}><strong>{c.phone}</strong></a>
+          <br />
+          {c.openingHours && <span>Öffnungszeiten: {c.openingHours}</span>}
         </p>
       </section>
 
       <section className="legal-section">
-        <h2>Unternehmensangaben</h2>
+        <h2>Handelsregister & UID</h2>
         <p>
-          Handelsregister / UID: <strong>[ANGABE ODER «NICHT ZUTREFFEND»]</strong>
+          {c.uid ? (
+            <>UID / IDE: <strong>{c.uid}</strong></>
+          ) : (
+            <em className="missing-field">[UID/IDE – À REMPLIR]</em>
+          )}
           <br />
-          Mehrwertsteuernummer:{" "}
-          <strong>[ANGABE ODER «NICHT MWST-PFLICHTIG»]</strong>
+          {c.commercialRegister ? (
+            <>Handelsregister: <strong>{c.commercialRegister}</strong></>
+          ) : (
+            <em className="missing-field">[Handelsregistereintrag – À REMPLIR]</em>
+          )}
+        </p>
+      </section>
+
+      <section className="legal-section">
+        <h2>Mehrwertsteuer</h2>
+        <p>
+          {c.vatNumber ? (
+            <>Mehrwertsteuernummer: <strong>{c.vatNumber}</strong></>
+          ) : (
+            <span>Nicht mehrwertsteuerpflichtig oder <em className="missing-field">[MWST-Nummer – À REMPLIR falls zutreffend]</em></span>
+          )}
         </p>
       </section>
 
       <section className="legal-section">
         <h2>Verantwortlich für den Inhalt</h2>
         <p>
-          <strong>[NAME UND POSTANSCHRIFT DER VERANTWORTLICHEN PERSON]</strong>
+          {c.responsiblePerson ? <strong>{c.responsiblePerson}</strong> : <em className="missing-field">[Verantwortliche Person – À REMPLIR]</em>}
+          <br />
+          {address}
+        </p>
+      </section>
+
+      <section className="legal-section">
+        <h2>Aufsichtsbehörde (falls reguliert)</h2>
+        <p>
+          Keine branchenspezifische Aufsichtsbehörde für den Online-Handel mit Fahrrädern und Zubehör.
+        </p>
+      </section>
+
+      <section className="legal-section">
+        <h2>Streitschlichtung</h2>
+        <p>
+          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">
+            https://ec.europa.eu/consumers/odr/
+          </a>
+          <br />
+          Wir sind nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
         </p>
       </section>
     </LegalDocument>

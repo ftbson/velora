@@ -1,21 +1,24 @@
 {
-  "name": "SWISSHOLZ",
+  "name": "velora",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsx scripts/validate-config.ts && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "validate:config": "tsx scripts/validate-config.ts"
   },
   "dependencies": {
     "@libsql/client": "^0.17.4",
     "@types/nodemailer": "^8.0.2",
+    "date-fns": "^4.4.0",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.6",
     "nodemailer": "^10.0.10",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "stripe": "^23.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -26,6 +29,7 @@
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "tsx": "^4.19.0",
     "typescript": "^5"
   }
 }

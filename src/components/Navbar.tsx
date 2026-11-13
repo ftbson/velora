@@ -6,13 +6,15 @@ import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import SearchBar from "@/components/SearchBar";
-import { SITE_CONFIG } from "@/config/site";
+import { companyConfig } from "@/config/company";
 
 export default function Navbar() {
   const { favorites, totalItems } = useCart();
   const { user, isLoading } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+
+  const c = companyConfig;
 
   return (
     <header className="velora-header">
@@ -24,18 +26,18 @@ export default function Navbar() {
               <i className="fa-solid fa-truck-fast"></i> Kostenloser Versand
             </span>
             <span className="velora-topbar-text">
-              Kostenlose Lieferung in der ganzen Schweiz &amp; Liechtenstein
+              Kostenlose Lieferung in der ganzen Schweiz & Liechtenstein
             </span>
           </div>
           <div className="velora-topbar-right">
-            <a href={`tel:${SITE_CONFIG.phoneRaw}`} className="velora-topbar-link">
+            <a href={`tel:${c.phoneRaw}`} className="velora-topbar-link">
               <i className="fa-solid fa-phone"></i>
-              <span>{SITE_CONFIG.phone}</span>
+              <span>{c.phone}</span>
             </a>
             <span className="velora-topbar-divider">•</span>
-            <a href={`mailto:${SITE_CONFIG.email}`} className="velora-topbar-link">
+            <a href={`mailto:${c.email}`} className="velora-topbar-link">
               <i className="fa-solid fa-envelope"></i>
-              <span>{SITE_CONFIG.email}</span>
+              <span>{c.email}</span>
             </a>
           </div>
         </div>
@@ -44,11 +46,11 @@ export default function Navbar() {
       {/* Barre Principale Haut (Fond Blanc) */}
       <div className="velora-main-nav">
         <div className="velora-nav-container">
-          
+
           {/* Gauche : Mobile Hamburger + Logo */}
           <div className="velora-nav-left">
-            <button 
-              className="velora-hamburger-btn" 
+            <button
+              className="velora-hamburger-btn"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Menu"
             >
@@ -56,11 +58,11 @@ export default function Navbar() {
             </button>
 
             <Link href="/" className="velora-logo-link">
-              <Image 
-                src="/img/logo.png" 
-                alt="VELORA Logo" 
-                width={130} 
-                height={45} 
+              <Image
+                src="/img/logo.png"
+                alt={`${c.brandName} Logo`}
+                width={130}
+                height={45}
                 priority
                 className="velora-logo-img"
               />
@@ -75,7 +77,7 @@ export default function Navbar() {
           {/* Droite : Recherche Mobile, Favoris & Panier */}
           <div className="velora-nav-right">
             <Link
-              href={user ? "/compte" : "/connexion"}
+              href={user ? "/konto" : "/anmelden"}
               className="velora-account-link"
               aria-label={user ? `Konto von ${user.name}` : "Anmelden oder Konto erstellen"}
             >
@@ -86,8 +88,8 @@ export default function Navbar() {
             </Link>
 
             {/* Bouton Loupe (Mobile uniquement) */}
-            <button 
-              className="velora-icon-btn mobile-only" 
+            <button
+              className="velora-icon-btn mobile-only"
               onClick={() => setIsMobileSearchOpen(true)}
               aria-label="Suchen"
             >
@@ -96,7 +98,7 @@ export default function Navbar() {
 
             {/* Favoris */}
             <Link
-              href="/wishlist"
+              href="/wunschliste"
               className="velora-icon-btn"
               aria-label={`Wunschliste, ${favorites.length} Produkte`}
             >
@@ -106,7 +108,7 @@ export default function Navbar() {
 
             {/* Panier */}
             <Link
-              href="/panier"
+              href="/warenkorb"
               className="velora-icon-btn"
               aria-label={`Warenkorb, ${totalItems} Artikel`}
             >
@@ -133,7 +135,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/products" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/produkte" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-store nav-icon-mobile"></i>
                   Shop
@@ -143,7 +145,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/categorie" onClick={() => setIsMobileMenuOpen(false)} className="highlight-link">
+              <Link href="/kategorie" onClick={() => setIsMobileMenuOpen(false)} className="highlight-link">
                 <span className="nav-link-content">
                   <i className="fa-solid fa-layer-group nav-icon-mobile"></i>
                   Kategorien
@@ -153,7 +155,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/categorie/enfants" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/kategorie/kinder" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-child nav-icon-mobile"></i>
                   Kinderfahrräder
@@ -163,7 +165,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/categorie/vetements" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/kategorie/bekleidung" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-shirt nav-icon-mobile"></i>
                   Fahrradbekleidung
@@ -173,7 +175,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/categorie/accessoires" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/kategorie/zubehoer" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-helmet-safety nav-icon-mobile"></i>
                   Zubehör
@@ -183,7 +185,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/a-propos" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/ueber-uns" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-circle-info nav-icon-mobile"></i>
                   Über uns
@@ -193,7 +195,7 @@ export default function Navbar() {
             </li>
 
             <li>
-              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/kontakt" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="nav-link-content">
                   <i className="fa-solid fa-envelope nav-icon-mobile"></i>
                   Kontakt
@@ -221,7 +223,7 @@ export default function Navbar() {
                   onNavigate={() => setIsMobileSearchOpen(false)}
                 />
               </div>
-              <button 
+              <button
                 className="velora-close-search-btn"
                 onClick={() => setIsMobileSearchOpen(false)}
                 aria-label="Schliessen"

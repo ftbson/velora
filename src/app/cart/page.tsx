@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function CartAliasPage() {
-  redirect("/panier");
+export default function CartRedirect() {
+  redirect("/warenkorb");
 }

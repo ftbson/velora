@@ -28,7 +28,7 @@ const heroSlides = [
     title: "Gut unterwegs mit der ganzen Familie",
     subtitle: "Entdecken Sie passende Kinderfahrräder für Schule, Alltag und gemeinsame Ausflüge.",
     buttonText: "Kinderfahrräder ansehen",
-    buttonLink: "/categorie/enfants",
+    buttonLink: "/kategorie/kinder",
     image: "/img/hero3.jpg",
     tag: "FÜR JUNGE RADFAHRER"
   },
@@ -37,7 +37,7 @@ const heroSlides = [
     title: "Alles für Ihre nächste Tour",
     subtitle: "Praktisches Zubehör und funktionale Bekleidung für Ihre Zeit auf dem Rad.",
     buttonText: "Zubehör entdecken",
-    buttonLink: "/categorie/accessoires",
+    buttonLink: "/kategorie/zubehoer",
     image: "/img/hero4.jpg",
     tag: "ZUBEHÖR & BEKLEIDUNG"
   }

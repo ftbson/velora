@@ -7,10 +7,119 @@ export type CookieConsentState = {
   necessary: boolean;
   functional: boolean;
   analytics: boolean;
+  marketing: boolean;
   timestamp: number;
 } | null;
 
 const STORAGE_KEY = "velora_cookie_consent";
+
+// Consent Mode v2 default states (all denied until consent)
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+    fbq: (...args: any[]) => void;
+  }
+}
+
+function updateConsentMode(consent: { analytics: boolean; marketing: boolean }) {
+  if (typeof window === "undefined") return;
+
+  // Initialize dataLayer if not exists
+  window.dataLayer = window.dataLayer || [];
+
+  // Update Google Consent Mode v2
+  window.dataLayer.push({
+    event: "consent_update",
+    consent: {
+      ad_storage: consent.marketing ? "granted" : "denied",
+      ad_user_data: consent.marketing ? "granted" : "denied",
+      ad_personalization: consent.marketing ? "granted" : "denied",
+      analytics_storage: consent.analytics ? "granted" : "denied",
+      functionality_storage: "granted", // functional preferences via localStorage
+      security_storage: "granted", // necessary cookies
+    },
+  });
+
+  // Also call gtag if available (for GTM/GA4)
+  if (typeof window.gtag === "function") {
+    window.gtag("consent", "update", {
+      ad_storage: consent.marketing ? "granted" : "denied",
+      ad_user_data: consent.marketing ? "granted" : "denied",
+      ad_personalization: consent.marketing ? "granted" : "denied",
+      analytics_storage: consent.analytics ? "granted" : "denied",
+      functionality_storage: "granted",
+      security_storage: "granted",
+    });
+  }
+}
+
+function loadAnalyticsScripts() {
+  if (typeof window === "undefined") return;
+
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
+  // Load Google Analytics (GA4) via gtag
+  if (gaId && !document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${gaId}"]`)) {
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", gaId, {
+      send_page_view: false, // We'll handle page views manually
+    });
+  }
+
+  // Load Google Tag Manager
+  if (gtmId && !document.querySelector(`script[src*="googletagmanager.com/gtm.js?id=${gtmId}"]`)) {
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
+    document.head.appendChild(script);
+
+    // Initialize dataLayer for GTM
+    window.dataLayer = window.dataLayer || [];
+  }
+}
+
+function loadMarketingScripts() {
+  if (typeof window === "undefined") return;
+
+  // Meta Pixel (Facebook)
+  const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+  if (metaPixelId && !document.querySelector(`script[src*="connect.facebook.net/en_US/fbevents.js"]`)) {
+    // Initialize Facebook Pixel
+    (function(f: any, b: any, e: any, v: any, n: any, t: any, s: any) {
+      if (f.fbq) return;
+      n = f.fbq = function() {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = true;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode?.insertBefore(t, s);
+    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js', null, null, null);
+
+    // Initialize and track
+    if (typeof window.fbq === 'function') {
+      window.fbq('init', metaPixelId);
+      window.fbq('track', 'PageView');
+    }
+  }
+}
 
 export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
@@ -18,6 +127,7 @@ export default function CookieBanner() {
   const [preferences, setPreferences] = useState({
     functional: true,
     analytics: false,
+    marketing: false,
   });
 
   useEffect(() => {
@@ -28,11 +138,27 @@ export default function CookieBanner() {
         // Small delay for smooth entrance
         const timer = setTimeout(() => {
           setIsVisible(true);
+          // Set default consent mode (all denied)
+          updateConsentMode({ analytics: false, marketing: false });
         }, 600);
         return () => clearTimeout(timer);
+      } else {
+        const parsed = JSON.parse(stored);
+        // Restore preferences
+        setPreferences({
+          functional: parsed.functional ?? true,
+          analytics: parsed.analytics ?? false,
+          marketing: parsed.marketing ?? false,
+        });
+        // Apply consent mode based on stored preferences
+        updateConsentMode({ analytics: parsed.analytics ?? false, marketing: parsed.marketing ?? false });
+        // Load scripts for granted categories
+        if (parsed.analytics) loadAnalyticsScripts();
+        if (parsed.marketing) loadMarketingScripts();
       }
     } catch {
       setIsVisible(true);
+      updateConsentMode({ analytics: false, marketing: false });
     }
   }, []);
 
@@ -47,7 +173,7 @@ export default function CookieBanner() {
     return () => window.removeEventListener("velora:open-cookie-banner", handleReopen);
   }, []);
 
-  const saveConsent = (state: { necessary: boolean; functional: boolean; analytics: boolean }) => {
+  const saveConsent = (state: { necessary: boolean; functional: boolean; analytics: boolean; marketing: boolean }) => {
     const payload: CookieConsentState = {
       ...state,
       timestamp: Date.now(),
@@ -57,15 +183,25 @@ export default function CookieBanner() {
     } catch {
       // Ignore localStorage issues
     }
+    setPreferences({
+      functional: state.functional,
+      analytics: state.analytics,
+      marketing: state.marketing,
+    });
+    // Update consent mode
+    updateConsentMode({ analytics: state.analytics, marketing: state.marketing });
+    // Load scripts for newly granted categories
+    if (state.analytics) loadAnalyticsScripts();
+    if (state.marketing) loadMarketingScripts();
     setIsVisible(false);
   };
 
   const handleAcceptAll = () => {
-    saveConsent({ necessary: true, functional: true, analytics: true });
+    saveConsent({ necessary: true, functional: true, analytics: true, marketing: true });
   };
 
   const handleRejectNonEssential = () => {
-    saveConsent({ necessary: true, functional: false, analytics: false });
+    saveConsent({ necessary: true, functional: false, analytics: false, marketing: false });
   };
 
   const handleSaveCustom = () => {
@@ -73,6 +209,7 @@ export default function CookieBanner() {
       necessary: true,
       functional: preferences.functional,
       analytics: preferences.analytics,
+      marketing: preferences.marketing,
     });
   };
 
@@ -114,7 +251,7 @@ export default function CookieBanner() {
               <div className="velora-cookie-category">
                 <div className="velora-cookie-cat-info">
                   <strong>Technisch notwendig</strong>
-                  <span>Erforderlich für den Warenkorb, Login und Sicherheitsfunktionen.</span>
+                  <span>Erforderlich für den Warenkorb, Login, Sicherheitsfunktionen und Speicherung Ihrer Cookie-Einwilligung.</span>
                 </div>
                 <span className="velora-cookie-badge-always">Immer aktiv</span>
               </div>
@@ -122,7 +259,7 @@ export default function CookieBanner() {
               <div className="velora-cookie-category">
                 <div className="velora-cookie-cat-info">
                   <strong>Funktionale Präferenzen</strong>
-                  <span>Speichert Ihre bevorzugten Filter, Merkliste und Einstellungen.</span>
+                  <span>Speichert Ihre bevorzugten Filter, Merkliste und Einstellungen im lokalen Speicher (localStorage). Keine Cookies.</span>
                 </div>
                 <label className="velora-cookie-toggle">
                   <input
@@ -139,7 +276,7 @@ export default function CookieBanner() {
               <div className="velora-cookie-category">
                 <div className="velora-cookie-cat-info">
                   <strong>Statistik & Optimierung</strong>
-                  <span>Hilft uns anonym zu verstehen, wie unser Shop genutzt wird.</span>
+                  <span>Google Analytics (GA4) hilft uns anonym zu verstehen, wie unser Shop genutzt wird. IP-Anonymisierung aktiv. Consent Mode v2: analytics_storage.</span>
                 </div>
                 <label className="velora-cookie-toggle">
                   <input
@@ -147,6 +284,23 @@ export default function CookieBanner() {
                     checked={preferences.analytics}
                     onChange={(e) =>
                       setPreferences((prev) => ({ ...prev, analytics: e.target.checked }))
+                    }
+                  />
+                  <span className="velora-cookie-slider"></span>
+                </label>
+              </div>
+
+              <div className="velora-cookie-category">
+                <div className="velora-cookie-cat-info">
+                  <strong>Marketing & Personalisierung</strong>
+                  <span>Meta Pixel (Facebook/Instagram) für Conversion-Tracking und Remarketing. Consent Mode v2: ad_storage, ad_user_data, ad_personalization.</span>
+                </div>
+                <label className="velora-cookie-toggle">
+                  <input
+                    type="checkbox"
+                    checked={preferences.marketing}
+                    onChange={(e) =>
+                      setPreferences((prev) => ({ ...prev, marketing: e.target.checked }))
                     }
                   />
                   <span className="velora-cookie-slider"></span>
