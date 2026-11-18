@@ -7,13 +7,13 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Alle Produkte | VELORA",
+  title: "Alle Produkte",
   description: "Entdecken Sie Fahrräder, Kinderfahrräder, Fahrradzubehör und Radbekleidung bei VELORA. Kostenloser Versand Schweiz & Liechtenstein.",
   alternates: {
     canonical: `${siteUrl}/produkte`,
   },
   openGraph: {
-    title: "Alle Produkte | VELORA",
+    title: "Alle Produkte",
     description: "VELORA – Fahrräder, Zubehör, Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.",
     url: `${siteUrl}/produkte`,
     siteName: c.brandName,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alle Produkte | VELORA",
+    title: "Alle Produkte",
     description: "Entdecken Sie Fahrräder, Zubehör, Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },

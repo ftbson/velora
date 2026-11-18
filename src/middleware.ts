@@ -11,6 +11,7 @@ const redirectMap: Record<string, string> = {
   "/connexion": "/anmelden",
   "/login": "/anmelden",
   "/compte": "/konto",
+  "/wishlist": "/wunschliste",
 
   // About redirects
   "/a-propos": "/ueber-uns",

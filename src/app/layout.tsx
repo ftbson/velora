@@ -11,6 +11,12 @@ import { companyConfig, getSiteUrl } from "@/config/company";
 const c = companyConfig;
 const siteUrl = c.siteUrl.replace(/\/$/, "");
 
+// Only include "Schweizer" references if country and uid are filled
+const isSwissShop = c.country && c.uid;
+const shopDescription = isSwissShop
+  ? `${c.brandName} – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.`
+  : `${c.brandName} – Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.`;
+
 // Build JSON-LD Organization dynamically from config
 function buildOrganizationJsonLd() {
   const org: Record<string, unknown> = {
@@ -19,7 +25,7 @@ function buildOrganizationJsonLd() {
     name: c.brandName,
     url: siteUrl,
     logo: `${siteUrl}/img/logo.png`,
-    description: `${c.brandName} – Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.`,
+    description: shopDescription,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: c.phoneRaw,
@@ -70,8 +76,7 @@ export const metadata: Metadata = {
     default: `${c.brandName} – E-Bikes, Fahrräder, Zubehör & Bekleidung | Schweiz`,
     template: `%s | ${c.brandName}`,
   },
-  description:
-    `${c.brandName} – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Radbekleidung. Kostenlose Lieferung in die Schweiz und nach Liechtenstein.`,
+  description: shopDescription,
   authors: [{ name: c.brandName }],
   creator: c.brandName,
   publisher: c.brandName,
@@ -86,8 +91,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `${c.brandName} – E-Bikes, Fahrräder, Zubehör & Bekleidung`,
-    description:
-      `Onlineshop für E-Bikes (City, Trekking, Mountainbike), Fahrradzubehör und Radbekleidung. Kostenloser Versand CH & LI.`,
+    description: isSwissShop
+      ? `Onlineshop für E-Bikes (City, Trekking, Mountainbike), Fahrradzubehör und Radbekleidung. Kostenloser Versand CH & LI.`
+      : `Onlineshop für E-Bikes (City, Trekking, Mountainbike), Fahrradzubehör und Radbekleidung. Kostenloser Versand CH & LI.`,
     url: siteUrl,
     siteName: c.brandName,
     images: [
@@ -95,7 +101,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/img/og-default.jpg`,
         width: 1200,
         height: 630,
-        alt: `${c.brandName} – Schweizer E-Bike Shop`,
+        alt: `${c.brandName} – E-Bike Shop`,
       },
     ],
     locale: "de_CH",
@@ -103,7 +109,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${c.brandName} – Schweizer E-Bike Shop`,
+    title: `${c.brandName} – E-Bike Shop`,
     description:
       `E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz & Liechtenstein.`,
     images: [`${siteUrl}/img/og-default.jpg`],

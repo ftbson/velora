@@ -6,15 +6,15 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Impressum | VELORA",
+  title: "Impressum",
   description: "Rechtliche Angaben zum Anbieter VELORA – Firma, Adresse, Kontakt, Registereinträge und verantwortliche Person.",
   alternates: {
-    canonical: `${siteUrl}/legal/impressum`,
+    canonical: getSiteUrl("/legal/impressum"),
   },
   openGraph: {
-    title: "Impressum | VELORA",
+    title: "Impressum",
     description: "VELORA – Impressum mit rechtlichen Angaben zu Firma, Adresse, Kontakt und Registereinträgen.",
-    url: `${siteUrl}/legal/impressum`,
+    url: getSiteUrl("/legal/impressum"),
     siteName: c.brandName,
     type: "website",
     locale: "de_CH",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Impressum | VELORA",
+    title: "Impressum",
     description: "Rechtliche Angaben zum Anbieter VELORA.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },
@@ -39,8 +39,12 @@ export const metadata: Metadata = {
   },
 };
 
+// Helper to check if Anbieter section should be shown
+function hasAnbieterInfo(): boolean {
+  return !!(c.legalName && c.street && c.postalCode && c.city);
+}
+
 export default function ImpressumPage() {
-  const c = companyConfig;
   const address = getFormattedAddress();
 
   return (
@@ -48,20 +52,23 @@ export default function ImpressumPage() {
       title="Impressum"
       description="Angaben zum Anbieter, Kontakt und Registereinträgen gemäss Schweizer Recht."
     >
-      <section className="legal-section">
-        <h2>Anbieter</h2>
-        <p>
-          {c.legalName && <strong>{c.legalName}</strong>}
-          {c.legalName && c.legalForm && <br />}
-          {c.legalForm && <span>{c.legalForm}</span>}
-          {address && (
-            <>
-              {(c.legalName || c.legalForm) && <br />}
-              <span>{address}</span>
-            </>
-          )}
-        </p>
-      </section>
+      {/* Anbieter section - only if all required fields are filled */}
+      {hasAnbieterInfo() && (
+        <section className="legal-section">
+          <h2>Anbieter</h2>
+          <p>
+            {c.legalName && <strong>{c.legalName}</strong>}
+            {c.legalName && c.legalForm && <br />}
+            {c.legalForm && <span>{c.legalForm}</span>}
+            {address && (
+              <>
+                {(c.legalName || c.legalForm) && <br />}
+                <span>{address}</span>
+              </>
+            )}
+          </p>
+        </section>
+      )}
 
       {c.responsiblePerson && (
         <section className="legal-section">
@@ -101,6 +108,8 @@ export default function ImpressumPage() {
         <p>
           {c.vatNumber ? (
             <>Mehrwertsteuernummer: <strong>{c.vatNumber}</strong></>
+          ) : c.vatExempt ? (
+            <span>Nicht mehrwertsteuerpflichtig (Kleinunternehmer / OSS)</span>
           ) : (
             <span>Nicht mehrwertsteuerpflichtig</span>
           )}
@@ -118,24 +127,8 @@ export default function ImpressumPage() {
         </section>
       )}
 
-      <section className="legal-section">
-        <h2>Aufsichtsbehörde (falls reguliert)</h2>
-        <p>
-          Keine branchenspezifische Aufsichtsbehörde für den Online-Handel mit Fahrrädern und Zubehör.
-        </p>
-      </section>
+      {/* OS platform link removed - EU-specific, not applicable for CH-only shop */}
 
-      <section className="legal-section">
-        <h2>Streitschlichtung</h2>
-        <p>
-          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">
-            https://ec.europa.eu/consumers/odr/
-          </a>
-          <br />
-          Wir sind nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
-        </p>
-      </section>
     </LegalDocument>
   );
 }

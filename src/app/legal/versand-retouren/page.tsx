@@ -6,15 +6,15 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Versand & Rückgabe | VELORA",
+  title: "Versand & Rückgabe",
   description: "Informationen zu Versand, Zahlung und Rückgabe bei VELORA. Kostenlose Lieferung Schweiz & Liechtenstein. 14 Tage Widerrufsrecht.",
   alternates: {
-    canonical: `${siteUrl}/legal/versand-retouren`,
+    canonical: getSiteUrl("/legal/versand-retouren"),
   },
   openGraph: {
-    title: "Versand & Rückgabe | VELORA",
+    title: "Versand & Rückgabe",
     description: "VELORA – Versand, Zahlung und Rückgabe. Kostenloser Versand Schweiz & Liechtenstein, 14 Tage Widerrufsrecht.",
-    url: `${siteUrl}/legal/versand-retouren`,
+    url: getSiteUrl("/legal/versand-retouren"),
     siteName: c.brandName,
     type: "website",
     locale: "de_CH",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Versand & Rückgabe | VELORA",
+    title: "Versand & Rückgabe",
     description: "Kostenloser Versand Schweiz & Liechtenstein, 14 Tage Widerrufsrecht.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },

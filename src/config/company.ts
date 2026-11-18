@@ -37,6 +37,9 @@ export interface CompanyConfig {
   returnRefundDurationDays: number;   // Délai remboursement en jours (ex: 14)
   warrantyText: string;               // Texte garantie (ex: "Herstellergarantie gemäß Schweizer Obligationenrecht. 2 Jahre auf Neuwaren.")
 
+  // TVA - exemption possible
+  vatExempt: boolean;                 // true si non assujetti à la TVA (ex: petite entreprise, OSS)
+
   // Marque & Site
   brandName: string;           // Nom de marque affiché (ex: "VELORA")
   siteUrl: string;             // URL canonique (ex: "https://www.veloras.ch")
@@ -92,6 +95,9 @@ export const companyConfig: CompanyConfig = {
   returnShippingCostPolicy: "Kostenlose Rücksendung bei Widerruf innerhalb der Frist. Bei Garantiefällen übernimmt VELORA die Rücksendekosten.", // À REMPLIR : Politique frais retour
   returnRefundDurationDays: 14,     // À REMPLIR : Délai remboursement (jours)
   warrantyText: "Herstellergarantie gemäß Schweizer Obligationenrecht (OR). 2 Jahre Gewährleistung auf Neuwaren ab Lieferung. Batterien und Verschleißteile ausgenommen.", // À REMPLIR : Texte garantie
+
+  // TVA - exemption possible
+  vatExempt: false,                 // À REMPLIR : true si non assujetti à la TVA (ex: petite entreprise, OSS)
 
   // Marque & Site
   brandName: "VELORA",
@@ -176,9 +182,11 @@ export function getFormattedAddress(): string {
 
 /**
  * Helper pour les métadonnées Open Graph / JSON-LD
+ * Prevents double slashes by normalizing both base URL and path
  */
 export function getSiteUrl(path: string = ""): string {
   const base = companyConfig.siteUrl.replace(/\/$/, "");
+  if (!path) return base;
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   return `${base}${cleanPath}`;
 }

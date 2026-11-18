@@ -7,15 +7,15 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Cookie-Richtlinie | VELORA",
+  title: "Cookie-Richtlinie",
   description: "Informationen zu Cookies, localStorage und Einwilligungsmanagement bei VELORA – technisch notwendige Cookies, funktionale Präferenzen, Analyse-Cookies, Consent Mode v2.",
   alternates: {
-    canonical: `${siteUrl}/legal/cookies`,
+    canonical: getSiteUrl("/legal/cookies"),
   },
   openGraph: {
-    title: "Cookie-Richtlinie | VELORA",
+    title: "Cookie-Richtlinie",
     description: "VELORA – Cookie-Richtlinie mit Details zu technisch notwendigen Cookies, funktionalen Präferenzen, Analyse-Cookies und Consent Mode v2.",
-    url: `${siteUrl}/legal/cookies`,
+    url: getSiteUrl("/legal/cookies"),
     siteName: c.brandName,
     type: "website",
     locale: "de_CH",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cookie-Richtlinie | VELORA",
+    title: "Cookie-Richtlinie",
     description: "Informationen zu Cookies und Einwilligungsmanagement bei VELORA.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },

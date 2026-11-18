@@ -24,6 +24,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const productUrl = `${siteUrl}/produkt/${product.id}`;
   const ogImage = product.image || `${siteUrl}/img/og-default.jpg`;
 
+  // Only include "Schweizer" references if country and uid are filled
+  const isSwissShop = c.country && c.uid;
+
   return {
     title: `${product.title} | VELORA`,
     description: product.description.slice(0, 160),

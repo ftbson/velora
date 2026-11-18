@@ -6,15 +6,15 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Datenschutz | VELORA",
+  title: "Datenschutz",
   description: "Datenschutzerklärung von VELORA gemäss nLPD/DSGVO – Verantwortlicher, verarbeitete Daten, Zwecke, Empfänger, Speicherdauer, Betroffenenrechte, Aufsichtsbehörde.",
   alternates: {
-    canonical: `${siteUrl}/legal/privacy`,
+    canonical: getSiteUrl("/legal/privacy"),
   },
   openGraph: {
-    title: "Datenschutz | VELORA",
+    title: "Datenschutz",
     description: "VELORA – Datenschutzerklärung gemäss nLPD/DSGVO. Verantwortlicher, verarbeitete Daten, Zwecke, Betroffenenrechte.",
-    url: `${siteUrl}/legal/privacy`,
+    url: getSiteUrl("/legal/privacy"),
     siteName: c.brandName,
     type: "website",
     locale: "de_CH",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Datenschutz | VELORA",
+    title: "Datenschutz",
     description: "Datenschutzerklärung von VELORA gemäss nLPD/DSGVO.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },

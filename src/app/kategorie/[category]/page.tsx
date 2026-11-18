@@ -80,13 +80,13 @@ export async function generateMetadata({
   const selectedCategory = categories[category];
   const pageUrl = `${siteUrl}/kategorie/${category}`;
   return {
-    title: `${selectedCategory.label} | VELORA`,
+    title: selectedCategory.label,
     description: `Entdecken Sie ${selectedCategory.label.toLowerCase()} bei VELORA. ${productsData.filter(p => p.category === selectedCategory.code).length} Modelle verfügbar. Kostenloser Versand Schweiz & Liechtenstein.`,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
-      title: `${selectedCategory.label} | VELORA`,
+      title: selectedCategory.label,
       description: `VELORA – ${selectedCategory.label}. Kostenloser Versand in die Schweiz und nach Liechtenstein.`,
       url: pageUrl,
       siteName: c.brandName,
@@ -103,7 +103,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${selectedCategory.label} | VELORA`,
+      title: selectedCategory.label,
       description: `VELORA – ${selectedCategory.label}. Kostenloser Versand Schweiz & Liechtenstein.`,
       images: [`${siteUrl}/img/og-default.jpg`],
     },

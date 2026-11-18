@@ -7,13 +7,13 @@ const c = companyConfig;
 const siteUrl = c.siteUrl.replace(/\/$/, "");
 
 export const metadata: Metadata = {
-  title: "Kategorien | VELORA",
+  title: "Kategorien",
   description: "Entdecken Sie alle Produktkategorien bei VELORA – City-E-Bikes, Trekking-E-Bikes, E-Mountainbikes, Zubehör, Bekleidung und Kinderfahrräder. Kostenloser Versand Schweiz & Liechtenstein.",
   alternates: {
     canonical: `${siteUrl}/kategorie`,
   },
   openGraph: {
-    title: "Kategorien | VELORA",
+    title: "Kategorien",
     description: "VELORA – Alle Produktkategorien: E-Bikes, Zubehör, Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.",
     url: `${siteUrl}/kategorie`,
     siteName: c.brandName,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kategorien | VELORA",
+    title: "Kategorien",
     description: "VELORA – Alle Produktkategorien. Kostenloser Versand Schweiz & Liechtenstein.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },

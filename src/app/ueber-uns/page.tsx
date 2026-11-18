@@ -7,16 +7,23 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 const address = getFormattedAddress();
 
-export const metadata: Metadata = {
-  title: "Über VELORA",
-  description: "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.",
+// Only include "Schweizer" references if country and uid are filled
+  const isSwissShop = c.country && c.uid;
+
+  export const metadata: Metadata = {
+  title: "Über uns",
+  description: isSwissShop
+    ? "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein."
+    : "VELORA – Ihr Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.",
   alternates: {
-    canonical: `${siteUrl}/ueber-uns`,
+    canonical: getSiteUrl("/ueber-uns"),
   },
   openGraph: {
-    title: "Über VELORA",
-    description: "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.",
-    url: `${siteUrl}/ueber-uns`,
+    title: "Über uns",
+    description: isSwissShop
+      ? "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand Schweiz & Liechtenstein."
+      : "VELORA – Ihr Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.",
+    url: getSiteUrl("/ueber-uns"),
     siteName: c.brandName,
     type: "website",
     locale: "de_CH",
@@ -31,8 +38,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Über VELORA",
-    description: "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung.",
+    title: "Über uns",
+    description: isSwissShop
+      ? "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung."
+      : "VELORA – Ihr Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },
   robots: {

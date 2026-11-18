@@ -6,15 +6,15 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "AGB | VELORA",
+  title: "AGB",
   description: "Allgemeine Geschäftsbedingungen für Bestellungen im VELORA Onlineshop – Vertragsschluss, Preise, Lieferung, Zahlung, Widerruf, Gewährleistung, anwendbares Recht.",
   alternates: {
-    canonical: `${siteUrl}/legal/terms`,
+    canonical: getSiteUrl("/legal/terms"),
   },
   openGraph: {
-    title: "AGB | VELORA",
+    title: "AGB",
     description: "VELORA – Allgemeine Geschäftsbedingungen für Bestellungen. Vertragsschluss, Preise, Lieferung, Zahlung, Widerruf, Gewährleistung.",
-    url: `${siteUrl}/legal/terms`,
+    url: getSiteUrl("/legal/terms"),
     siteName: c.brandName,
     type: "website",
     locale: "de_CH",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AGB | VELORA",
+    title: "AGB",
     description: "Allgemeine Geschäftsbedingungen für Bestellungen bei VELORA.",
     images: [`${siteUrl}/img/og-default.jpg`],
   },
