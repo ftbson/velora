@@ -5,15 +5,46 @@ import { desc, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { companyConfig, getFormattedAddress } from "@/config/company";
+import { companyConfig, getFormattedAddress, getSiteUrl } from "@/config/company";
 import OrderCard from "@/components/OrderCard";
+import type { Metadata } from "next";
 
 const c = companyConfig;
+const siteUrl = getSiteUrl("");
 const address = getFormattedAddress();
 
-export const metadata = {
-  title: "Mein Konto",
+export const metadata: Metadata = {
+  title: "Mein Konto | VELORA",
   description: "Ihr VELORA Kundenkonto – Bestellhistorie, Lieferadressen und Einstellungen.",
+  alternates: {
+    canonical: `${siteUrl}/konto`,
+  },
+  openGraph: {
+    title: "Mein Konto | VELORA",
+    description: "VELORA – Ihr Kundenkonto. Bestellhistorie, Lieferadressen, Einstellungen.",
+    url: `${siteUrl}/konto`,
+    siteName: c.brandName,
+    type: "website",
+    locale: "de_CH",
+    images: [
+      {
+        url: `${siteUrl}/img/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "VELORA Mein Konto",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mein Konto | VELORA",
+    description: "Ihr VELORA Kundenkonto.",
+    images: [`${siteUrl}/img/og-default.jpg`],
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 // This page requires authentication and database access - must be dynamic

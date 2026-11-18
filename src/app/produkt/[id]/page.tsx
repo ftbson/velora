@@ -5,6 +5,59 @@ import { notFound } from "next/navigation";
 import { productsData } from "@/data/products";
 import ProductDetailActions from "@/components/ProductDetailActions";
 import { companyConfig, getSiteUrl } from "@/config/company";
+import type { Metadata } from "next";
+
+const c = companyConfig;
+const siteUrl = c.siteUrl.replace(/\/$/, "");
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const product = productsData.find((p) => p.id === id);
+
+  if (!product) {
+    return {
+      title: "Produkt nicht gefunden",
+      robots: "noindex",
+    };
+  }
+
+  const productUrl = `${siteUrl}/produkt/${product.id}`;
+  const ogImage = product.image || `${siteUrl}/img/og-default.jpg`;
+
+  return {
+    title: `${product.title} | VELORA`,
+    description: product.description.slice(0, 160),
+    alternates: {
+      canonical: productUrl,
+    },
+    openGraph: {
+      title: product.title,
+      description: product.description.slice(0, 160),
+      url: productUrl,
+      siteName: c.brandName,
+      type: "website",
+      locale: "de_CH",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: product.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description: product.description.slice(0, 160),
+      images: [ogImage],
+    },
+    robots: {
+      index: !product.isDraft,
+      follow: true,
+    },
+  };
+}
 
 export async function generateStaticParams() {
   return productsData
@@ -137,7 +190,7 @@ function generateProductJsonLd(product: typeof productsData[0], c: typeof compan
   }
 
   // Add priceValidUntil if compare_at_price is verified
-  if (product.oldPrice && (product as any).price_verified) {
+  if (product.compareAtPrice && product.priceVerified) {
     const validUntil = new Date();
     validUntil.setDate(validUntil.getDate() + 30); // 30 days validity
     jsonLd.offers.priceValidUntil = validUntil.toISOString().split("T")[0];
@@ -190,10 +243,7 @@ function generateProductJsonLd(product: typeof productsData[0], c: typeof compan
   };
 
   // Only add aggregateRating if REAL verified reviews exist
-  // Currently we don't have a verified review system, so we OMIT this
-  // Uncomment below ONLY when real reviews are implemented:
-  /*
-  if (product.rating && product.reviewsCount && (product as any).reviews_verified) {
+  if (product.rating && product.reviewsCount && product.reviewsVerified) {
     jsonLd.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: product.rating,
@@ -202,7 +252,6 @@ function generateProductJsonLd(product: typeof productsData[0], c: typeof compan
       worstRating: 1,
     };
   }
-  */
 
   return jsonLd;
 }
@@ -346,9 +395,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </span>
             <h1 className="velora-detail-title" itemProp="name">{product.title}</h1>
 
-            {/* REMOVED: Fake reviews display - only show if real verified reviews exist */}
-            {/*
-            {product.rating !== undefined && product.reviewsCount !== undefined && (
+            {/* Avis vérifiés uniquement - display only if real verified reviews exist */}
+            {product.rating !== undefined && product.reviewsCount !== undefined && product.reviewsVerified && (
               <div className="velora-detail-rating-row">
                 <span className="velora-stars">
                   {"★".repeat(Math.floor(product.rating))}
@@ -358,7 +406,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </span>
               </div>
             )}
-            */}
 
             {product.isDraft && (
               <p className="catalog-draft-notice" role="note">
@@ -373,8 +420,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 <span itemProp="price" content={product.price.toFixed(2)}>{product.price.toFixed(2)}</span>
                 <meta itemProp="availability" content={product.isDraft ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"} />
               </span>
-              {product.oldPrice && (product as any).price_verified ? (
-                <span className="velora-detail-old-price">CHF {product.oldPrice.toFixed(2)}</span>
+              {product.compareAtPrice && product.priceVerified ? (
+                <span className="velora-detail-old-price">CHF {product.compareAtPrice.toFixed(2)}</span>
+              ) : null}
+              {product.compareAtPrice && product.priceVerified && product.savings ? (
+                <span className="velora-detail-savings">Sie sparen CHF {product.savings.toFixed(2)}</span>
               ) : null}
             </div>
 

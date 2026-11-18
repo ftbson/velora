@@ -13,11 +13,15 @@ export interface Product {
   category: ProductCategory;
   categoryLabel: string;
   price: number;
-  oldPrice?: number;
-  discount?: string;
-  savings?: number;
-  rating?: number;
-  reviewsCount?: number;
+  compareAtPrice?: number;         // Ancien prix barré (nullable) - NOUVEAU CHAMP
+  priceVerified?: boolean;         // Prix comparatif vérifié (pour affichage barré) - NOUVEAU CHAMP (optionnel avec défaut false)
+  // Anciens champs (dépréciés, gardés pour compatibilité pendant la migration)
+  oldPrice?: number;               // @deprecated Utiliser compareAtPrice
+  discount?: string;               // @deprecated Calculé dynamiquement
+  savings?: number;                // @deprecated Calculé dynamiquement
+  rating?: number;                 // @deprecated Ne plus utiliser directement
+  reviewsCount?: number;           // @deprecated Ne plus utiliser directement
+  reviewsVerified?: boolean;       // Avis vérifiés (pour aggregateRating JSON-LD) - NOUVEAU CHAMP (optionnel avec défaut false)
   motorTorque?: string;
   batteryCapacity?: string;
   image: string;
@@ -34,6 +38,20 @@ export interface Product {
     range: string;
     weight: string;
   };
+  // Google Merchant Center attributes
+  gtin?: string;
+  mpn?: string;
+  googleProductCategory?: string;
+  productType?: string;
+  availability?: "in_stock" | "out_of_stock" | "preorder" | "limited";
+  condition?: "new" | "refurbished" | "used";
+  stockQuantity?: number;
+  additionalImages?: string[];
+  // Vêtements / Enfants
+  color?: string;
+  size?: string;
+  gender?: "male" | "female" | "unisex" | "kids";
+  ageGroup?: "newborn" | "infant" | "toddler" | "kids" | "adult";
 }
 
 const categoryNames: Record<string, string> = {
@@ -122,7 +140,7 @@ const bikeProducts: Product[] = [
     description:
       "Französisches Design trifft auf Shimano-Technologie. Sehr geschmeidiges Fahrgefühl für stilvolle Stadtfahrten.",
     specs: {
-      frame: "Aluminium 6061 6061 T6 Hydroformed",
+      frame: "Aluminium 6061 T6 Hydroformed",
       brakes: "Shimano MT200 Hydraulisch",
       range: "Bis zu 120 km",
       weight: "22.8 kg",
@@ -1165,9 +1183,9 @@ const additionalProducts: Product[] = [
     category: "kinder",
     categoryLabel: "kinderFAHRRÄDER",
     price: 569,
-    oldPrice: 579.9,
-    discount: "-2 %",
-    savings: 10.9,
+    compareAtPrice: 579.9,
+    priceVerified: false,
+    reviewsVerified: false,
     image: "/img/prod/puky-cyke-24-8-active-dusty-sand-black-2027.webp",
     imageFile: "/img/prod/puky-cyke-24-8-active-dusty-sand-black-2027.webp",
     badgePromo: true,
@@ -1185,17 +1203,24 @@ const additionalProducts: Product[] = [
 export const productsData: Product[] = [
   ...bikeProducts.map((product) => {
     const price = Math.round((product.price * 0.97) / 5) * 5;
-    if (!product.oldPrice) {
-      return { ...product, price };
-    }
+    const compareAtPrice = product.compareAtPrice;
+    const savings = compareAtPrice ? compareAtPrice - price : undefined;
+    const discount = compareAtPrice ? `-${Math.round((savings! / compareAtPrice) * 100)} %` : undefined;
 
-    const savings = product.oldPrice - price;
     return {
       ...product,
       price,
+      compareAtPrice,
+      priceVerified: false,           // Par défaut non vérifié - à valider par le client
+      discount,
       savings,
-      discount: `-${Math.round((savings / product.oldPrice) * 100)} %`,
+      reviewsVerified: false,         // Par défaut non vérifié - à valider quand vrais avis
     };
   }),
-  ...additionalProducts,
+  ...additionalProducts.map((product) => ({
+    ...product,
+    compareAtPrice: product.compareAtPrice,
+    priceVerified: false,
+    reviewsVerified: false,
+  })),
 ];

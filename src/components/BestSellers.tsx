@@ -43,8 +43,10 @@ export default function BestSellers() {
                     {product.imageFile && <code>{product.imageFile}</code>}
                   </span>
                 )}
-                {product.discount && (
-                  <span className="badge-discount">{product.discount}</span>
+                {product.compareAtPrice && product.priceVerified && (
+                  <span className="badge-discount">
+                    -{Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)} %
+                  </span>
                 )}
               </Link>
 
@@ -78,14 +80,24 @@ export default function BestSellers() {
 
                {/* Prix */}
 <div className="product-price-box">
-  {product.oldPrice && (
+  {product.compareAtPrice && product.priceVerified && (
     <span className="old-price">
-      CHF {product.oldPrice.toFixed(2).replace(".", ",")}
+      CHF {product.compareAtPrice.toFixed(2).replace(".", ",")}
     </span>
   )}
   <span className="current-price">
     CHF {product.price.toFixed(2).replace(".", ",")}
   </span>
+  {product.compareAtPrice && product.priceVerified && (
+    <span className="discount-tag">
+      -{Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)} %
+    </span>
+  )}
+  {product.savings && product.priceVerified && (
+    <span className="savings-text">
+      Sie sparen CHF {product.savings.toFixed(2).replace(".", ",")}
+    </span>
+  )}
 </div>
 
                 {/* Bouton d'ajout */}
@@ -98,7 +110,7 @@ export default function BestSellers() {
                       title: product.title,
                       category: product.category,
                       price: product.price,
-                      oldPrice: product.oldPrice,
+                      compareAtPrice: product.compareAtPrice,
                       image: product.image,
                       // quantity: 1,
                     })
@@ -114,7 +126,7 @@ export default function BestSellers() {
 
         {/* Bouton "Voir tout" en bas */}
         <div className="bestsellers-footer" style={{ textAlign: "center", marginTop: "40px" }}>
-          <Link href="/boutique" className="btn-view-all">
+          <Link href="/produkte" className="btn-view-all">
             Alle Produkte anzeigen <i className="fa-solid fa-arrow-right"></i>
           </Link>
         </div>

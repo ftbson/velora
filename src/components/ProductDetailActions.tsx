@@ -45,7 +45,7 @@ export default function ProductDetailActions({
       </button>
       {added && (
         <p className="product-added-message" role="status">
-          Zum Warenkorb hinzugefügt. <Link href="/panier">Warenkorb ansehen</Link>
+          Zum Warenkorb hinzugefügt. <Link href="/warenkorb">Warenkorb ansehen</Link>
         </p>
       )}
       {product.isDraft && (

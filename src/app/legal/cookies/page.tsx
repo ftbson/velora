@@ -1,11 +1,43 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
 import CookieSettingsButton from "@/components/CookieSettingsButton";
-import { companyConfig } from "@/config/company";
+import { companyConfig, getSiteUrl } from "@/config/company";
+
+const c = companyConfig;
+const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Cookie-Richtlinie",
+  title: "Cookie-Richtlinie | VELORA",
   description: "Informationen zu Cookies, localStorage und Einwilligungsmanagement bei VELORA – technisch notwendige Cookies, funktionale Präferenzen, Analyse-Cookies, Consent Mode v2.",
+  alternates: {
+    canonical: `${siteUrl}/legal/cookies`,
+  },
+  openGraph: {
+    title: "Cookie-Richtlinie | VELORA",
+    description: "VELORA – Cookie-Richtlinie mit Details zu technisch notwendigen Cookies, funktionalen Präferenzen, Analyse-Cookies und Consent Mode v2.",
+    url: `${siteUrl}/legal/cookies`,
+    siteName: c.brandName,
+    type: "website",
+    locale: "de_CH",
+    images: [
+      {
+        url: `${siteUrl}/img/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "VELORA Cookie-Richtlinie",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cookie-Richtlinie | VELORA",
+    description: "Informationen zu Cookies und Einwilligungsmanagement bei VELORA.",
+    images: [`${siteUrl}/img/og-default.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function CookiesPage() {
@@ -46,13 +78,6 @@ export default function CookiesPage() {
               <td style={{ padding: "8px", fontFamily: "monospace" }}>velora_customer_session</td>
               <td style={{ padding: "8px" }}>Cookie (HTTP-only, Secure, SameSite=Strict)</td>
               <td style={{ padding: "8px" }}>Kunden-Login-Session, Authentifizierung</td>
-              <td style={{ padding: "8px" }}>30 Tage</td>
-              <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig)</td>
-            </tr>
-            <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
-              <td style={{ padding: "8px", fontFamily: "monospace" }}>velora_admin_session</td>
-              <td style={{ padding: "8px" }}>Cookie (HTTP-only, Secure, SameSite=Strict)</td>
-              <td style={{ padding: "8px" }}>Admin-Login-Session</td>
               <td style={{ padding: "8px" }}>30 Tage</td>
               <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig)</td>
             </tr>

@@ -20,17 +20,8 @@ export default function LegalDocument({
           <p className="legal-subtitle">{description}</p>
         </header>
 
-        <aside className="legal-draft-notice" role="note">
-          <strong>Entwurf – vor Veröffentlichung vervollständigen</strong>
-          <p>
-            Angaben in eckigen Klammern müssen mit den tatsächlichen
-            Unternehmens- und Geschäftsangaben ersetzt werden. Dieser Text ist
-            keine Rechtsberatung.
-          </p>
-        </aside>
-
         <article className="legal-content">{children}</article>
-        <p className="legal-last-updated">Stand: 8. November 2026</p>
+        <p className="legal-last-updated">Stand: {new Date().toLocaleDateString("de-CH", { year: "numeric", month: "long", day: "numeric" })}</p>
       </div>
     </main>
   );

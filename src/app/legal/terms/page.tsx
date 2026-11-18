@@ -1,10 +1,42 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
-import { companyConfig, getFormattedAddress } from "@/config/company";
+import { companyConfig, getFormattedAddress, getSiteUrl } from "@/config/company";
+
+const c = companyConfig;
+const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Allgemeine Geschäftsbedingungen (AGB)",
+  title: "AGB | VELORA",
   description: "Allgemeine Geschäftsbedingungen für Bestellungen im VELORA Onlineshop – Vertragsschluss, Preise, Lieferung, Zahlung, Widerruf, Gewährleistung, anwendbares Recht.",
+  alternates: {
+    canonical: `${siteUrl}/legal/terms`,
+  },
+  openGraph: {
+    title: "AGB | VELORA",
+    description: "VELORA – Allgemeine Geschäftsbedingungen für Bestellungen. Vertragsschluss, Preise, Lieferung, Zahlung, Widerruf, Gewährleistung.",
+    url: `${siteUrl}/legal/terms`,
+    siteName: c.brandName,
+    type: "website",
+    locale: "de_CH",
+    images: [
+      {
+        url: `${siteUrl}/img/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "VELORA AGB",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AGB | VELORA",
+    description: "Allgemeine Geschäftsbedingungen für Bestellungen bei VELORA.",
+    images: [`${siteUrl}/img/og-default.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function TermsPage() {
@@ -26,13 +58,21 @@ export default function TermsPage() {
           Anbieter und Vertragspartner ist:
         </p>
         <p>
-          {c.legalName ? <strong>{c.legalName}</strong> : <em className="missing-field">[Raison sociale – À REMPLIR]</em>}
-          <br />
-          {c.legalForm ? c.legalForm : <em className="missing-field">[Rechtsform – À REMPLIR]</em>}
-          <br />
-          {address || <em className="missing-field">[Adresse – À REMPLIR]</em>}
-          <br />
-          UID: {c.uid || <em className="missing-field">[UID – À REMPLIR]</em>}
+          {c.legalName && <strong>{c.legalName}</strong>}
+          {c.legalName && c.legalForm && <br />}
+          {c.legalForm && <span>{c.legalForm}</span>}
+          {address && (
+            <>
+              {(c.legalName || c.legalForm) && <br />}
+              <span>{address}</span>
+            </>
+          )}
+          {c.uid && (
+            <>
+              {(c.legalName || c.legalForm || address) && <br />}
+              <span>UID: {c.uid}</span>
+            </>
+          )}
           <br />
           E-Mail: <a href={`mailto:${c.email}`}>{c.email}</a>
           <br />
@@ -121,9 +161,11 @@ export default function TermsPage() {
           Die Lieferung erfolgt an die vom Kunden im Checkout angegebene Lieferadresse in der Schweiz oder in Liechtenstein.
           <strong>Lieferzeit:</strong> {c.deliveryTimeText || "2 bis 4 Werktage"} nach Vertragsschluss (bei Vorkasse nach Zahlungseingang).
         </p>
-        <p>
-          <strong>Versanddienstleister:</strong> {c.shippingCarrier || "[Versandpartner – À REMPLIR]"}.
-        </p>
+        {c.shippingCarrier && (
+          <p>
+            <strong>Versanddienstleister:</strong> {c.shippingCarrier}.
+          </p>
+        )}
         <p>
           Teillieferungen sind zulässig, soweit sie dem Kunden zumutbar sind. Zusätzliche Versandkosten entstehen dem Kunden
           durch Teillieferungen nicht. Ist die Lieferung nicht zustellbar (falsche Adresse, Abwesenheit, Annahmeverweigerung),
@@ -187,9 +229,11 @@ export default function TermsPage() {
           an dem Sie uns über den Widerruf dieses Vertrags unterrichten, an uns zurückzusenden oder zu übergeben.
           Die Frist ist gewahrt, wenn Sie die Waren vor Ablauf der Frist von {c.returnPeriodDays} Tagen absenden.
         </p>
-        <p>
-          <strong>Rücksendekosten:</strong> {c.returnShippingCostPolicy || "[Rücksendekosten-Regelung – À REMPLIR]"}.
-        </p>
+        {c.returnShippingCostPolicy && (
+          <p>
+            <strong>Rücksendekosten:</strong> {c.returnShippingCostPolicy}.
+          </p>
+        )}
         <p>
           Sie müssen für einen allfälligen Wertverlust der Waren nur aufkommen, wenn dieser Wertverlust auf einen zur
           Prüfung der Beschaffenheit, Eigenschaften und Funktionsweise der Waren nicht notwendigen Umgang mit ihnen
@@ -210,10 +254,12 @@ export default function TermsPage() {
           Es gelten die gesetzlichen Gewährleistungsrechte (Mängelhaftung) gemäss Schweizer Obligationenrecht (OR).
           Die Gewährleistungsfrist beträgt <strong>2 Jahre</strong> ab Lieferung der Ware.
         </p>
-        <p>
-          <strong>Herstellergarantie:</strong> {c.warrantyText || "[Garantiebedingungen – À REMPLIR]"}.
-          Eine allfällige Herstellergarantie schränkt die gesetzlichen Gewährleistungsrechte nicht ein.
-        </p>
+        {c.warrantyText && (
+          <p>
+            <strong>Herstellergarantie:</strong> {c.warrantyText}.
+            Eine allfällige Herstellergarantie schränkt die gesetzlichen Gewährleistungsrechte nicht ein.
+          </p>
+        )}
         <p>
           Bei Mängeln wenden Sie sich bitte an <a href={`mailto:${c.email}`}>{c.email}</a> mit Beschreibung und
           wenn möglich Fotos des Mangels. Wir prüfen den Fall und regeln die weitere Abwicklung (Nachbesserung,
@@ -246,13 +292,15 @@ export default function TermsPage() {
           Auf alle Rechtsbeziehungen zwischen VELORA und dem Kunden ist <strong>Schweizer Recht</strong> anwendbar,
           unter Ausschluss des UN-Kaufrechts (CISG).
         </p>
-        <p>
-          Ausschliesslicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Vertragsverhältnis
-          ist der Sitz von VELORA ({c.city || "[Ort]"}, {c.country || "Schweiz"}), sofern der Kunde Kaufmann,
-          juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist oder keinen
-          allgemeinen Gerichtsstand in der Schweiz hat. VELORA ist jedoch berechtigt, den Kunden auch an dessen
-          Wohnsitzgericht zu belangen.
-        </p>
+        {c.city && c.country && (
+          <p>
+            Ausschliesslicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit dem Vertragsverhältnis
+            ist der Sitz von VELORA ({c.city}, {c.country}), sofern der Kunde Kaufmann,
+            juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist oder keinen
+            allgemeinen Gerichtsstand in der Schweiz hat. VELORA ist jedoch berechtigt, den Kunden auch an dessen
+            Wohnsitzgericht zu belangen.
+          </p>
+        )}
       </section>
 
       <section className="legal-section">

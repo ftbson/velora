@@ -1,10 +1,42 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
-import { companyConfig, getFormattedAddress } from "@/config/company";
+import { companyConfig, getFormattedAddress, getSiteUrl } from "@/config/company";
+
+const c = companyConfig;
+const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Datenschutzerklärung",
+  title: "Datenschutz | VELORA",
   description: "Datenschutzerklärung von VELORA gemäss nLPD/DSGVO – Verantwortlicher, verarbeitete Daten, Zwecke, Empfänger, Speicherdauer, Betroffenenrechte, Aufsichtsbehörde.",
+  alternates: {
+    canonical: `${siteUrl}/legal/privacy`,
+  },
+  openGraph: {
+    title: "Datenschutz | VELORA",
+    description: "VELORA – Datenschutzerklärung gemäss nLPD/DSGVO. Verantwortlicher, verarbeitete Daten, Zwecke, Betroffenenrechte.",
+    url: `${siteUrl}/legal/privacy`,
+    siteName: c.brandName,
+    type: "website",
+    locale: "de_CH",
+    images: [
+      {
+        url: `${siteUrl}/img/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "VELORA Datenschutz",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Datenschutz | VELORA",
+    description: "Datenschutzerklärung von VELORA gemäss nLPD/DSGVO.",
+    images: [`${siteUrl}/img/og-default.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function PrivacyPage() {
@@ -23,9 +55,9 @@ export default function PrivacyPage() {
           und der EU-Datenschutzgrundverordnung (DSGVO) ist:
         </p>
         <p>
-          {c.legalName ? <strong>{c.legalName}</strong> : <em className="missing-field">[Raison sociale – À REMPLIR]</em>}
-          <br />
-          {address || <em className="missing-field">[Adresse – À REMPLIR]</em>}
+          {c.legalName && <strong>{c.legalName}</strong>}
+          {c.legalName && address && <br />}
+          {address && <span>{address}</span>}
           <br />
           E-Mail (Datenschutz): <a href={`mailto:${c.privacyEmail}`}><strong>{c.privacyEmail}</strong></a>
           <br />
@@ -114,9 +146,11 @@ export default function PrivacyPage() {
         <ul>
           <li><strong>Hosting & Infrastruktur:</strong> <strong>Vercel Inc.</strong> (USA) – Hosting der Next.js-Anwendung. Vercel ist unter dem EU-US Data Privacy Framework zertifiziert. Serverstandorte: primär EU (Frankfurt), ggf. USA.</li>
           <li><strong>Datenbank:</strong> <strong>Turso (LibSQL)</strong> – verwaltete SQLite-Datenbank. Serverstandorte: EU (Frankfurt) wählbar.</li>
-          <li><strong>E-Mail-Versand:</strong> <strong>SMTP-Provider</strong> (konfiguriert via Umgebungsvariablen, z. B. mail.veloras.ch oder externer Anbieter wie SendGrid, Mailgun, Postmark). Der genaue Anbieter und Sitz sind in der Konfiguration ersichtlich.</li>
+          <li><strong>E-Mail-Versand:</strong> <strong>SMTP-Provider</strong> (konfiguriert via Umgebungsvariablen, z. B. mail.www.veloras.ch oder externer Anbieter wie SendGrid, Mailgun, Postmark). Der genaue Anbieter und Sitz sind in der Konfiguration ersichtlich.</li>
           <li><strong>Zahlungsdienstleister:</strong> <strong>Stripe Inc.</strong> (USA, EU-Niederlassung) – für Karten- und TWINT-Zahlungen (nach Integration). Stripe ist PCI DSS Level 1 zertifiziert und unter EU-US Data Privacy Framework zertifiziert. Wir erhalten keine vollständigen Kartendaten.</li>
-          <li><strong>Versanddienstleister:</strong> {c.shippingCarrier || "[Versandpartner – À REMPLIR]"} – Name, Lieferadresse, Telefonnummer für die Zustellung.</li>
+          {c.shippingCarrier && (
+            <li><strong>Versanddienstleister:</strong> {c.shippingCarrier} – Name, Lieferadresse, Telefonnummer für die Zustellung.</li>
+          )}
           <li><strong>Behörden / Gerichte:</strong> Auf gesetzliche Anordnung oder zur Geltendmachung/Verteidigung von Rechtsansprüchen.</li>
         </ul>
         <p>
@@ -179,9 +213,11 @@ export default function PrivacyPage() {
           Wenn Sie der Ansicht sind, dass die Bearbeitung Ihrer Personendaten gegen datenschutzrechtliche Bestimmungen verstösst,
           können Sie sich an die zuständige Aufsichtsbehörde wenden:
         </p>
-        <p>
-          <strong>{c.privacyAuthority || "[Aufsichtsbehörde – À REMPLIR]"}</strong>
-        </p>
+        {c.privacyAuthority && (
+          <p>
+            <strong>{c.privacyAuthority}</strong>
+          </p>
+        )}
         <p>
           Für die Schweiz: <strong>Eidgenössischer Datenschutz- und Öffentlichkeitsbeauftragter (EDÖB)</strong>,
           Feldeggweg 1, 3003 Bern, <a href="https://www.edoeb.admin.ch" target="_blank" rel="noopener noreferrer">edoeb.admin.ch</a>.

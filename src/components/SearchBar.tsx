@@ -198,15 +198,15 @@ export default function SearchBar({
                       <span className="velora-search-result-price">
                         CHF {product.price?.toFixed(2)}
                       </span>
-                      {product.oldPrice && (
-                        <span className="velora-search-result-old-price">
-                          CHF {product.oldPrice?.toFixed(2)}
-                        </span>
-                      )}
-                      {product.discount && (
-                        <span className="velora-search-result-discount">
-                          {product.discount}
-                        </span>
+                      {product.compareAtPrice && product.priceVerified && (
+                        <>
+                          <span className="velora-search-result-old-price">
+                            CHF {product.compareAtPrice?.toFixed(2)}
+                          </span>
+                          <span className="velora-search-result-discount">
+                            -{Math.round(((product.compareAtPrice! - product.price) / product.compareAtPrice!) * 100)} %
+                          </span>
+                        </>
                       )}
                     </div>
                   </button>

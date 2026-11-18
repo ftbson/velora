@@ -1,18 +1,43 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { companyConfig, getFormattedAddress } from "@/config/company";
+import { companyConfig, getFormattedAddress, getSiteUrl } from "@/config/company";
 
 const c = companyConfig;
+const siteUrl = getSiteUrl("");
 const address = getFormattedAddress();
 
 export const metadata: Metadata = {
   title: "Über VELORA",
   description: "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.",
+  alternates: {
+    canonical: `${siteUrl}/ueber-uns`,
+  },
   openGraph: {
     title: "Über VELORA",
-    description: "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung.",
+    description: "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.",
+    url: `${siteUrl}/ueber-uns`,
+    siteName: c.brandName,
     type: "website",
+    locale: "de_CH",
+    images: [
+      {
+        url: `${siteUrl}/img/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "VELORA – Über uns",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Über VELORA",
+    description: "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung.",
+    images: [`${siteUrl}/img/og-default.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

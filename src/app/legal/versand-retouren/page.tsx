@@ -1,10 +1,42 @@
 import type { Metadata } from "next";
 import LegalDocument from "@/components/LegalDocument";
-import { companyConfig } from "@/config/company";
+import { companyConfig, getSiteUrl } from "@/config/company";
+
+const c = companyConfig;
+const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
-  title: "Versand, Zahlung und Rückgabe",
-  description: "Informationen zu Versandkosten, Lieferzeiten, Zahlungsarten und Rückgaberecht bei VELORA. Kostenlose Lieferung in die Schweiz und nach Liechtenstein.",
+  title: "Versand & Rückgabe | VELORA",
+  description: "Informationen zu Versand, Zahlung und Rückgabe bei VELORA. Kostenlose Lieferung Schweiz & Liechtenstein. 14 Tage Widerrufsrecht.",
+  alternates: {
+    canonical: `${siteUrl}/legal/versand-retouren`,
+  },
+  openGraph: {
+    title: "Versand & Rückgabe | VELORA",
+    description: "VELORA – Versand, Zahlung und Rückgabe. Kostenloser Versand Schweiz & Liechtenstein, 14 Tage Widerrufsrecht.",
+    url: `${siteUrl}/legal/versand-retouren`,
+    siteName: c.brandName,
+    type: "website",
+    locale: "de_CH",
+    images: [
+      {
+        url: `${siteUrl}/img/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "VELORA Versand & Rückgabe",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Versand & Rückgabe | VELORA",
+    description: "Kostenloser Versand Schweiz & Liechtenstein, 14 Tage Widerrufsrecht.",
+    images: [`${siteUrl}/img/og-default.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function ShippingReturnsPage() {
@@ -35,9 +67,11 @@ export default function ShippingReturnsPage() {
         <p>
           <strong>Lieferzeit:</strong> {c.deliveryTimeText || "2 bis 4 Werktage"} nach Zahlungseingang (bzw. nach Bestellbestätigung bei Vorkasse).
         </p>
-        <p>
-          <strong>Versanddienstleister:</strong> {c.shippingCarrier || "[Versandpartner – À REMPLIR dans company.ts]"}.
-        </p>
+        {c.shippingCarrier && (
+          <p>
+            <strong>Versanddienstleister:</strong> {c.shippingCarrier}.
+          </p>
+        )}
         <p>
           Die Lieferung erfolgt an die im Checkout angegebene Adresse. Bei Lieferverzögerungen informieren wir Sie proaktiv per E-Mail.
           Sollte ein Produkt nicht lieferbar sein, werden Sie unverzüglich benachrichtigt und bereits geleistete Zahlungen zurückerstattet.
@@ -75,9 +109,11 @@ export default function ShippingReturnsPage() {
           <li>Alle Zubehörteile, Handbücher und Etiketten müssen vollständig vorliegen.</li>
           <li>Bei Fahrrädern/E-Bikes: Keine Montagespuren, keine Fahrspuren, originales Schutzmaterial intakt.</li>
         </ul>
-        <p>
-          <strong>Rücksendekosten:</strong> {c.returnShippingCostPolicy || "[Rücksendekosten-Regelung – À REMPLIR]"}.
-        </p>
+        {c.returnShippingCostPolicy && (
+          <p>
+            <strong>Rücksendekosten:</strong> {c.returnShippingCostPolicy}.
+          </p>
+        )}
         <p>
           <strong>Rücksendeadresse:</strong> Bitte stimmen Sie jede Rücksendung vorab per E-Mail
           (<a href={`mailto:${c.email}`}>{c.email}</a>) oder telefonisch
@@ -104,9 +140,9 @@ export default function ShippingReturnsPage() {
 
       <section className="legal-section">
         <h2>Garantie und Gewährleistung</h2>
-        <p>
-          {c.warrantyText || "[Garantiebedingungen – À REMPLIR]"}
-        </p>
+        {c.warrantyText && (
+          <p>{c.warrantyText}</p>
+        )}
         <p>
           Gesetzliche Gewährleistungsrechte (Mängelhaftung) bleiben unberührt. Bei Mängeln wenden Sie sich bitte an
           <a href={`mailto:${c.email}`}>{c.email}</a> mit Beschreibung und Fotos des Mangels.

@@ -8,7 +8,7 @@ export interface CartItem {
   title: string;
   category: string;
   price: number;
-  oldPrice?: number;
+  compareAtPrice?: number;
   image: string;
   quantity: number;
 }
@@ -83,7 +83,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                     title: product.title,
                     category: product.category,
                     price: product.price,
-                    oldPrice: product.oldPrice,
+                    compareAtPrice: product.compareAtPrice,
                     image: product.image,
                   },
                 ];

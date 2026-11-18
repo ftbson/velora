@@ -79,6 +79,17 @@
 
 ---
 
+## 6. Question Marque : UTO / EVOALT vs EOVOLT
+
+**Produit concerné :** `city-uto-ex-eovolt` — "UTO EX EVOALT Evening Origins"
+
+- Marque affichée : `UTO / EVOALT`
+- Le nom "EVOALT" dans le titre du produit suggère un lien avec la marque **EOVOLT** (vélos pliants électriques français)
+- **Action requise** : Confirmer si c'est bien la marque **EOVOLT** ou une marque distincte **UTO / EVOALT**
+- Impact : Google Merchant Center (brand), filtres, JSON-LD, flux RSS
+
+---
+
 ## 6. Variables d'Environnement Vercel (à configurer)
 
 | Variable | Requis | Description |
@@ -133,3 +144,59 @@ npx tsx scripts/migrate-products.ts
 ---
 
 *Dernière mise à jour : Build automatique — voir logs de validation au démarrage*
+
+---
+
+## 9. Résumé des Modifications Effectuées (PHASES C, D, E)
+
+### PHASE C — Champs de Prix & Avis
+- **Nouveaux champs DB** (`src/lib/schema.ts`) : `compareAtPrice` (nullable), `priceVerified` (boolean, défaut false), `reviewsVerified` (boolean, défaut false)
+- **Interface Product** (`src/data/products.ts`) : Ajout de `compareAtPrice`, `priceVerified`, `reviewsVerified` + champs GMC (gtin, mpn, condition, availability, color, size, gender, ageGroup, etc.)
+- **Produits** : Migration des `oldPrice` → `compareAtPrice`, correction du texte dupliqué "6061 6061" sur O2FEEL
+- **Affichage conditionnel** : Prix barré, pourcentage remise, "Sie sparen" + badge ANGEBOT **uniquement si** `compareAtPrice` ET `priceVerified=true`
+- **Avis/Stars** : Affichage masqué derrière flag `reviewsVerified` (par défaut false)
+- **Délai livraison** : Remplacement "2 bis 4 Werktage" hardcodé par `c.deliveryTimeText` (company config)
+
+### PHASE D — JSON-LD & Flux GMC
+- **Product JSON-LD** (`src/app/produit/[id]/page.tsx`) : Offre complète avec price, currency, availability, url, itemCondition, seller, shippingDetails (gratuit CH/LI), hasMerchantReturnPolicy
+- **aggregateRating** : Ajouté **uniquement** si `rating`, `reviewsCount` ET `reviewsVerified=true`
+- **BreadcrumbList JSON-LD** : Produit (4 niveaux) + Catégories (3 niveaux)
+- **Flux GMC** (`src/app/feed/google-merchant.xml/route.ts`) : RSS 2.0 + g:ns, exclut produits sans GTIN/MPN/brand/condition/availability/googleProductCategory, log des exclusions console.warn
+
+### PHASE E — Pages Légales Nettoyées
+- **Retrait bannière "Entwurf"** et suppression des placeholders visibles `[...À REMPLIR...]` dans les 5 pages légales
+- **Rendu conditionnel** : Sections/champs masqués si valeur absente dans `companyConfig`
+- **Cookies page** : Suppression `velora_admin_session` (admin non public), `swissholz_cart` (legacy), GA/Meta/Stripe listés **seulement si** réellement chargés via Consent Mode v2
+- **Pas de clauses inventées** : Contenu légal lu depuis `companyConfig`, pas de texte par défaut inventé
+
+### Fichiers Modifiés Principaux
+| Fichier | Changement |
+|---------|------------|
+| `src/lib/schema.ts` | Nouveaux champs DB produits + table reviews |
+| `src/data/products.ts` | Interface Product étendue, productsData mis à jour |
+| `src/app/produkt/[id]/page.tsx` | JSON-LD Product + BreadcrumbList, affichage conditionnel prix/avis |
+| `src/app/kategorie/[category]/page.tsx` | JSON-LD BreadcrumbList |
+| `src/app/feed/google-merchant.xml/route.ts` | Flux GMC complet avec exclusions loguées |
+| `src/components/LegalDocument.tsx` | Retrait bannière Entwurf |
+| `src/app/legal/impressum/page.tsx` | Rendu conditionnel, nettoyage |
+| `src/app/legal/versand-retouren/page.tsx` | Rendu conditionnel, nettoyage |
+| `src/app/legal/terms/page.tsx` | Rendu conditionnel, nettoyage, fix duplication |
+| `src/app/legal/privacy/page.tsx` | Rendu conditionnel, nettoyage |
+| `src/app/legal/cookies/page.tsx` | Table nettoyée (admin/legacy retirés) |
+| `src/components/ProductCard.tsx` | Badge ANGEBOT + prix conditionnels |
+| `src/components/BestSellers.tsx` | Badge + prix conditionnels |
+| `src/components/Poele.tsx` | Badge + prix conditionnels |
+| `src/components/SearchBar.tsx` | Prix conditionnels |
+| `src/context/CartContext.tsx` | CartItem: oldPrice → compareAtPrice |
+
+### Variables Vercel à Configurer (inchangé)
+Voir section 6 ci-dessus.
+
+### Prochaines Étapes Client
+1. Remplir `src/config/company.ts` (champs ❌ MANQUANT)
+2. Exécuter migration : `npx tsx scripts/migrate-products.ts`
+3. Renseigner GTIN/MPN/brand/condition/availability/googleProductCategory en base pour chaque produit
+4. Valider `priceVerified=true` pour produits avec prix barré justifié
+5. Configurer `authorizedDealer=true` si revendeur officiel
+6. Ajouter `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_GTM_ID` pour Consent Mode v2
+7. Tests pré-production (voir section 8)

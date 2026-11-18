@@ -1,17 +1,44 @@
 import { companyConfig } from "@/config/company";
 import { getFormattedAddress } from "@/config/company";
 import ContactForm from "./ContactForm";
+import { getSiteUrl } from "@/config/company";
+import type { Metadata } from "next";
 
 const c = companyConfig;
+const siteUrl = getSiteUrl("");
 const address = getFormattedAddress();
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Kontakt | VELORA",
-  description: "Kontaktieren Sie VELORA – Ihr Schweizer E-Bike Shop. Telefon, E-Mail, Kontaktformular. Kostenlose Lieferung CH & LI.",
+  description: "Kontaktieren Sie VELORA – Telefon, E-Mail, Kontaktformular. Kostenlose Lieferung Schweiz & Liechtenstein.",
+  alternates: {
+    canonical: `${siteUrl}/kontakt`,
+  },
   openGraph: {
     title: "Kontakt | VELORA",
-    description: "Kontaktieren Sie VELORA – Ihr Schweizer E-Bike Shop.",
+    description: "Kontaktieren Sie VELORA – Ihr Schweizer E-Bike Shop. Telefon, E-Mail, Kontaktformular.",
+    url: `${siteUrl}/kontakt`,
+    siteName: c.brandName,
     type: "website",
+    locale: "de_CH",
+    images: [
+      {
+        url: `${siteUrl}/img/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "VELORA Kontakt",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kontakt | VELORA",
+    description: "Kontaktieren Sie VELORA – Ihr Schweizer E-Bike Shop.",
+    images: [`${siteUrl}/img/og-default.jpg`],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

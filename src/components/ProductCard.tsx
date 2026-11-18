@@ -41,8 +41,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="velora-product-card">
-      {/* Angebots-Badge nur bei reduzierten Produkten */}
-      {product.badgePromo && (
+      {/* Angebots-Badge nur bei reduzierten Produkten UND verifiziertem Vergleichspreis */}
+      {product.badgePromo && product.compareAtPrice && product.priceVerified && (
         <span className="velora-badge-promo">ANGEBOT</span>
       )}
 
@@ -122,18 +122,20 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="velora-price-block">
           <div className="velora-price-main">
             <span className="velora-current-price">CHF {product.price?.toFixed(2)}</span>
-            {product.oldPrice && (
-              <span className="velora-old-price">CHF {product.oldPrice.toFixed(2)}</span>
+            {product.compareAtPrice && product.priceVerified && (
+              <>
+                <span className="velora-old-price">CHF {product.compareAtPrice.toFixed(2)}</span>
+                <span className="velora-discount-tag">
+                  -{Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)} %
+                </span>
+              </>
             )}
-            {product.discount && (
-              <span className="velora-discount-tag">{product.discount}</span>
+            {product.savings && product.priceVerified && (
+              <span className="velora-savings-text">
+                Sie sparen CHF {product.savings.toFixed(2)}
+              </span>
             )}
           </div>
-          {product.savings && (
-            <span className="velora-savings-text">
-              Sie sparen CHF {product.savings.toFixed(2)}
-            </span>
-          )}
         </div>
 
         {/* Bouton Ajouter au panier direct sur la carte */}

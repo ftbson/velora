@@ -69,9 +69,9 @@ async function generateFeed(): Promise<string> {
       ? product.additionalImages.map((img) => `${baseUrl}${img}`)
       : [];
 
-    const price = (product.price / 100).toFixed(2);
+    const price = product.price.toFixed(2);
     const salePrice = product.priceVerified && product.compareAtPrice
-      ? (product.compareAtPrice / 100).toFixed(2)
+      ? product.compareAtPrice.toFixed(2)
       : null;
 
     const availabilityMap: Record<string, string> = {
