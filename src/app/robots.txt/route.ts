@@ -2,31 +2,30 @@ import { NextResponse } from "next/server";
 import { companyConfig } from "@/config/company";
 
 const c = companyConfig;
-const siteUrl = c.siteUrl.replace(/\/$/, "");
+const baseUrl = c.siteUrl.replace(/\/$/, "");
 
 export async function GET() {
   const robots = `# robots.txt for ${c.brandName}
-# Generated automatically - do not edit manually
+# Generated automatically
 
 User-agent: *
 Allow: /
 
-# Disallow admin and private areas
+# Disallow private/admin areas
 Disallow: /admin/
 Disallow: /api/
+Disallow: /konto/
 Disallow: /warenkorb
 Disallow: /wunschliste
 Disallow: /anmelden
-Disallow: /konto
 Disallow: /kasse
-Disallow: /checkout
-Disallow: /suche
+Disallow: /kasse/
 
 # Sitemap
-Sitemap: ${siteUrl}/sitemap.xml
+Sitemap: ${baseUrl}/sitemap.xml
 
 # Host
-Host: ${siteUrl.replace(/^https?:\/\//, "")}
+Host: www.veloras.ch
 `;
 
   return new NextResponse(robots, {

@@ -57,7 +57,7 @@ export default function CookiesPage() {
               <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig)</td>
             </tr>
             <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
-              <td style={{ padding: "8px", fontFamily: "monospace" }}>swissholz_cart (legacy)</td>
+              <td style={{ padding: "8px", fontFamily: "monospace" }}>velora_cart</td>
               <td style={{ padding: "8px" }}>localStorage</td>
               <td style={{ padding: "8px" }}>Warenkorb-Daten (Produkt-IDs, Mengen)</td>
               <td style={{ padding: "8px" }}>Bis manuelle Löschung</td>
@@ -116,14 +116,14 @@ export default function CookiesPage() {
           <li><strong>Funktionale Präferenzen (optional):</strong> Speicherung von Filtereinstellungen, Merkliste,
             Spracheinstellungen – über localStorage, keine Cookies.</li>
           <li><strong>Statistik & Optimierung (optional, Einwilligung erforderlich):</strong> Google Analytics (GA4)
-            zur anonymisierten Nutzungsanalyse. IP-Anonymisierung aktiv. Consent Mode v2: <code>analytics_storage='granted'</code>.</li>
+            zur anonymisierten Nutzungsanalyse. IP-Anonymisierung aktiv. Consent Mode v2: <code>analytics_storage=&apos;granted&apos;</code>.</li>
           <li><strong>Marketing (optional, Einwilligung erforderlich):</strong> Meta Pixel (Facebook/Instagram) für
-            Conversion-Tracking und Remarketing. Consent Mode v2: <code>ad_storage='granted'</code>, <code>ad_user_data='granted'</code>.</li>
+            Conversion-Tracking und Remarketing. Consent Mode v2: <code>ad_storage=&apos;granted&apos;</code>, <code>ad_user_data=&apos;granted&apos;</code>.</li>
         </ul>
         <p>
           Sie können Ihre Einwilligung jederzeit ändern oder widerrufen:
           <CookieSettingsButton />
-          oder über den Link „Cookie-Einstellungen“ im Footer.
+          oder über den Link &ldquo;Cookie-Einstellungen&rdquo; im Footer.
         </p>
       </section>
 

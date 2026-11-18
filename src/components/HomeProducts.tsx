@@ -40,7 +40,7 @@ export default function HomeProducts() {
         ))}
       </div>
       <div className="storefront-actions">
-        <Link href="/products" className="storefront-primary-link">
+        <Link href="/produkte" className="storefront-primary-link">
           Alle Produkte ansehen
           <i className="fa-solid fa-arrow-right" aria-hidden="true" />
         </Link>

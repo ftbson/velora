@@ -10,7 +10,7 @@ const heroSlides = [
     title: "Fahrräder für jeden Weg",
     subtitle: "Entdecken Sie City-, Trekking- und Mountainbike-Modelle für Alltag, Tour und Gelände.",
     buttonText: "Alle Produkte entdecken",
-    buttonLink: "/products",
+    buttonLink: "/produkte",
     image: "/img/hero1.jpg",
     tag: "VELORA"
   },
@@ -19,7 +19,7 @@ const heroSlides = [
     title: "Kostenloser Versand",
     subtitle: "Ihre Bestellung wird ohne zusätzliche Versandkosten geliefert.",
     buttonText: "Sortiment ansehen",
-    buttonLink: "/products",
+    buttonLink: "/produkte",
     image: "/img/hero2.jpg",
     tag: "IHR PLUS BEI VELORA"
   },

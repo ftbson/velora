@@ -40,6 +40,29 @@ const redirectMap: Record<string, string> = {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get("host");
+
+  // Enforce www and https in production
+  if (process.env.NODE_ENV === "production" && host) {
+    const url = request.nextUrl.clone();
+    let shouldRedirect = false;
+
+    // Redirect non-www to www
+    if (!host.startsWith("www.") && host.includes("veloras.ch")) {
+      url.host = `www.${host}`;
+      shouldRedirect = true;
+    }
+
+    // Redirect http to https (Vercel handles this but good to be explicit)
+    if (url.protocol === "http:") {
+      url.protocol = "https:";
+      shouldRedirect = true;
+    }
+
+    if (shouldRedirect) {
+      return NextResponse.redirect(url, 301);
+    }
+  }
 
   // Check for exact match redirect
   if (redirectMap[pathname]) {
@@ -57,14 +80,6 @@ export function middleware(request: NextRequest) {
     const newUrl = new URL(newPath, request.url);
     return NextResponse.redirect(newUrl, 301);
   }
-
-  // Enforce www subdomain consistency (optional - configure based on preference)
-  // const host = request.headers.get("host");
-  // if (host && !host.startsWith("www.") && host.includes("veloras.ch")) {
-  //   const newUrl = new URL(request.url);
-  //   newUrl.host = `www.${host}`;
-  //   return NextResponse.redirect(newUrl, 301);
-  // }
 
   // Security headers
   const response = NextResponse.next();

@@ -30,7 +30,7 @@ export default function WishlistPage() {
           <i className="fa-regular fa-heart" aria-hidden="true" />
           <h2>Ihre Wunschliste ist noch leer</h2>
           <p>Speichern Sie Produkte mit dem Herzsymbol, um sie hier wiederzufinden.</p>
-          <Link href="/products" className="storefront-primary-link">
+          <Link href="/produkte" className="storefront-primary-link">
             Produkte entdecken
           </Link>
         </div>

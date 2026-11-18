@@ -41,6 +41,10 @@ export interface CompanyConfig {
   brandName: string;           // Nom de marque affiché (ex: "VELORA")
   siteUrl: string;             // URL canonique (ex: "https://www.veloras.ch")
   authorizedDealer: boolean;   // Revendeur agréé pour marques (CUBE, Benno, O2feel, Granville)
+  authorizedBrands: string[];  // Liste des marques dont on est revendeur agréé (ex: ["CUBE", "Benno Bikes", "O2FEEL", "Granville"])
+
+  // Réseaux sociaux (pour JSON-LD sameAs)
+  socialLinks: string[];       // URLs des profils sociaux (ex: ["https://instagram.com/velora", "https://facebook.com/velora"])
 
   // Paiement (pour mentions légales)
   paymentProviders: string[];  // Ex: ["Stripe (Karte, TWINT)", "Banküberweisung"]
@@ -93,8 +97,12 @@ export const companyConfig: CompanyConfig = {
   brandName: "VELORA",
   siteUrl: "https://www.veloras.ch",
   authorizedDealer: false,          // À REMPLIR : true si revendeur agréé officiel
+  authorizedBrands: ["CUBE", "Benno Bikes", "O2FEEL", "Granville"], // À REMPLIR : marques dont on est revendeur agréé
 
-  // Paiement
+  // Réseaux sociaux (pour JSON-LD sameAs)
+  socialLinks: [],                  // À REMPLIR : URLs profils sociaux (ex: Instagram, Facebook)
+
+  // Paiement (pour mentions légales)
   paymentProviders: ["Banküberweisung"], // À REMPLIR : Ajouter "Stripe (Karte, TWINT)" après intégration
 };
 

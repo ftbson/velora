@@ -70,7 +70,7 @@ export default function SearchBar({
 
     setIsOpen(false);
     onNavigate?.();
-    router.push(`/products?q=${encodeURIComponent(trimmed)}`);
+    router.push(`/produkte?q=${encodeURIComponent(trimmed)}`);
   };
 
   const handleSelectProduct = (productId: string) => {

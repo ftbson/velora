@@ -7,6 +7,9 @@
  * npx tsx scripts/migrate-products.ts
  */
 
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
 import { createClient } from "@libsql/client";
 import { productsData } from "../src/data/products";
 

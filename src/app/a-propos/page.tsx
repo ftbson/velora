@@ -13,19 +13,19 @@ const categories = [
     name: "City-E-Bikes",
     title: "Für die Stadt",
     description: "Entdecken Sie Modelle für tägliche Wege und urbane Mobilität.",
-    href: "/kategorie/ville",
+    href: "/kategorie/stadt",
   },
   {
     name: "Trekking-E-Bikes",
     title: "Für Alltag und Touren",
     description: "Finden Sie E-Bikes für vielseitige Wege und längere Ausfahrten.",
-    href: "/kategorie/vtc",
+    href: "/kategorie/trekking",
   },
   {
     name: "E-Mountainbikes",
     title: "Für Wege abseits der Stadt",
     description: "Sehen Sie sich unsere Auswahl für Gelände und anspruchsvollere Strecken an.",
-    href: "/kategorie/vtt",
+    href: "/kategorie/mountainbike",
   },
 ];
 
@@ -45,7 +45,7 @@ export default function AboutPage() {
             nachhaltige Mobilität in der Schweiz und Liechtenstein.
           </p>
           <div className="about-actions">
-            <Link href="/products" className="storefront-primary-link">
+            <Link href="/produkte" className="storefront-primary-link">
               Sortiment entdecken
               <i className="fa-solid fa-arrow-right" aria-hidden="true" />
             </Link>

@@ -57,7 +57,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const frameId = requestAnimationFrame(() => {
       try {
-        const savedCart = localStorage.getItem("swissholz_cart");
+        // Migration: swissholz_cart -> velora_cart
+        const legacyCart = localStorage.getItem("swissholz_cart");
+        const currentCart = localStorage.getItem("velora_cart");
+        if (legacyCart && !currentCart) {
+          localStorage.setItem("velora_cart", legacyCart);
+          localStorage.removeItem("swissholz_cart");
+        }
+
+        const savedCart = localStorage.getItem("velora_cart");
         const savedFavorites = localStorage.getItem("velora_favorites");
         if (savedCart) {
           const parsedCart: unknown = JSON.parse(savedCart);
@@ -107,7 +115,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (!isHydrated) return;
 
     try {
-      localStorage.setItem("swissholz_cart", JSON.stringify(cart));
+      localStorage.setItem("velora_cart", JSON.stringify(cart));
       localStorage.setItem("velora_favorites", JSON.stringify(favorites));
     } catch (error) {
       console.error("Fehler beim Speichern der Shop-Daten:", error);

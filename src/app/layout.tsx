@@ -11,36 +11,49 @@ import { companyConfig, getSiteUrl } from "@/config/company";
 const c = companyConfig;
 const siteUrl = c.siteUrl.replace(/\/$/, "");
 
-// JSON-LD Organization Schema
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Store",
-  name: c.brandName,
-  url: siteUrl,
-  logo: `${siteUrl}/img/logo.png`,
-  description: "VELORA – Ihr Schweizer Fachhändler für Premium E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: c.street || "",
-    postalCode: c.postalCode || "",
-    addressLocality: c.city || "",
-    addressCountry: c.country || "CH",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
+// Build JSON-LD Organization dynamically from config
+function buildOrganizationJsonLd() {
+  const org: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: c.brandName,
+    url: siteUrl,
+    logo: `${siteUrl}/img/logo.png`,
+    description: `${c.brandName} – Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.`,
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: c.phoneRaw,
+      contactType: "customer service",
+      availableLanguage: ["German"],
+      hoursAvailable: c.openingHours || undefined,
+    },
+    email: c.email,
     telephone: c.phoneRaw,
-    contactType: "customer service",
-    availableLanguage: ["German"],
-    hoursAvailable: c.openingHours ? `Mo-Fr 08:30-18:00, Sa 09:00-16:00` : "",
-  },
-  email: c.email,
-  telephone: c.phoneRaw,
-  sameAs: [],
-  priceRange: "CHF 30 - CHF 8000",
-  currenciesAccepted: "CHF",
-  paymentAccepted: "Cash, Credit Card, TWINT, Bank Transfer",
-  areaServed: ["CH", "LI"],
-};
+    currenciesAccepted: "CHF",
+    paymentAccepted: c.paymentProviders.join(", "),
+    areaServed: ["CH", "LI"],
+  };
+
+  // Only add address if all required fields are present
+  if (c.street && c.postalCode && c.city) {
+    org.address = {
+      "@type": "PostalAddress",
+      streetAddress: c.street,
+      postalCode: c.postalCode,
+      addressLocality: c.city,
+      addressCountry: c.country || "CH",
+    };
+  }
+
+  // Only add sameAs if there are real social URLs
+  if (c.socialLinks && c.socialLinks.length > 0) {
+    org.sameAs = c.socialLinks;
+  }
+
+  return org;
+}
+
+const organizationJsonLd = buildOrganizationJsonLd();
 
 // JSON-LD Website Schema
 const websiteJsonLd = {
@@ -48,25 +61,17 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: c.brandName,
   url: siteUrl,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${siteUrl}/suche?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
-  },
   inLanguage: "de-CH",
 };
 
 // Configuration SEO Avancée - VELORA Switzerland (E-Bikes)
 export const metadata: Metadata = {
   title: {
-    default: `${c.brandName} - Premium E-Bikes & Elektrofahrräder Schweiz`,
+    default: `${c.brandName} – E-Bikes, Fahrräder, Zubehör & Bekleidung | Schweiz`,
     template: `%s | ${c.brandName}`,
   },
   description:
-    "Entdecken Sie hochwertige E-Bikes und Elektrofahrräder von VELORA. Schweizer Fachhändler mit kostenloser Lieferung in die Schweiz und nach Liechtenstein.",
+    `${c.brandName} – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Radbekleidung. Kostenlose Lieferung in die Schweiz und nach Liechtenstein.`,
   authors: [{ name: c.brandName }],
   creator: c.brandName,
   publisher: c.brandName,
@@ -80,9 +85,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: `${c.brandName} - Premium E-Bikes & Elektrofahrräder Schweiz`,
+    title: `${c.brandName} – E-Bikes, Fahrräder, Zubehör & Bekleidung`,
     description:
-      "Schweizer Fachhändler für E-Bikes: City, Trekking, Mountainbikes. Kostenlose Lieferung CH & LI. Top-Marken: CUBE, Benno, O2FEEL, Granville, ORBEA.",
+      `Onlineshop für E-Bikes (City, Trekking, Mountainbike), Fahrradzubehör und Radbekleidung. Kostenloser Versand CH & LI.`,
     url: siteUrl,
     siteName: c.brandName,
     images: [
@@ -90,7 +95,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/img/og-default.jpg`,
         width: 1200,
         height: 630,
-        alt: `${c.brandName} – Schweizer E-Bike Fachhändler`,
+        alt: `${c.brandName} – Schweizer E-Bike Shop`,
       },
     ],
     locale: "de_CH",
@@ -98,9 +103,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${c.brandName} - Schweizer Premium E-Bikes`,
+    title: `${c.brandName} – Schweizer E-Bike Shop`,
     description:
-      "Erleben Sie die Zukunft der Mobilität mit den neuen E-Bikes von VELORA. Kostenloser Versand in die Schweiz & Liechtenstein.",
+      `E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz & Liechtenstein.`,
     images: [`${siteUrl}/img/og-default.jpg`],
   },
   robots: {

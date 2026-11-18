@@ -42,7 +42,7 @@ export default function ShopGrid({ initialQuery = "" }: ShopGridProps) {
             <span className="search-filter-tag">
               Suchbegriff: <strong>{query.trim()}</strong>
             </span>
-            <Link href="/products" className="search-reset-link">
+            <Link href="/produkte" className="search-reset-link">
               <i className="fa-solid fa-xmark"></i> Filter zurücksetzen
             </Link>
           </div>
@@ -72,7 +72,7 @@ export default function ShopGrid({ initialQuery = "" }: ShopGridProps) {
             Zu Ihrer Suche nach „<strong>{query.trim()}</strong>“ wurden keine passenden Artikel gefunden.
           </p>
           <div className="search-no-products-actions">
-            <Link href="/products" className="search-view-all-link">
+            <Link href="/produkte" className="search-view-all-link">
               Alle Produkte anzeigen
             </Link>
           </div>

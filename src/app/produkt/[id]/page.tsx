@@ -262,6 +262,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const categoryLabel = categoryNames[product.category] || product.categoryLabel;
 
+  // Map product category codes to German category slugs
+  function getCategorySlug(category: string): string {
+    const slugMap: Record<string, string> = {
+      VILLE: "stadt",
+      VTC: "trekking",
+      VTT: "mountainbike",
+      ACCESSOIRES: "zubehoer",
+      VETEMENTS: "bekleidung",
+      ENFANTS: "kinder",
+      Kleidung: "bekleidung",
+      kinder: "kinder",
+    };
+    return slugMap[category] || category.toLowerCase();
+  }
+
   return (
     <div className="velora-product-detail-page">
       {/* JSON-LD Structured Data */}
@@ -291,7 +306,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <meta itemProp="position" content="2" />
             </li>
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" aria-current="page">
-              <Link href={`/kategorie/${product.category.toLowerCase()}`} itemProp="item">
+              <Link href={`/kategorie/${getCategorySlug(product.category)}`} itemProp="item">
                 <span itemProp="name">{categoryLabel}</span>
               </Link>
               <meta itemProp="position" content="3" />
@@ -360,10 +375,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </span>
               {product.oldPrice && (product as any).price_verified ? (
                 <span className="velora-detail-old-price">CHF {product.oldPrice.toFixed(2)}</span>
-              ) : product.oldPrice ? (
-                <span className="velora-detail-old-price-unverified" style={{ opacity: 0.5, fontSize: "0.875rem" }}>
-                  CHF {product.oldPrice.toFixed(2)} (unverifizierter Preis)
-                </span>
               ) : null}
             </div>
 

@@ -51,7 +51,7 @@ export default async function CategoryPage({
         <Link href="/kategorie" className="storefront-secondary-link">
           Alle Kategorien
         </Link>
-        <Link href="/products" className="storefront-primary-link">
+        <Link href="/produkte" className="storefront-primary-link">
           Gesamtes Sortiment
           <i className="fa-solid fa-arrow-right" aria-hidden="true" />
         </Link>

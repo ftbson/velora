@@ -40,42 +40,44 @@ export default function Footer() {
             </div>
 
             {/* Unternehmensangaben im Footer für Google Merchant Center / Vertrauen */}
-            <div className="velora-footer-company-info" style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-              <h4 style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem", color: "#fff" }}>
-                {c.brandName} – {c.legalName || "Unternehmensname"}
-              </h4>
-              {address && (
-                <address style={{ fontStyle: "normal", fontSize: "0.8125rem", lineHeight: 1.6, color: "rgba(255,255,255,0.8)" }}>
-                  {c.street}<br />
-                  {c.postalCode} {c.city}<br />
-                  {c.country}
-                </address>
-              )}
-              <div style={{ fontSize: "0.8125rem", lineHeight: 1.8, color: "rgba(255,255,255,0.8)", marginTop: "0.5rem" }}>
-                <a href={`mailto:${c.email}`} style={{ color: "inherit", textDecoration: "underline" }}>{c.email}</a><br />
-                <a href={`tel:${c.phoneRaw}`} style={{ color: "inherit", textDecoration: "underline" }}>{c.phone}</a>
-                {c.openingHours && <br />}
-                {c.openingHours && <span>{c.openingHours}</span>}
-              </div>
-              <p style={{ marginTop: "0.75rem", fontSize: "0.75rem", color: "rgba(255,255,255,0.6)" }}>
-                <Link href="/legal/impressum" style={{ color: "inherit", textDecoration: "underline" }}>Impressum</Link>
-                {c.uid && (
-                  <>
-                    <span style={{ margin: "0 0.5rem" }}>•</span>
-                    <span>UID: {c.uid}</span>
-                  </>
+            {c.legalName && (
+              <div className="velora-footer-company-info" style={{ marginTop: "1.5rem", paddingTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+                <h4 style={{ fontSize: "0.875rem", fontWeight: 600, marginBottom: "0.5rem", color: "#fff" }}>
+                  {c.brandName} – {c.legalName}
+                </h4>
+                {address && (
+                  <address style={{ fontStyle: "normal", fontSize: "0.8125rem", lineHeight: 1.6, color: "rgba(255,255,255,0.8)" }}>
+                    {c.street}<br />
+                    {c.postalCode} {c.city}<br />
+                    {c.country}
+                  </address>
                 )}
-              </p>
-            </div>
+                <div style={{ fontSize: "0.8125rem", lineHeight: 1.8, color: "rgba(255,255,255,0.8)", marginTop: "0.5rem" }}>
+                  <a href={`mailto:${c.email}`} style={{ color: "inherit", textDecoration: "underline" }}>{c.email}</a><br />
+                  <a href={`tel:${c.phoneRaw}`} style={{ color: "inherit", textDecoration: "underline" }}>{c.phone}</a>
+                  {c.openingHours && <br />}
+                  {c.openingHours && <span>{c.openingHours}</span>}
+                </div>
+                <p style={{ marginTop: "0.75rem", fontSize: "0.75rem", color: "rgba(255,255,255,0.6)" }}>
+                  <Link href="/legal/impressum" style={{ color: "inherit", textDecoration: "underline" }}>Impressum</Link>
+                  {c.uid && (
+                    <>
+                      <span style={{ margin: "0 0.5rem" }}>•</span>
+                      <span>UID: {c.uid}</span>
+                    </>
+                  )}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="velora-footer-col">
             <h4 className="velora-footer-title">Entdecken</h4>
             <ul className="velora-footer-links">
-              <li><Link href="/products">Alle Produkte</Link></li>
+              <li><Link href="/produkte">Alle Produkte</Link></li>
               <li><Link href="/kategorie">Kategorien</Link></li>
               <li><Link href="/warenkorb">Warenkorb</Link></li>
-              <li><Link href="/wishlist">Merkliste</Link></li>
+              <li><Link href="/wunschliste">Merkliste</Link></li>
             </ul>
           </div>
 

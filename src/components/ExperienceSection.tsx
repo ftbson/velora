@@ -31,7 +31,7 @@ export default function ExperienceSection() {
           Vom Stadtverkehr bis zu anspruchsvollen Trails: Entdecken Sie Fahrräder, Zubehör und Bekleidung für Ihre nächste Tour.
         </p>
         <div className="velora-experience-actions">
-          <Link href="/products" className="velora-btn-primary">
+          <Link href="/produkte" className="velora-btn-primary">
             Alle Produkte entdecken
           </Link>
           <Link href="/a-propos" className="velora-btn-secondary">
