@@ -310,7 +310,7 @@ export default function CartPage() {
             <button
               className="modal-close-btn"
               onClick={handleCloseModal}
-              aria-label="Schließen"
+              aria-label="Schliessen"
             >
               <i className="fa-solid fa-xmark"></i>
             </button>
@@ -377,7 +377,7 @@ export default function CartPage() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="streetAddress">Lieferadresse (Straße & Nr.) *</label>
+                    <label htmlFor="streetAddress">Lieferadresse (Strasse & Nr.) *</label>
                     <input
                       type="text"
                       id="streetAddress"
@@ -385,7 +385,7 @@ export default function CartPage() {
                       required
                       value={formData.streetAddress}
                       onChange={handleInputChange}
-                      placeholder="Musterstraße 12"
+                      placeholder="Musterstrasse 12"
                     />
                   </div>
 
@@ -630,7 +630,7 @@ export default function CartPage() {
                     onClick={handleCloseModal}
                     style={{ background: "#111827", color: "#fff" }}
                   >
-                    Verstanden & Schließen
+                    Verstanden & Schliessen
                   </button>
                 </div>
               </div>

@@ -7,22 +7,15 @@ const c = companyConfig;
 const siteUrl = getSiteUrl("");
 const address = getFormattedAddress();
 
-// Only include "Schweizer" references if country and uid are filled
-  const isSwissShop = c.country && c.uid;
-
-  export const metadata: Metadata = {
+export const metadata: Metadata = {
   title: "Über uns",
-  description: isSwissShop
-    ? "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein."
-    : "VELORA – Ihr Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand in die Schweiz und nach Liechtenstein.",
+  description: `${c.brandName} – ${c.brandName} bietet E-Bikes, Fahrräder, Zubehör und Bekleidung. ${c.deliveryTimeText ? `Lieferzeit: ${c.deliveryTimeText}. ` : ""}${c.returnPeriodDays && c.returnPolicyAccepted ? `${c.returnPeriodDays} Tage Widerrufsrecht. ` : ""}Kostenloser Versand Schweiz & Liechtenstein.`,
   alternates: {
     canonical: getSiteUrl("/ueber-uns"),
   },
   openGraph: {
     title: "Über uns",
-    description: isSwissShop
-      ? "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand Schweiz & Liechtenstein."
-      : "VELORA – Ihr Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.",
+    description: `${c.brandName} – E-Bikes, Fahrräder, Zubehör, Bekleidung. ${c.deliveryTimeText ? `Lieferzeit: ${c.deliveryTimeText}. ` : ""}Kostenloser Versand Schweiz & Liechtenstein.`,
     url: getSiteUrl("/ueber-uns"),
     siteName: c.brandName,
     type: "website",
@@ -32,16 +25,14 @@ const address = getFormattedAddress();
         url: `${siteUrl}/img/og-default.jpg`,
         width: 1200,
         height: 630,
-        alt: "VELORA – Über uns",
+        alt: `${c.brandName} – Über uns`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Über uns",
-    description: isSwissShop
-      ? "VELORA – Ihr Schweizer Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung."
-      : "VELORA – Ihr Onlineshop für E-Bikes, Fahrräder, Zubehör und Bekleidung.",
+    description: `${c.brandName} – E-Bikes, Fahrräder, Zubehör, Bekleidung. Kostenloser Versand Schweiz & Liechtenstein.`,
     images: [`${siteUrl}/img/og-default.jpg`],
   },
   robots: {
@@ -50,6 +41,22 @@ const address = getFormattedAddress();
   },
 };
 
+function hasCompanyInfo(): boolean {
+  return !!(c.legalName || c.street || c.postalCode || c.city);
+}
+
+function hasReturnPolicy(): boolean {
+  return c.returnPolicyAccepted === true && !!c.returnPeriodDays;
+}
+
+function hasPaymentInfo(): boolean {
+  return c.paymentProviders.length > 0;
+}
+
+function hasShippingInfo(): boolean {
+  return !!(c.shippingCarrier || c.deliveryTimeText);
+}
+
 export default function AboutPage() {
   return (
     <main className="about-page">
@@ -57,7 +64,7 @@ export default function AboutPage() {
         <div className="about-hero-content">
           <h1>Über {c.brandName}</h1>
           <p className="about-lead">
-            {c.brandName} ist Ihr Schweizer Onlineshop für hochwertige E-Bikes, Fahrräder, Zubehör und Radbekleidung.
+            {c.brandName} bietet E-Bikes, Fahrräder, Zubehör und Radbekleidung.
             Wir liefern versandkostenfrei in die gesamte Schweiz und nach Liechtenstein.
           </p>
         </div>
@@ -66,13 +73,9 @@ export default function AboutPage() {
       <section className="about-content">
         <div className="about-grid">
           <div className="about-text">
-            <h2>Unsere Mission</h2>
+            <h2>Unser Sortiment</h2>
             <p>
-              {c.brandName} wurde gegründet, um Schweizer Radfahrern den einfachen Zugang zu qualitativ hochwertigen
-              E-Bikes und Fahrrädern zu ermöglichen – ohne Umwege, ohne versteckte Kosten.
-            </p>
-            <p>
-              Unser Sortiment umfasst City-E-Bikes, Trekking-E-Bikes, E-Mountainbikes sowie passendes Zubehör
+              {c.brandName} führt City-E-Bikes, Trekking-E-Bikes, E-Mountainbikes sowie passendes Zubehör
               und funktionale Bekleidung für Alltag, Tour und Gelände.
             </p>
 
@@ -92,25 +95,66 @@ export default function AboutPage() {
               </div>
             )}
 
-            <h2>Standort & Kontakt</h2>
-            {address ? (
-              <address>
-                <strong>{c.legalName || c.brandName}</strong><br />
-                {address.replace(/, /g, "<br />")}
-              </address>
-            ) : (
-              <p><em>Adresse wird ergänzt – siehe Impressum.</em></p>
+            {hasCompanyInfo() && (
+              <>
+                <h2>Standort & Kontakt</h2>
+                {address ? (
+                  <address>
+                    <strong>{c.legalName || c.brandName}</strong><br />
+                    {address.replace(/, /g, "<br />")}
+                  </address>
+                ) : (
+                  <p>
+                    <em>Standortangaben werden ergänzt – siehe <Link href="/legal/impressum">Impressum</Link>.</em>
+                  </p>
+                )}
+
+                <div className="about-contact-links">
+                  <a href={`mailto:${c.email}`}>{c.email}</a>
+                  <a href={`tel:${c.phoneRaw}`}>{c.phone}</a>
+                </div>
+
+                {c.openingHours && (
+                  <div className="about-hours">
+                    <h3>Öffnungszeiten (Beratung)</h3>
+                    <p>{c.openingHours}</p>
+                  </div>
+                )}
+              </>
             )}
 
-            <div className="about-contact-links">
-              <a href={`mailto:${c.email}`}>{c.email}</a>
-              <a href={`tel:${c.phoneRaw}`}>{c.phone}</a>
-            </div>
+            {hasShippingInfo() && (
+              <div className="about-shipping-info">
+                <h3>Versand & Lieferung</h3>
+                {c.deliveryTimeText && (
+                  <p><strong>Lieferzeit:</strong> {c.deliveryTimeText}</p>
+                )}
+                {c.shippingCarrier && (
+                  <p><strong>Versanddienstleister:</strong> {c.shippingCarrier}</p>
+                )}
+                <p><strong>Versandkosten:</strong> Kostenlos in der Schweiz & Liechtenstein</p>
+              </div>
+            )}
 
-            {c.openingHours && (
-              <div className="about-hours">
-                <h3>Öffnungszeiten (Beratung)</h3>
-                <p>{c.openingHours}</p>
+            {hasPaymentInfo() && (
+              <div className="about-payment-info">
+                <h3>Zahlungsarten</h3>
+                <ul>
+                  {c.paymentProviders.map((provider, idx) => (
+                    <li key={idx}>{provider}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {hasReturnPolicy() && (
+              <div className="about-return-info">
+                <h3>Rückgabe & Widerruf</h3>
+                <p>
+                  <strong>{c.returnPeriodDays} Tage</strong> Widerrufsrecht.
+                  {c.returnShippingCostPolicy && <br />}
+                  {c.returnShippingCostPolicy}
+                </p>
               </div>
             )}
           </div>
@@ -119,34 +163,44 @@ export default function AboutPage() {
             <div className="about-image-wrapper">
               <Image
                 src="/img/about.jpg"
-                alt={`${c.brandName} – Schweizer E-Bike Shop`}
+                alt={`${c.brandName} – E-Bike Shop`}
                 width={600}
                 height={450}
                 priority
                 className="about-main-image"
               />
             </div>
+
             <div className="about-features">
-              <div className="feature-card">
-                <i className="fa-solid fa-truck-fast"></i>
-                <h4>Kostenloser Versand</h4>
-                <p>In die ganze Schweiz & Liechtenstein</p>
-              </div>
+              {hasShippingInfo() && (
+                <div className="feature-card">
+                  <i className="fa-solid fa-truck-fast"></i>
+                  <h4>Kostenloser Versand</h4>
+                  <p>In die ganze Schweiz & Liechtenstein</p>
+                </div>
+              )}
+
               <div className="feature-card">
                 <i className="fa-solid fa-headset"></i>
                 <h4>Persönliche Beratung</h4>
                 <p>Telefonisch & per E-Mail</p>
               </div>
-              <div className="feature-card">
-                <i className="fa-solid fa-shield-halved"></i>
-                <h4>Sicherer Kauf</h4>
-                <p>Banküberweisung & Stripe (geplant)</p>
-              </div>
-              <div className="feature-card">
-                <i className="fa-solid fa-rotate-left"></i>
-                <h4>Einfache Retouren</h4>
-                <p>{c.returnPeriodDays} Tage Widerrufsrecht</p>
-              </div>
+
+              {hasPaymentInfo() && (
+                <div className="feature-card">
+                  <i className="fa-solid fa-shield-halved"></i>
+                  <h4>Sicherer Kauf</h4>
+                  <p>{c.paymentProviders.join(", ")}</p>
+                </div>
+              )}
+
+              {hasReturnPolicy() && (
+                <div className="feature-card">
+                  <i className="fa-solid fa-rotate-left"></i>
+                  <h4>Einfache Retouren</h4>
+                  <p>{c.returnPeriodDays} Tage Widerrufsrecht</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -69,7 +69,7 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
           Sichere Online-Zahlung
         </h2>
         <p style={{ color: "#6b7280", fontSize: "0.9375rem" }}>
-          Sie werden zu Stripe weitergeleitet, um die Zahlung abzuschließen.
+          Sie werden zu Stripe weitergeleitet, um die Zahlung abzuschliessen.
         </p>
       </div>
 

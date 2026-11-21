@@ -309,7 +309,7 @@ const bikeProducts: Product[] = [
     badgePromo: false,
     isNew: true,
     description:
-      "Der Maßstab für Trekking-E-Bikes: Ausgestattet mit der neuesten Bosch 800Wh Batterie für endlose Touren.",
+      "Der Massstab für Trekking-E-Bikes: Ausgestattet mit der neuesten Bosch 800Wh Batterie für endlose Touren.",
     specs: {
       frame: "Aluminium Superlite Gravity Casting Technology",
       brakes: "Shimano BR-MT200 Hydraulisch",
@@ -723,7 +723,7 @@ const additionalProducts: Product[] = [
     description:
       "20-Zoll-kinderfahrrad von Cube mit Shimano-Kettenschaltung mit 7 Gängen und kindgerecht abgestimmten V-Bremshebeln.",
     details: [
-      { label: "Laufradgröße", value: "20 Zoll" },
+      { label: "Laufradgrösse", value: "20 Zoll" },
       { label: "Schaltung", value: "Shimano, 7 Gänge" },
       { label: "Bremsen", value: "V-Bremsen" },
     ],
@@ -741,7 +741,7 @@ const additionalProducts: Product[] = [
     description:
       "24-Zoll-kinderfahrrad von ACADEMY mit Shimano-Claris-Schaltung mit 8 Gängen und V-Bremsen.",
     details: [
-      { label: "Laufradgröße", value: "24 Zoll" },
+      { label: "Laufradgrösse", value: "24 Zoll" },
       { label: "Schaltung", value: "Shimano Claris, 8 Gänge" },
       { label: "Bremsen", value: "V-Bremsen" },
     ],
@@ -850,14 +850,14 @@ const additionalProducts: Product[] = [
     imageFile: "/img/prod/sigma-bc-10-0-sts-fahrradcomputer-kabellos.webp",
     isDraft: false,
     description:
-      "Kabelloser SIGMA-Fahrradcomputer mit zehn Funktionen. Dazu gehören unter anderem Durchschnittsgeschwindigkeit, Tageskilometer und Außentemperatur.",
+      "Kabelloser SIGMA-Fahrradcomputer mit zehn Funktionen. Dazu gehören unter anderem Durchschnittsgeschwindigkeit, Tageskilometer und Aussentemperatur.",
     details: [
       { label: "Verbindung", value: "Kabellos" },
       { label: "Funktionen", value: "10" },
       {
         label: "Messwerte",
         value:
-          "Unter anderem Durchschnittsgeschwindigkeit, Tageskilometer und Außentemperatur",
+          "Unter anderem Durchschnittsgeschwindigkeit, Tageskilometer und Aussentemperatur",
       },
     ],
   },
@@ -907,7 +907,7 @@ const additionalProducts: Product[] = [
     imageFile: "/img/prod/gonso-save-pants-therm-mercury-gray.webp",
     isDraft: false,
     description:
-      "Warme Allwetter-Fahrradhose für kalte Tage mit Primaloft-Isolierung und G-TEX-Außenschicht. Getapte Nähte und eine Wassersäule von 10.000 mm schützen vor Nässe.",
+      "Warme Allwetter-Fahrradhose für kalte Tage mit Primaloft-Isolierung und G-TEX-Aussenschicht. Getapte Nähte und eine Wassersäule von 10.000 mm schützen vor Nässe.",
     details: [
       { label: "Isolierung", value: "Primaloft" },
       { label: "Material", value: "G-TEX" },
@@ -970,13 +970,13 @@ const additionalProducts: Product[] = [
     badgePromo: true,
     isDraft: false,
     description:
-      "3/4-armiges Trail-Shirt aus Drirelease-Polyester-Baumwollmix mit seitlicher Reißverschlusstasche. Ein Silikonprint am Rückensaum hilft, das Verrutschen zu verhindern.",
+      "3/4-armiges Trail-Shirt aus Drirelease-Polyester-Baumwollmix mit seitlicher Reissverschlusstasche. Ein Silikonprint am Rückensaum hilft, das Verrutschen zu verhindern.",
     details: [
       {
         label: "Material",
         value: "Drirelease-Polyester-Baumwollmix, 140 g/m²",
       },
-      { label: "Tasche", value: "Seitliche Reißverschlusstasche" },
+      { label: "Tasche", value: "Seitliche Reissverschlusstasche" },
       {
         label: "Weitere Merkmale",
         value: "Silikonprint am Rückensaum und reflektierende Logos",
@@ -1034,7 +1034,7 @@ const additionalProducts: Product[] = [
       "/img/prod/vaude-m-fluid-full-zip-rain-pants-ii-herren-schwarz.webp",
     isDraft: false,
     description:
-      "Wasserdichte und atmungsaktive Herren-Regenhose mit durchgehendem Reißverschluss zum leichteren An- und Ausziehen.",
+      "Wasserdichte und atmungsaktive Herren-Regenhose mit durchgehendem Reissverschluss zum leichteren An- und Ausziehen.",
     details: [
       { label: "Farbe", value: "Schwarz" },
       { label: "Eigenschaften", value: "Wasserdicht und atmungsaktiv" },
@@ -1077,7 +1077,7 @@ const additionalProducts: Product[] = [
     description:
       "Leichtes 24-Zoll-kinderfahrrad von ACADEMY für den Alltag und den Weg zur Schule.",
     details: [
-      { label: "Laufradgröße", value: "24 Zoll" },
+      { label: "Laufradgrösse", value: "24 Zoll" },
       { label: "Einsatz", value: "Alltag und Schulweg" },
       { label: "Farbe", value: "Ocean" },
     ],
@@ -1095,7 +1095,7 @@ const additionalProducts: Product[] = [
     description:
       "20-Zoll-kinderfahrrad von ACADEMY mit leichter Bauweise und ergonomisch entwickeltem Rahmen.",
     details: [
-      { label: "Laufradgröße", value: "20 Zoll" },
+      { label: "Laufradgrösse", value: "20 Zoll" },
       { label: "Farbe", value: "Blue" },
       {
         label: "Merkmal",
@@ -1116,7 +1116,7 @@ const additionalProducts: Product[] = [
     description:
       "24-Zoll-Jugend-Gravelbike mit Aluminiumrahmen, breiten Reifen und Microshift-Advent-Schaltung mit zehn Gängen.",
     details: [
-      { label: "Laufradgröße", value: "24 Zoll" },
+      { label: "Laufradgrösse", value: "24 Zoll" },
       { label: "Rahmen", value: "Aluminium" },
       { label: "Schaltung", value: "Microshift Advent, 1×10 Gänge" },
     ],
@@ -1134,7 +1134,7 @@ const additionalProducts: Product[] = [
     description:
       "20-Zoll-kinderfahrrad von ACADEMY mit Riemenantrieb, leichter Bauweise und ergonomisch entwickelter Geometrie.",
     details: [
-      { label: "Laufradgröße", value: "20 Zoll" },
+      { label: "Laufradgrösse", value: "20 Zoll" },
       { label: "Antrieb", value: "Riemenantrieb" },
       { label: "Farbe", value: "Ocean" },
     ],
@@ -1152,7 +1152,7 @@ const additionalProducts: Product[] = [
     description:
       "20-Zoll-kinderfahrrad von ACADEMY mit Riemenantrieb, leichter Bauweise und ergonomisch entwickelter Geometrie.",
     details: [
-      { label: "Laufradgröße", value: "20 Zoll" },
+      { label: "Laufradgrösse", value: "20 Zoll" },
       { label: "Antrieb", value: "Riemenantrieb" },
       { label: "Farbe", value: "Yellow" },
     ],
@@ -1170,7 +1170,7 @@ const additionalProducts: Product[] = [
     description:
       "26-Zoll-Jugendfahrrad mit Aluminiumrahmen, 8-Gang-Schaltung von Shimano/microSHIFT, Suntour-NEX-Federgabel und mechanischen Tektro-Scheibenbremsen.",
     details: [
-      { label: "Laufradgröße", value: "26 Zoll" },
+      { label: "Laufradgrösse", value: "26 Zoll" },
       { label: "Rahmen", value: "SmartForm C3 Aluminium" },
       { label: "Schaltung", value: "Shimano/microSHIFT, 8 Gänge" },
       { label: "Bremsen", value: "Mechanische Tektro-Scheibenbremsen" },
@@ -1191,9 +1191,9 @@ const additionalProducts: Product[] = [
     badgePromo: true,
     isDraft: false,
     description:
-      "24-Zoll-kinderfahrrad für kinder ab 8 Jahren mit Aluminiumrahmen, Shimano-Schaltung mit acht Gängen und Straßenausstattung.",
+      "24-Zoll-kinderfahrrad für kinder ab 8 Jahren mit Aluminiumrahmen, Shimano-Schaltung mit acht Gängen und Strassenausstattung.",
     details: [
-      { label: "Laufradgröße", value: "24 Zoll" },
+      { label: "Laufradgrösse", value: "24 Zoll" },
       { label: "Empfohlenes Alter", value: "Ab 8 Jahren" },
       { label: "Schaltung", value: "Shimano, 8 Gänge" },
     ],

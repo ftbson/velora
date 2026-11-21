@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <header className="velora-header">
-      {/* Top Announcement Bar - Only shows if configured in companyConfig */}
+      {/* Top Announcement Bar - Conditional on deliveryTimeText or shippingCarrier */}
       {(c.deliveryTimeText || c.shippingCarrier) && (
         <div className="velora-topbar">
           <div className="velora-topbar-container">
@@ -31,6 +31,33 @@ export default function Navbar() {
                   Versand via {c.shippingCarrier}
                 </span>
               )}
+            </div>
+            <div className="velora-topbar-right">
+              <a href={`tel:${c.phoneRaw}`} className="velora-topbar-link">
+                <i className="fa-solid fa-phone"></i>
+                <span>{c.phone}</span>
+              </a>
+              <span className="velora-topbar-divider">•</span>
+              <a href={`mailto:${c.email}`} className="velora-topbar-link">
+                <i className="fa-solid fa-envelope"></i>
+                <span>{c.email}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Fallback: Only free shipping text when no config values */}
+      {(!c.deliveryTimeText && !c.shippingCarrier) && (
+        <div className="velora-topbar">
+          <div className="velora-topbar-container">
+            <div className="velora-topbar-left">
+              <span className="velora-topbar-badge">
+                <i className="fa-solid fa-truck-fast"></i> Kostenloser Versand
+              </span>
+              <span className="velora-topbar-text">
+                Kostenlose Lieferung in der ganzen Schweiz & Liechtenstein
+              </span>
             </div>
             <div className="velora-topbar-right">
               <a href={`tel:${c.phoneRaw}`} className="velora-topbar-link">

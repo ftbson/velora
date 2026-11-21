@@ -38,28 +38,28 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+function hasCompanyInfo(): boolean {
+  return !!(c.legalName || address);
 }
 
-function hasContent(): boolean {
+function hasRetentionInfo(): boolean {
   return !!(
-    c.legalName ||
-    address ||
-    c.privacyEmail ||
-    c.privacyAuthority ||
-    c.supervisoryAuthority ||
-    c.osPlatformUrl ||
     c.dataRetentionAccountDays ||
     c.dataRetentionOrderYears ||
     c.dataRetentionInvoiceYears ||
     c.dataRetentionContactYears ||
-    c.dataRetentionLogsDays ||
-    c.paymentProviders.length > 0 ||
-    c.shippingCarrier
-  )
+    c.dataRetentionLogsDays
+  );
+}
+
+function hasAuthorityInfo(): boolean {
+  return !!(c.privacyAuthority || c.supervisoryAuthority);
 }
 
 export default function PrivacyPage() {
-  if (!hasContent()) {
+  if (!hasCompanyInfo()) {
     return (
       <LegalDocument
         title="Datenschutzerklärung"
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
           <p>Bitte füllen Sie die Datei <code>src/config/company.ts</code> vollständig aus.</p>
         </section>
       </LegalDocument>
-    )
+    );
   }
 
   return (
@@ -78,23 +78,21 @@ export default function PrivacyPage() {
       title="Datenschutzerklärung"
       description="Informationen zur Bearbeitung personenbezogener Daten gemäss Schweizer Datenschutzgesetz (nLPD) und DSGVO."
     >
-      {(c.legalName || address) && (
-        <section className="legal-section">
-          <h2>1. Verantwortliche Stelle</h2>
-          <p>
-            Verantwortlich für die Bearbeitung personenbezogener Daten:
-          </p>
-          <p>
-            {c.legalName && <strong>{c.legalName}</strong>}
-            {c.legalName && address && <br />}
-            {address && <span>{address}</span>}
-            <br />
-            E-Mail (Datenschutz): <a href={`mailto:${c.privacyEmail}`}><strong>{c.privacyEmail}</strong></a>
-            <br />
-            Telefon: <a href={`tel:${c.phoneRaw}`}>{c.phone}</a>
-          </p>
-        </section>
-      )}
+      <section className="legal-section">
+        <h2>1. Verantwortliche Stelle</h2>
+        <p>
+          Verantwortlich für die Bearbeitung personenbezogener Daten:
+        </p>
+        <p>
+          {c.legalName && <strong>{c.legalName}</strong>}
+          {c.legalName && address && <br />}
+          {address && <span>{address}</span>}
+          <br />
+          E-Mail (Datenschutz): <a href={`mailto:${c.privacyEmail}`}><strong>{c.privacyEmail}</strong></a>
+          <br />
+          Telefon: <a href={`tel:${c.phoneRaw}`}>{c.phone}</a>
+        </p>
+      </section>
 
       <section className="legal-section">
         <h2>2. Kategorien bearbeiteter Personendaten</h2>
@@ -190,8 +188,7 @@ export default function PrivacyPage() {
         </p>
       </section>
 
-      {(c.dataRetentionAccountDays || c.dataRetentionOrderYears || c.dataRetentionInvoiceYears ||
-        c.dataRetentionContactYears || c.dataRetentionLogsDays) && (
+      {hasRetentionInfo() && (
         <section className="legal-section">
           <h2>5. Speicherdauer / Aufbewahrungsfristen</h2>
           <p>Wir bewahren Personendaten nur so lange auf, wie erforderlich oder gesetzlich vorgeschrieben:</p>
@@ -247,7 +244,7 @@ export default function PrivacyPage() {
         </p>
       </section>
 
-      {(c.privacyAuthority || c.supervisoryAuthority) && (
+      {hasAuthorityInfo() && (
         <section className="legal-section">
           <h2>8. Aufsichtsbehörde / Beschwerderecht</h2>
           {c.privacyAuthority && (
@@ -304,5 +301,5 @@ export default function PrivacyPage() {
         </p>
       </section>
     </LegalDocument>
-  )
+  );
 }

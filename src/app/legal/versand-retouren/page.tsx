@@ -185,15 +185,17 @@ export default function ShippingReturnsPage() {
         </section>
       )}
 
-      <section className="legal-section">
-        <h2>Ausschluss des Widerrufsrechts</h2>
-        <p>
-          Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung von Waren, die nach Kundenspezifikationen angefertigt
-          wurden oder eindeutig auf die persönlichen Bedürfnisse zugeschnitten sind (z. B. massgefertigte Fahrräder, personalisierte
-          Bekleidung), sowie bei versiegelten Waren, die aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe
-          geeignet sind, wenn ihre Versiegelung nach der Lieferung entfernt wurde.
-        </p>
-      </section>
+      {hasReturnPolicy() && (
+        <section className="legal-section">
+          <h2>Ausschluss des Widerrufsrechts</h2>
+          <p>
+            Das Widerrufsrecht besteht nicht bei Verträgen zur Lieferung von Waren, die nach Kundenspezifikationen angefertigt
+            wurden oder eindeutig auf die persönlichen Bedürfnisse zugeschnitten sind (z. B. massgefertigte Fahrräder, personalisierte
+            Bekleidung), sowie bei versiegelten Waren, die aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe
+            geeignet sind, wenn ihre Versiegelung nach der Lieferung entfernt wurde.
+          </p>
+        </section>
+      )}
 
       {c.warrantyText && (
         <section className="legal-section">

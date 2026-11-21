@@ -37,7 +37,7 @@ export interface CompanyConfig {
   returnPeriodDays: number;           // Délai de retour en jours (ex: 14 ou 30)
   returnShippingCostPolicy: string;   // Qui paie les frais de retour (ex: "Kostenlose Rücksendung bei Widerruf innerhalb der Frist")
   returnRefundDurationDays: number;   // Délai remboursement en jours (ex: 14)
-  warrantyText: string;               // Texte garantie (ex: "Herstellergarantie gemäß Schweizer Obligationenrecht. 2 Jahre auf Neuwaren.")
+  warrantyText: string;               // Texte garantie (ex: "Herstellergarantie gemaess Schweizer Obligationenrecht. 2 Jahre auf Neuwaren.")
   damageReportDays: number;           // Délai signalement dommages/transport (ex: 2)
 
   // Conservation des données (pour Datenschutz)
@@ -109,7 +109,7 @@ export const companyConfig: CompanyConfig = {
   returnPeriodDays: 14,             // À REMPLIR : Délai retour (jours)
   returnShippingCostPolicy: "Kostenlose Rücksendung bei Widerruf innerhalb der Frist. Bei Garantiefällen übernimmt VELORA die Rücksendekosten.", // À REMPLIR : Politique frais retour
   returnRefundDurationDays: 14,     // À REMPLIR : Délai remboursement (jours)
-  warrantyText: "Herstellergarantie gemäß Schweizer Obligationenrecht (OR). 2 Jahre Gewährleistung auf Neuwaren ab Lieferung. Batterien und Verschleißteile ausgenommen.", // À REMPLIR : Texte garantie
+  warrantyText: "Herstellergarantie gemaess Schweizer Obligationenrecht (OR). 2 Jahre Gewaehrleistung auf Neuwaren ab Lieferung. Batterien und Verschleissteile ausgenommen.", // À REMPLIR : Texte garantie
   damageReportDays: 2,              // À REMPLIR : Délai signalement dommages/transport (jours)
 
   // Conservation des données (pour Datenschutz) - À REMPLIR

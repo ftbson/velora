@@ -1,202 +1,178 @@
-# MISSING_INFO.md — Informations manquantes pour VELORA (veloras.ch)
+# VELORA – Fehlende Informationen (Stand: 2026-11-21)
 
-> Ce fichier liste toutes les données que le client doit encore fournir pour la conformité Google Merchant Center et la mise en production. Il est mis à jour automatiquement à chaque build via le script de validation.
-
----
-
-## 1. Configuration Entreprise (`src/config/company.ts`)
-
-| Champ | Statut | Commentaire |
-|-------|--------|-------------|
-| `legalName` | ❌ MANQUANT | Raison sociale complète (ex: "VELORA AG") |
-| `legalForm` | ❌ MANQUANT | Forme juridique (ex: "Aktiengesellschaft", "GmbH", "Einzelfirma") |
-| `street` | ❌ MANQUANT | Rue et numéro |
-| `postalCode` | ❌ MANQUANT | Code postal |
-| `city` | ❌ MANQUANT | Ville |
-| `country` | ✅ "Schweiz" | Pays |
-| `uid` | ❌ MANQUANT | Numéro IDE (format: CHE-XXX.XXX.XXX) |
-| `commercialRegister` | ❌ MANQUANT | Registre du commerce (ex: "Handelsregister des Kantons Zürich, CH-123.4.567.890-1") |
-| `vatNumber` | ⚠️ `null` | Non assujetti à la TVA — **confirmer si correct** |
-| `responsiblePerson` | ❌ MANQUANT | Nom du responsable légal (ex: "Max Muster, CEO") |
-| `email` | ✅ "kontact@veloras.ch" | Email principal — **vérifier: `kontact@` ou `kontakt@` ?** |
-| `phone` | ✅ "+41 76 752 94 93" | Téléphone affichage |
-| `phoneRaw` | ✅ "+41767529493" | Téléphone format `tel:` |
-| `openingHours` | ✅ "Mo. – Fr.: 08:30 – 18:00 \| Sa.: 09:00 – 16:00" | Horaires d'ouverture |
-| `privacyEmail` | ✅ "kontact@veloras.ch" | Email protection données (nLPD/DSGVO) |
-| `privacyAuthority` | ✅ "EDÖB" | Autorité de surveillance |
-| `shippingCarrier` | ✅ "Planzer / DPD Schweiz / Poste Suisse" | Transporteur(s) |
-| `deliveryTimeText` | ✅ "2 bis 4 Werktage" | Délai livraison |
-| `paymentDeadlineDays` | ✅ 10 | Délai paiement virement (jours) |
-| `returnPeriodDays` | ✅ 14 | Délai retour (jours) |
-| `returnShippingCostPolicy` | ✅ Rempli | Politique frais retour |
-| `returnRefundDurationDays` | ✅ 14 | Délai remboursement (jours) |
-| `warrantyText` | ✅ Rempli | Texte garantie |
-| `brandName` | ✅ "VELORA" | Nom de marque |
-| `siteUrl` | ✅ "https://www.veloras.ch" | URL canonique |
-| `authorizedDealer` | ⚠️ `false` | **Marquer `true` si revendeur agréé officiel CUBE/Benno/O2feel/Granville** |
-| `paymentProviders` | ⚠️ `["Banküberweisung"]` | **Ajouter "Stripe (Karte, TWINT)" après intégration** |
+> Alle unten aufgeführten Werte müssen in **`src/config/company.ts`** eingetragen werden, damit die entsprechenden Inhalte auf der Website erscheinen. **Kein Wert wird hardcoded – alles kommt aus der Config.**
 
 ---
 
-## 2. Produits sans GTIN / MPN
+## 🔴 Kritisch: Pflichtfelder für Google Merchant Center & Rechtssicherheit
 
-> Tous les produits listés ci-dessous sont exclus du flux Google Merchant Center tant que `gtin` ou `mpn` et `brand` ne sont pas renseignés en base.
-
-| Produit ID | Titre | Marque | Catégorie | GTIN | MPN |
-|------------|-------|--------|-----------|------|-----|
-| *(à remplir après migration BDD)* | | | | | |
-
-> **Action requise** : Exécuter `npx tsx scripts/migrate-products.ts` puis renseigner GTIN/MPN dans l'admin pour chaque produit.
-
----
-
-## 3. Descriptions Produits à Enrichir
-
-> Produits dont la description fait une seule ligne ou semble incomplète.
-
-| Produit ID | Titre | Problème |
-|------------|-------|----------|
-| *(à auditer)* | | |
+| Feld in `company.ts` | Beschreibung | Status |
+|---|---|---|
+| `legalName` | Vollständige Firmenbezeichnung (z. B. „VELORA AG“) | ❌ FEHLT |
+| `legalForm` | Rechtsform (z. B. „Aktiengesellschaft“, „GmbH“, „Einzelfirma“) | ❌ FEHLT |
+| `street` | Straße & Hausnummer | ❌ FEHLT |
+| `postalCode` | PLZ | ❌ FEHLT |
+| `city` | Ort | ❌ FEHLT |
+| `uid` | UID / IDE (Format: `CHE-XXX.XXX.XXX`) | ❌ FEHLT |
+| `commercialRegister` | Handelsregistereintrag (z. B. „Handelsregister des Kantons Zürich, CH-123.4.567.890-1“) | ❌ FEHLT |
+| `responsiblePerson` | Vertretungsberechtigte Person (z. B. „Max Muster, CEO“) | ❌ FEHLT |
 
 ---
 
-## 4. Prix Barrés à Justifier (`price_verified = true`)
+## 🟡 Wichtig: Rechtliche & operative Angaben
 
-> Produits avec `compareAtPrice` défini mais `price_verified = false`. Le prix barré ne s'affiche pas tant que non vérifié.
-
-| Produit ID | Titre | Prix actuel | Ancien prix | Statut |
-|------------|-------|-------------|-------------|--------|
-| *(à auditer en base)* | | | | `price_verified: false` |
-
----
-
-## 5. Question Email
-
-**`kontact@veloras.ch` ou `kontakt@veloras.ch` ?**
-- Actuellement configuré : `kontact@veloras.ch` (avec un 'c')
-- Standard allemand : `kontakt@` (avec un 'k')
-- **À confirmer avec le client** et mettre à jour partout si nécessaire.
+| Feld in `company.ts` | Beschreibung | Aktueller Wert / Status |
+|---|---|---|
+| `vatNumber` | MWST-Nummer (z. B. „CHE-XXX.XXX.XXX MWST“) oder `null` | `null` (⚠️ Prüfen: MWST-pflichtig?) |
+| `vatExempt` | `true` wenn nicht MWST-pflichtig (Kleinunternehmer, OSS), `null` = ungeklärt | `null` ❌ FEHLT |
+| `authorizedDealer` | `true` wenn offizieller Fachhändler für CUBE/Benno/O2feel/Granville | `false` ⚠️ Prüfen |
+| `authorizedBrands` | Array der Marken, für die man offizieller Händler ist | `["CUBE", "Benno Bikes", "O2FEEL", "Granville"]` (Platzhalter) |
+| `paymentProviders` | Zahlungsarten (z. B. `["Banküberweisung", "Stripe (Karte, TWINT)"]`) | `["Banküberweisung"]` |
+| `paymentDeadlineDays` | Zahlungsfrist bei Vorkasse (Tage) | `10` ✓ |
+| `deliveryTimeText` | Lieferzeit-Text (z. B. „2 bis 4 Werktage“) | `2 bis 4 Werktage` ✓ |
+| `shippingCarrier` | Versanddienstleister (z. B. „Planzer, DPD Schweiz, Poste Suisse“) | `Planzer / DPD Schweiz / Poste Suisse` ✓ |
 
 ---
 
-## 6. Question Marque : UTO / EVOALT vs EOVOLT
+## 🟢 Rückgabe & Garantie (nur sichtbar wenn `returnPolicyAccepted: true`)
 
-**Produit concerné :** `city-uto-ex-eovolt` — "UTO EX EVOALT Evening Origins"
-
-- Marque affichée : `UTO / EVOALT`
-- Le nom "EVOALT" dans le titre du produit suggère un lien avec la marque **EOVOLT** (vélos pliants électriques français)
-- **Action requise** : Confirmer si c'est bien la marque **EOVOLT** ou une marque distincte **UTO / EVOALT**
-- Impact : Google Merchant Center (brand), filtres, JSON-LD, flux RSS
-
----
-
-## 6. Variables d'Environnement Vercel (à configurer)
-
-| Variable | Requis | Description |
-|----------|--------|-------------|
-| `TURSO_DATABASE_URL` | ✅ | URL base de données Turso |
-| `TURSO_AUTH_TOKEN` | ✅ | Token auth Turso |
-| `STRIPE_SECRET_KEY` | ⏳ | Pour paiements carte/TWINT (plus tard) |
-| `STRIPE_WEBHOOK_SECRET` | ⏳ | Webhook Stripe |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | ⏳ | Clé publique Stripe |
-| `NEXT_PUBLIC_SITE_URL` | ✅ | `https://www.veloras.ch` |
-| `NEXT_PUBLIC_GA_ID` | ⏳ | Google Analytics Measurement ID (G-XXXXXXXXXX) |
-| `NEXT_PUBLIC_GTM_ID` | ⏳ | Google Tag Manager Container ID (GTM-XXXXXXX) |
-| `NEXT_PUBLIC_META_PIXEL_ID` | ⏳ | Meta Pixel ID |
-| `SMTP_HOST` | ✅ | Serveur SMTP sortant |
-| `SMTP_PORT` | ✅ | Port SMTP (587/465) |
-| `SMTP_USER` | ✅ | Utilisateur SMTP |
-| `SMTP_PASS` | ✅ | Mot de passe SMTP |
-| `SMTP_FROM` | ✅ | Expéditeur emails (ex: "VELORA <noreply@veloras.ch>") |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | ✅ | Email contact (ex: kontakt@veloras.ch) |
+| Feld in `company.ts` | Beschreibung | Aktueller Wert |
+|---|---|---|
+| `returnPolicyAccepted` | **Master-Switch**: `true` = Widerrufstexte werden angezeigt | `false` ❌ FEHLT |
+| `returnPeriodDays` | Widerrufsfrist in Tagen | `14` ✓ |
+| `returnShippingCostPolicy` | Wer trägt Rücksendekosten? | Platzhalter-Text ✓ |
+| `returnRefundDurationDays` | Rückerstattungsfrist in Tagen | `14` ✓ |
+| `warrantyText` | Garantietext (Herstellergarantie) | Platzhalter-Text ✓ |
+| `damageReportDays` | Frist für Transportschaden-Meldung (Werktage) | `2` ✓ |
 
 ---
 
-## 7. Migrations à Exécuter
+## 🔵 Datenschutz – Aufbewahrungsfristen (nur sichtbar wenn befüllt)
 
-```bash
-# 1. Créer les tables et seeder les produits
-npx tsx scripts/migrate-products.ts
+| Feld in `company.ts` | Beschreibung | Aktueller Wert |
+|---|---|---|
+| `dataRetentionAccountDays` | Konto-Daten nach Löschung (Tage) | `30` ✓ |
+| `dataRetentionOrderYears` | Bestelldaten (Jahre, Art. 958a OR) | `10` ✓ |
+| `dataRetentionInvoiceYears` | Rechnungen (Jahre, Art. 958a OR) | `10` ✓ |
+| `dataRetentionContactYears` | Kontaktanfragen (Jahre) | `2` ✓ |
+| `dataRetentionLogsDays` | Technische Logs (Tage) | `90` ✓ |
 
-# 2. (Optionnel) Migration localStorage swissholz_cart → velora_cart
-#    À faire côté client au premier chargement
+---
+
+## 🔵 Datenschutz – Behörden & Plattformen
+
+| Feld in `company.ts` | Beschreibung | Aktueller Wert |
+|---|---|---|
+| `privacyAuthority` | Aufsichtsbehörde (Standard: EDÖB) | Platzhalter ✓ |
+| `supervisoryAuthority` | Branchenspezifische Aufsichtsbehörde (optional) | ❌ FEHLT |
+| `osPlatformUrl` | OS-Streitschlichtungsplattform URL (optional) | ❌ FEHLT |
+
+---
+
+## 🔵 Kontakt & Öffnungszeiten
+
+| Feld in `company.ts` | Beschreibung | Aktueller Wert |
+|---|---|---|
+| `email` | Haupt-E-Mail | `kontact@veloras.ch` ✓ |
+| `privacyEmail` | Datenschutz-E-Mail (kann = email) | `kontact@veloras.ch` ✓ |
+| `phone` | Telefon (Anzeigeformat) | `+41 76 752 94 93` ✓ |
+| `phoneRaw` | Telefon (tel:-Format) | `+41767529493` ✓ |
+| `openingHours` | Öffnungszeiten (Beratung) | Platzhalter ✓ |
+
+---
+
+## 🔵 Marke & Social
+
+| Feld in `company.ts` | Beschreibung | Aktueller Wert |
+|---|---|---|
+| `brandName` | Markenname (Display) | `VELORA` ✓ |
+| `siteUrl` | Kanonische URL | `https://www.veloras.ch` ✓ |
+| `socialLinks` | Social-Media-URLs für JSON-LD `sameAs` | `[]` ❌ FEHLT |
+
+---
+
+## 📋 Zusammenfassung: Was fehlt für „Go-Live“?
+
+**Minimal (rechtlich nötig):**
+1. `legalName`, `legalForm`, `street`, `postalCode`, `city`
+2. `uid`, `commercialRegister`, `responsiblePerson`
+3. `vatExempt` (true/false klären)
+4. `returnPolicyAccepted: true` (nach juristischer Prüfung)
+5. `authorizedDealer` + `authorizedBrands` korrekt setzen
+6. `paymentProviders` um Stripe erweitern sobald integriert
+
+**Optional (SEO/Vertrauen):**
+7. `socialLinks` befüllen
+8. `supervisoryAuthority` falls branchenspezifisch reguliert
+9. `osPlatformUrl` falls OS-Plattform relevant
+
+---
+
+## 🗑️ Entfernte Inhalte (weil nicht in company.ts)
+
+Die folgenden Texte/Blöcke wurden **komplett entfernt**, weil sie keine Entsprechung in `company.ts` haben:
+
+### `/ueber-uns`
+- ❌ „14 Tage Widerrufsrecht“ (Feature-Card) → nur wenn `returnPolicyAccepted && returnPeriodDays`
+- ❌ „Einfache Retouren“ (Feature-Card) → nur wenn `returnPolicyAccepted`
+- ❌ „Banküberweisung & Stripe (geplant)“ (Feature-Card) → nur wenn `paymentProviders` befüllt
+- ❌ „Schweizer Onlineshop“ / „gegründet…“ (Marketing-Floskeln)
+- ❌ „Adresse wird ergänzt“ (Platzhalter-Text) → Adresse nur wenn `street/postalCode/city` befüllt
+- ❌ „Sicherer Kauf“ Block → nur wenn Zahlungsarten in Config
+- ❌ „Retouren“ Block → nur wenn Rückgabepolitik akzeptiert
+
+### `/legal/versand-retouren`
+- ❌ Harter Text „Herstellergarantie gemäß OR. 2 Jahre… Batterien ausgenommen“ → nur `warrantyText` aus Config
+- ❌ „Ausschluss des Widerrufsrechts“ → **nur** wenn `returnPolicyAccepted: true`
+- ❌ Harter Lieferzeit-Text „2 bis 4 Werktage“ → `deliveryTimeText` aus Config
+- ❌ Harter Zahlungsfrist-Text „10 Tage“ → `paymentDeadlineDays` aus Config
+- ❌ Harter Schadenmelde-Text „2 Werktage“ → `damageReportDays` aus Config
+
+### `/legal/privacy`
+- ❌ Cloudflare, WhatsApp, Stripe/TWINT (wenn nicht in Config), Google Analytics, Dependabot, npm audit
+- ❌ Harte Speicherdauern (10 Jahre, 2 Jahre, 30 Tage, 90 Tage) → nur wenn entsprechende `dataRetention*` Felder befüllt
+- ❌ „mail.www.veloras.ch“ (Platzhalter) → nur generisch „SMTP-Provider (via Env)“
+- ❌ Dopplung EDÖB (zweimal aufgeführt) → einmal
+- ❌ „Verantwortliche Stelle“ → nur wenn `legalName` befüllt
+
+### `/legal/terms`
+- ❌ 15 harte Sections (Vertragsschluss-Schritte, Teillieferungen, Eigentumsvorbehalt, Haftung, Salvatorische Klausel, Stand/Änderungen, etc.) → **nur** Sections rendern, deren Daten in Config existieren
+- ❌ Keine Meta-Keywords, keine Draft-Banner, keine Platzhalter in Klammern
+
+### `/legal/cookies`
+- ❌ Stripe-Cookies → nur wenn `paymentProviders` „Stripe“ enthält
+- ❌ Alle `→` Pfeile in Browser-Anleitungen durch `&rarr;` ersetzt (JSX-konform)
+
+### Navbar / Top-Bar
+- ❌ Fester Text „Kostenloser Versand“ / „2 bis 4 Werktage / Versand via…“ → dynamisch aus `deliveryTimeText` / `shippingCarrier`
+- ❌ Fallback: nur „Kostenlose Lieferung Schweiz & Liechtenstein“ wenn beide leer
+
+### Redirects (301 permanent)
+- `/a-propos` → `/ueber-uns`
+- `/contact` → `/kontakt`
+- `/products` → `/produkte`
+- `/panier` → `/warenkorb`
+- `/cart` → `/warenkorb`
+- `/connexion` → `/anmelden`
+- `/wishlist` → `/wunschliste`
+- `/categorie/*` → `/kategorie/*` (via generateStaticParams)
+
+### Schreibweise de-CH
+- ❌ Alle `ß` → `ss` ersetzt (Strasse, Masse, Weiss, Schliessen, abschliessen, geniessen, gesso, etc.)
+
+---
+
+## ✅ Build-Status
+
+```
+✓ Compiled successfully
+✓ Generating static pages (97/97)
+✓ Sitemap.xml generiert (inkl. Produkt-URLs)
+✓ Robots.txt generiert
+✓ 404-Seite vorhanden
+✓ Alle Rechtsseiten rendern nur bei befüllter Config
 ```
 
 ---
 
-## 8. Tests à Effectuer Avant Mise en Production
-
-| Test | Commande / Outil | Critère de réussite |
-|------|------------------|---------------------|
-| Build Next.js | `npm run build` | ✅ Sans erreurs (warnings config OK) |
-| Lint | `npm run lint` | ✅ Sans erreurs |
-| Redirections 301 | `curl -I https://veloras.ch/products` | `301 → https://www.veloras.ch/produkte` |
-| Canonical par page | Vérifier `<link rel="canonical">` | URL propre de la page |
-| JSON-LD Produit | [Rich Results Test](https://search.google.com/test/rich-results) | ✅ Valide, pas d'erreurs |
-| JSON-LD Organization | [Rich Results Test](https://search.google.com/test/rich-results) | ✅ Valide |
-| Sitemap.xml | `GET /sitemap.xml` | ✅ 200, toutes URLs listées |
-| Robots.txt | `GET /robots.txt` | ✅ 200, contient `Sitemap:` |
-| Flux GMC | `GET /feed/google-merchant.xml` | ✅ 200, XML valide RSS 2.0 + g:ns |
-| Page 404 | Visiter `/page-inexistante` | ✅ Page allemande personnalisée |
-| Consent Mode v2 | DevTools → Application → Cookies | Scripts GA/GTM/Meta bloqués sans consentement |
-| localStorage migration | DevTools → localStorage | `velora_cart` présent, `swissholz_cart` absent |
-
----
-
-*Dernière mise à jour : Build automatique — voir logs de validation au démarrage*
-
----
-
-## 9. Résumé des Modifications Effectuées (PHASES C, D, E)
-
-### PHASE C — Champs de Prix & Avis
-- **Nouveaux champs DB** (`src/lib/schema.ts`) : `compareAtPrice` (nullable), `priceVerified` (boolean, défaut false), `reviewsVerified` (boolean, défaut false)
-- **Interface Product** (`src/data/products.ts`) : Ajout de `compareAtPrice`, `priceVerified`, `reviewsVerified` + champs GMC (gtin, mpn, condition, availability, color, size, gender, ageGroup, etc.)
-- **Produits** : Migration des `oldPrice` → `compareAtPrice`, correction du texte dupliqué "6061 6061" sur O2FEEL
-- **Affichage conditionnel** : Prix barré, pourcentage remise, "Sie sparen" + badge ANGEBOT **uniquement si** `compareAtPrice` ET `priceVerified=true`
-- **Avis/Stars** : Affichage masqué derrière flag `reviewsVerified` (par défaut false)
-- **Délai livraison** : Remplacement "2 bis 4 Werktage" hardcodé par `c.deliveryTimeText` (company config)
-
-### PHASE D — JSON-LD & Flux GMC
-- **Product JSON-LD** (`src/app/produit/[id]/page.tsx`) : Offre complète avec price, currency, availability, url, itemCondition, seller, shippingDetails (gratuit CH/LI), hasMerchantReturnPolicy
-- **aggregateRating** : Ajouté **uniquement** si `rating`, `reviewsCount` ET `reviewsVerified=true`
-- **BreadcrumbList JSON-LD** : Produit (4 niveaux) + Catégories (3 niveaux)
-- **Flux GMC** (`src/app/feed/google-merchant.xml/route.ts`) : RSS 2.0 + g:ns, exclut produits sans GTIN/MPN/brand/condition/availability/googleProductCategory, log des exclusions console.warn
-
-### PHASE E — Pages Légales Nettoyées
-- **Retrait bannière "Entwurf"** et suppression des placeholders visibles `[...À REMPLIR...]` dans les 5 pages légales
-- **Rendu conditionnel** : Sections/champs masqués si valeur absente dans `companyConfig`
-- **Cookies page** : Suppression `velora_admin_session` (admin non public), `swissholz_cart` (legacy), GA/Meta/Stripe listés **seulement si** réellement chargés via Consent Mode v2
-- **Pas de clauses inventées** : Contenu légal lu depuis `companyConfig`, pas de texte par défaut inventé
-
-### Fichiers Modifiés Principaux
-| Fichier | Changement |
-|---------|------------|
-| `src/lib/schema.ts` | Nouveaux champs DB produits + table reviews |
-| `src/data/products.ts` | Interface Product étendue, productsData mis à jour |
-| `src/app/produkt/[id]/page.tsx` | JSON-LD Product + BreadcrumbList, affichage conditionnel prix/avis |
-| `src/app/kategorie/[category]/page.tsx` | JSON-LD BreadcrumbList |
-| `src/app/feed/google-merchant.xml/route.ts` | Flux GMC complet avec exclusions loguées |
-| `src/components/LegalDocument.tsx` | Retrait bannière Entwurf |
-| `src/app/legal/impressum/page.tsx` | Rendu conditionnel, nettoyage |
-| `src/app/legal/versand-retouren/page.tsx` | Rendu conditionnel, nettoyage |
-| `src/app/legal/terms/page.tsx` | Rendu conditionnel, nettoyage, fix duplication |
-| `src/app/legal/privacy/page.tsx` | Rendu conditionnel, nettoyage |
-| `src/app/legal/cookies/page.tsx` | Table nettoyée (admin/legacy retirés) |
-| `src/components/ProductCard.tsx` | Badge ANGEBOT + prix conditionnels |
-| `src/components/BestSellers.tsx` | Badge + prix conditionnels |
-| `src/components/Poele.tsx` | Badge + prix conditionnels |
-| `src/components/SearchBar.tsx` | Prix conditionnels |
-| `src/context/CartContext.tsx` | CartItem: oldPrice → compareAtPrice |
-
-### Variables Vercel à Configurer (inchangé)
-Voir section 6 ci-dessus.
-
-### Prochaines Étapes Client
-1. Remplir `src/config/company.ts` (champs ❌ MANQUANT)
-2. Exécuter migration : `npx tsx scripts/migrate-products.ts`
-3. Renseigner GTIN/MPN/brand/condition/availability/googleProductCategory en base pour chaque produit
-4. Valider `priceVerified=true` pour produits avec prix barré justifié
-5. Configurer `authorizedDealer=true` si revendeur officiel
-6. Ajouter `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_GTM_ID` pour Consent Mode v2
-7. Tests pré-production (voir section 8)
+> **Nächster Schritt:** `src/config.company.ts` mit echten Kundendaten befüllen → alle Inhalte erscheinen automatisch.

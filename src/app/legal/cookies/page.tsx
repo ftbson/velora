@@ -75,13 +75,13 @@ export default function CookiesPage() {
           Sie ermöglichen es der Website, sich Ihre Aktionen und Präferenzen über einen bestimmten Zeitraum zu merken.
         </p>
         <p>
-          <strong>localStorage / sessionStorage</strong> sind browserbasierte Speicher, die grössere Datenmengen clientseitig
-          ablegen können (z. B. Warenkorb-Inhalte, Merkliste), ohne bei jedem Request an den Server gesendet zu werden.
+          <strong>localStorage / sessionStorage</strong> sind browserbasierte Speicher, die groessere Datenmengen clientseitig
+          ablegen koennen (z. B. Warenkorb-Inhalte, Merkliste), ohne bei jedem Request an den Server gesendet zu werden.
         </p>
       </section>
 
       <section className="legal-section">
-        <h2>2. Übersicht der eingesetzten Technologien</h2>
+        <h2>2. Uebersicht der eingesetzten Technologien</h2>
         <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "1rem", fontSize: "0.95rem" }}>
           <thead>
             <tr style={{ background: "#f3f4f6" }}>
@@ -104,14 +104,14 @@ export default function CookiesPage() {
               <td style={{ padding: "8px", fontFamily: "monospace" }}>velora_cart</td>
               <td style={{ padding: "8px" }}>localStorage</td>
               <td style={{ padding: "8px" }}>Warenkorb-Daten (Produkt-IDs, Mengen)</td>
-              <td style={{ padding: "8px" }}>Bis manuelle Löschung</td>
+              <td style={{ padding: "8px" }}>Bis manuelle Loeschung</td>
               <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig)</td>
             </tr>
             <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
               <td style={{ padding: "8px", fontFamily: "monospace" }}>velora_favorites</td>
               <td style={{ padding: "8px" }}>localStorage</td>
               <td style={{ padding: "8px" }}>Merkliste / Wunschliste (Produkt-IDs)</td>
-              <td style={{ padding: "8px" }}>Bis manuelle Löschung</td>
+              <td style={{ padding: "8px" }}>Bis manuelle Loeschung</td>
               <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig)</td>
             </tr>
             <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
@@ -139,16 +139,16 @@ export default function CookiesPage() {
               <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
                 <td style={{ padding: "8px", fontFamily: "monospace" }}>stripe_*</td>
                 <td style={{ padding: "8px" }}>Cookies (Stripe)</td>
-                <td style={{ padding: "8px" }}>Betrugsprävention, Zahlungsabwicklung</td>
+                <td style={{ padding: "8px" }}>Betrugspraevention, Zahlungsabwicklung</td>
                 <td style={{ padding: "8px" }}>Variabel</td>
-                <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig für Zahlung)</td>
+                <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig fuer Zahlung)</td>
               </tr>
             )}
           </tbody>
         </table>
         <p>
           <strong>Hinweis:</strong> Google Analytics / Meta Pixel / Stripe Cookies werden <strong>nur gesetzt, nachdem Sie
-          im Cookie-Banner der Kategorie „Statistik“ bzw. „Marketing“ zugestimmt haben</strong> (Consent Mode v2).
+          im Cookie-Banner der Kategorie "Statistik" bzw. "Marketing" zugestimmt haben</strong> (Consent Mode v2).
           Ohne Einwilligung werden keine Analyse- oder Marketing-Cookies gesetzt.
         </p>
       </section>
@@ -157,19 +157,19 @@ export default function CookiesPage() {
         <h2>3. Kategorien und Einwilligung (Consent Management)</h2>
         <p>Der Cookie-Banner beim ersten Besuch unterscheidet folgende Kategorien:</p>
         <ul>
-          <li><strong>Technisch notwendig (immer aktiv):</strong> Sitzungscookies für Login, Warenkorb-Session, CSRF-Schutz,
+          <li><strong>Technisch notwendig (immer aktiv):</strong> Sitzungscookies fuer Login, Warenkorb-Session, CSRF-Schutz,
             Speicherung der Einwilligung (localStorage). Ohne diese funktioniert der Shop nicht.</li>
-          <li><strong>Funktionale Präferenzen (optional):</strong> Speicherung von Filtereinstellungen, Merkliste,
-            Spracheinstellungen – über localStorage, keine Cookies.</li>
+          <li><strong>Funktionale Praeferenzen (optional):</strong> Speicherung von Filtereinstellungen, Merkliste,
+            Spracheinstellungen – ueber localStorage, keine Cookies.</li>
           <li><strong>Statistik & Optimierung (optional, Einwilligung erforderlich):</strong> Google Analytics (GA4)
             zur anonymisierten Nutzungsanalyse. IP-Anonymisierung aktiv. Consent Mode v2: <code>analytics_storage='granted'</code>.</li>
-          <li><strong>Marketing (optional, Einwilligung erforderlich):</strong> Meta Pixel (Facebook/Instagram) für
+          <li><strong>Marketing (optional, Einwilligung erforderlich):</strong> Meta Pixel (Facebook/Instagram) fuer
             Conversion-Tracking und Remarketing. Consent Mode v2: <code>ad_storage='granted'</code>, <code>ad_user_data='granted'</code>.</li>
         </ul>
         <p>
-          Sie können Ihre Einwilligung jederzeit ändern oder widerrufen:
+          Sie koennen Ihre Einwilligung jederzeit aendern oder widerrufen:
           <CookieSettingsButton />
-          oder über den Link &ldquo;Cookie-Einstellungen&rdquo; im Footer.
+          oder ueber den Link "Cookie-Einstellungen" im Footer.
         </p>
       </section>
 
@@ -180,13 +180,13 @@ export default function CookiesPage() {
           Google Ads Conversion Tracking) an die Einwilligung des Nutzers anzupassen.
         </p>
         <ul>
-          <li><code>analytics_storage</code>: „granted“ bei Einwilligung in Statistik-Cookies, sonst „denied“.</li>
-          <li><code>ad_storage</code>: „granted“ bei Einwilligung in Marketing-Cookies, sonst „denied“.</li>
-          <li><code>ad_user_data</code>: „granted“ bei Einwilligung in Marketing-Cookies, sonst „denied“.</li>
-          <li><code>ad_personalization</code>: „granted“ bei Einwilligung in Marketing-Cookies, sonst „denied“.</li>
+          <li><code>analytics_storage</code>: "granted" bei Einwilligung in Statistik-Cookies, sonst "denied".</li>
+          <li><code>ad_storage</code>: "granted" bei Einwilligung in Marketing-Cookies, sonst "denied".</li>
+          <li><code>ad_user_data</code>: "granted" bei Einwilligung in Marketing-Cookies, sonst "denied".</li>
+          <li><code>ad_personalization</code>: "granted" bei Einwilligung in Marketing-Cookies, sonst "denied".</li>
         </ul>
         <p>
-          Ohne Einwilligung werden keine personenbezogenen Daten an Google übermittelt; es werden lediglich
+          Ohne Einwilligung werden keine personenbezogenen Daten an Google uebermittelt; es werden lediglich
           modellierte, aggregierte Daten (Conversion Modeling) verwendet.
         </p>
         <p>
@@ -197,17 +197,17 @@ export default function CookiesPage() {
       </section>
 
       <section className="legal-section">
-        <h2>5. Verwaltung und Löschung von Cookies / localStorage</h2>
-        <p>Sie können Cookies und lokalen Speicher in den Einstellungen Ihres Browsers verwalten:</p>
+        <h2>5. Verwaltung und Loeschung von Cookies / localStorage</h2>
+        <p>Sie koennen Cookies und lokalen Speicher in den Einstellungen Ihres Browsers verwalten:</p>
         <ul>
-          <li><strong>Chrome:</strong> Einstellungen → Datenschutz und Sicherheit → Cookies und andere Websitedaten</li>
-          <li><strong>Firefox:</strong> Einstellungen → Datenschutz & Sicherheit → Cookies und Websitedaten</li>
-          <li><strong>Safari:</strong> Einstellungen → Datenschutz → Websitedaten verwalten</li>
-          <li><strong>Edge:</strong> Einstellungen → Cookies und Websiteberechtigungen → Cookies und Websitedaten</li>
+          <li><strong>Chrome:</strong> Einstellungen &rarr; Datenschutz und Sicherheit &rarr; Cookies und andere Websitedaten</li>
+          <li><strong>Firefox:</strong> Einstellungen &rarr; Datenschutz & Sicherheit &rarr; Cookies und Websitedaten</li>
+          <li><strong>Safari:</strong> Einstellungen &rarr; Datenschutz &rarr; Websitedaten verwalten</li>
+          <li><strong>Edge:</strong> Einstellungen &rarr; Cookies und Websiteberechtigungen &rarr; Cookies und Websitedaten</li>
         </ul>
         <p>
-          <strong>Hinweis:</strong> Wenn Sie technisch notwendige Sitzungscookies blockieren, können Anmeldung,
-          Warenkorb und Checkout-Funktionen eingeschränkt oder nicht nutzbar sein.
+          <strong>Hinweis:</strong> Wenn Sie technisch notwendige Sitzungscookies blockieren, koennen Anmeldung,
+          Warenkorb und Checkout-Funktionen eingeschraenkt oder nicht nutzbar sein.
         </p>
       </section>
 
@@ -224,9 +224,9 @@ export default function CookiesPage() {
       </section>
 
       <section className="legal-section">
-        <h2>7. Änderungen</h2>
+        <h2>7. Aenderungen</h2>
         <p>
-          Wir können diese Richtlinie anpassen, wenn sich die eingesetzten Technologien oder gesetzlichen Anforderungen ändern.
+          Wir koennen diese Richtlinie anpassen, wenn sich die eingesetzten Technologien oder gesetzlichen Anforderungen aendern.
           Die jeweils aktuelle Fassung ist auf dieser Seite abrufbar.
         </p>
       </section>

@@ -55,7 +55,9 @@ function hasContent(): boolean {
     c.returnRefundDurationDays ||
     c.returnShippingCostPolicy ||
     c.warrantyText ||
-    c.damageReportDays
+    c.damageReportDays ||
+    c.city ||
+    c.country
   );
 }
 
