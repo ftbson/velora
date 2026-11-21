@@ -4,16 +4,17 @@ import { companyConfig, getFormattedAddress, getSiteUrl } from "@/config/company
 
 const c = companyConfig;
 const siteUrl = getSiteUrl("");
+const address = getFormattedAddress();
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Rechtliche Angaben zum Anbieter VELORA – Firma, Adresse, Kontakt, Registereinträge und verantwortliche Person.",
+  description: c.brandName ? `Rechtliche Angaben zum Anbieter ${c.brandName} – Firma, Adresse, Kontakt, Registereinträge` : "Impressum",
   alternates: {
     canonical: getSiteUrl("/legal/impressum"),
   },
   openGraph: {
     title: "Impressum",
-    description: "VELORA – Impressum mit rechtlichen Angaben zu Firma, Adresse, Kontakt und Registereinträgen.",
+    description: c.brandName ? `${c.brandName} – Impressum` : "Impressum",
     url: getSiteUrl("/legal/impressum"),
     siteName: c.brandName,
     type: "website",
@@ -23,14 +24,14 @@ export const metadata: Metadata = {
         url: `${siteUrl}/img/og-default.jpg`,
         width: 1200,
         height: 630,
-        alt: "VELORA Impressum",
+        alt: `${c.brandName} Impressum`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Impressum",
-    description: "Rechtliche Angaben zum Anbieter VELORA.",
+    description: c.brandName ? `Rechtliche Angaben zum Anbieter ${c.brandName}` : "Impressum",
     images: [`${siteUrl}/img/og-default.jpg`],
   },
   robots: {
@@ -39,25 +40,20 @@ export const metadata: Metadata = {
   },
 };
 
-// Helper to check if Anbieter section should be shown
 function hasAnbieterInfo(): boolean {
   return !!(c.legalName && c.street && c.postalCode && c.city);
 }
 
-// Helper to check if supervisory authority should be shown
 function hasSupervisoryAuthority(): boolean {
   return !!c.supervisoryAuthority;
 }
 
 export default function ImpressumPage() {
-  const address = getFormattedAddress();
-
   return (
     <LegalDocument
       title="Impressum"
       description="Angaben zum Anbieter, Kontakt und Registereinträgen gemäss Schweizer Recht."
     >
-      {/* Anbieter section - only if all required fields are filled */}
       {hasAnbieterInfo() && (
         <section className="legal-section">
           <h2>Anbieter</h2>
@@ -115,7 +111,9 @@ export default function ImpressumPage() {
             <>Mehrwertsteuernummer: <strong>{c.vatNumber}</strong></>
           ) : c.vatExempt === true ? (
             <span>nicht mehrwertsteuerpflichtig</span>
-          ) : null}
+          ) : (
+            <span>Angaben folgen</span>
+          )}
         </p>
       </section>
 
@@ -149,6 +147,12 @@ export default function ImpressumPage() {
         </section>
       )}
 
+      {!hasAnbieterInfo() && (
+        <section className="legal-section">
+          <p>Das Impressum wird vollständig angezeigt, sobald alle erforderlichen Firmenangaben in der Konfiguration hinterlegt sind.</p>
+          <p>Bitte füllen Sie die Datei <code>src/config/company.ts</code> vollständig aus.</p>
+        </section>
+      )}
     </LegalDocument>
   );
 }

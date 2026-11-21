@@ -8,13 +8,13 @@ const siteUrl = getSiteUrl("");
 
 export const metadata: Metadata = {
   title: "Cookie-Richtlinie",
-  description: "Informationen zu Cookies, localStorage und Einwilligungsmanagement bei VELORA – technisch notwendige Cookies, funktionale Präferenzen, Analyse-Cookies, Consent Mode v2.",
+  description: c.brandName ? `Cookie-Richtlinie von ${c.brandName} – Cookies, localStorage, Einwilligungsmanagement` : "Cookie-Richtlinie",
   alternates: {
     canonical: getSiteUrl("/legal/cookies"),
   },
   openGraph: {
     title: "Cookie-Richtlinie",
-    description: "VELORA – Cookie-Richtlinie mit Details zu technisch notwendigen Cookies, funktionalen Präferenzen, Analyse-Cookies und Consent Mode v2.",
+    description: c.brandName ? `${c.brandName} – Cookie-Richtlinie` : "Cookie-Richtlinie",
     url: getSiteUrl("/legal/cookies"),
     siteName: c.brandName,
     type: "website",
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
         url: `${siteUrl}/img/og-default.jpg`,
         width: 1200,
         height: 630,
-        alt: "VELORA Cookie-Richtlinie",
+        alt: `${c.brandName} Cookie-Richtlinie`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Cookie-Richtlinie",
-    description: "Informationen zu Cookies und Einwilligungsmanagement bei VELORA.",
+    description: c.brandName ? `Cookie-Richtlinie von ${c.brandName}` : "Cookie-Richtlinie",
     images: [`${siteUrl}/img/og-default.jpg`],
   },
   robots: {
@@ -40,20 +40,39 @@ export const metadata: Metadata = {
   },
 };
 
+function hasContent(): boolean {
+  return !!(
+    c.legalName ||
+    c.privacyEmail ||
+    c.paymentProviders.some(p => p.includes("Stripe"))
+  );
+}
+
 export default function CookiesPage() {
-  const c = companyConfig;
+  if (!hasContent()) {
+    return (
+      <LegalDocument
+        title="Cookie-Richtlinie"
+        description="Die Cookie-Richtlinie wird ergänzt, sobald die Firmenkonfiguration vollständig ist."
+      >
+        <section className="legal-section">
+          <p>Die Cookie-Richtlinie wird hier angezeigt, sobald alle erforderlichen Firmenangaben in der Konfiguration hinterlegt sind.</p>
+          <p>Bitte füllen Sie die Datei <code>src/config/company.ts</code> vollständig aus.</p>
+        </section>
+      </LegalDocument>
+    );
+  }
 
   return (
     <LegalDocument
       title="Cookie-Richtlinie"
-      description="Welche Cookies und Speichertechnologien VELORA einsetzt, zu welchem Zweck und wie Sie Ihre Einwilligung verwalten können."
+      description="Welche Cookies und Speichertechnologien eingesetzt werden, zu welchem Zweck und wie Sie Ihre Einwilligung verwalten können."
     >
       <section className="legal-section">
         <h2>1. Was sind Cookies und lokale Speicher?</h2>
         <p>
           <strong>Cookies</strong> sind kleine Textdateien, die beim Besuch einer Website auf Ihrem Endgerät gespeichert werden.
-          Sie ermöglichen es der Website, sich Ihre Aktionen und Präferenzen (z. B. Login, Sprache, Warenkorb) über einen
-          bestimmten Zeitraum zu merken.
+          Sie ermöglichen es der Website, sich Ihre Aktionen und Präferenzen über einen bestimmten Zeitraum zu merken.
         </p>
         <p>
           <strong>localStorage / sessionStorage</strong> sind browserbasierte Speicher, die grössere Datenmengen clientseitig
@@ -62,7 +81,7 @@ export default function CookiesPage() {
       </section>
 
       <section className="legal-section">
-        <h2>2. Übersicht der bei VELORA eingesetzten Technologien</h2>
+        <h2>2. Übersicht der eingesetzten Technologien</h2>
         <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "1rem", fontSize: "0.95rem" }}>
           <thead>
             <tr style={{ background: "#f3f4f6" }}>
@@ -99,7 +118,7 @@ export default function CookiesPage() {
               <td style={{ padding: "8px", fontFamily: "monospace" }}>velora_cookie_consent</td>
               <td style={{ padding: "8px" }}>localStorage</td>
               <td style={{ padding: "8px" }}>Speichert die Cookie-Einwilligungsentscheidung</td>
-              <td style={{ padding: "8px" }}>1 Jahr (danach erneute Abfrage)</td>
+              <td style={{ padding: "8px" }}>1 Jahr</td>
               <td style={{ padding: "8px" }}>Nicht erforderlich (Speicherung der Entscheidung)</td>
             </tr>
             <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
@@ -107,22 +126,24 @@ export default function CookiesPage() {
               <td style={{ padding: "8px" }}>Cookies (Google Analytics)</td>
               <td style={{ padding: "8px" }}>Nutzungsanalyse, Statistiken, Conversion-Tracking</td>
               <td style={{ padding: "8px" }}>2 Jahre / 24h</td>
-              <td style={{ padding: "8px"}}><strong>Erforderlich</strong> (Kategorie: Statistik)</td>
+              <td style={{ padding: "8px" }}><strong>Erforderlich</strong> (Kategorie: Statistik)</td>
             </tr>
             <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
               <td style={{ padding: "8px", fontFamily: "monospace" }}>_fbp, _fbc</td>
               <td style={{ padding: "8px" }}>Cookies (Meta Pixel)</td>
               <td style={{ padding: "8px" }}>Conversion-Tracking, Remarketing (Facebook/Instagram)</td>
               <td style={{ padding: "8px" }}>90 Tage</td>
-              <td style={{ padding: "8px"}}><strong>Erforderlich</strong> (Kategorie: Marketing)</td>
+              <td style={{ padding: "8px" }}><strong>Erforderlich</strong> (Kategorie: Marketing)</td>
             </tr>
-            <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
-              <td style={{ padding: "8px", fontFamily: "monospace" }}>stripe_*</td>
-              <td style={{ padding: "8px" }}>Cookies (Stripe)</td>
-              <td style={{ padding: "8px" }}>Betrugsprävention, Zahlungsabwicklung</td>
-              <td style={{ padding: "8px" }}>Variabel</td>
-              <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig für Zahlung)</td>
-            </tr>
+            {c.paymentProviders.some(p => p.includes("Stripe")) && (
+              <tr style={{ borderBottom: "1px solid #e5e7eb" }}>
+                <td style={{ padding: "8px", fontFamily: "monospace" }}>stripe_*</td>
+                <td style={{ padding: "8px" }}>Cookies (Stripe)</td>
+                <td style={{ padding: "8px" }}>Betrugsprävention, Zahlungsabwicklung</td>
+                <td style={{ padding: "8px" }}>Variabel</td>
+                <td style={{ padding: "8px" }}>Nicht erforderlich (technisch notwendig für Zahlung)</td>
+              </tr>
+            )}
           </tbody>
         </table>
         <p>
@@ -141,9 +162,9 @@ export default function CookiesPage() {
           <li><strong>Funktionale Präferenzen (optional):</strong> Speicherung von Filtereinstellungen, Merkliste,
             Spracheinstellungen – über localStorage, keine Cookies.</li>
           <li><strong>Statistik & Optimierung (optional, Einwilligung erforderlich):</strong> Google Analytics (GA4)
-            zur anonymisierten Nutzungsanalyse. IP-Anonymisierung aktiv. Consent Mode v2: <code>analytics_storage=&apos;granted&apos;</code>.</li>
+            zur anonymisierten Nutzungsanalyse. IP-Anonymisierung aktiv. Consent Mode v2: <code>analytics_storage='granted'</code>.</li>
           <li><strong>Marketing (optional, Einwilligung erforderlich):</strong> Meta Pixel (Facebook/Instagram) für
-            Conversion-Tracking und Remarketing. Consent Mode v2: <code>ad_storage=&apos;granted&apos;</code>, <code>ad_user_data=&apos;granted&apos;</code>.</li>
+            Conversion-Tracking und Remarketing. Consent Mode v2: <code>ad_storage='granted'</code>, <code>ad_user_data='granted'</code>.</li>
         </ul>
         <p>
           Sie können Ihre Einwilligung jederzeit ändern oder widerrufen:
@@ -166,7 +187,7 @@ export default function CookiesPage() {
         </ul>
         <p>
           Ohne Einwilligung werden keine personenbezogenen Daten an Google übermittelt; es werden lediglich
-          modellierte, aggregierte Daten (Conversion Modeling) verwendet, sofern vom Nutzer nicht aktiv blockiert.
+          modellierte, aggregierte Daten (Conversion Modeling) verwendet.
         </p>
         <p>
           Die Consent Mode v2 Integration wird aktiviert, sobald eine Google Tag Manager Container-ID oder
@@ -193,23 +214,21 @@ export default function CookiesPage() {
       <section className="legal-section">
         <h2>6. Kontakt bei Fragen zu Cookies</h2>
         <p>
-          Bei Fragen zu dieser Cookie-Richtlinie oder zur Verarbeitung Ihrer Daten wenden Sie sich an:
+          Bei Fragen wenden Sie sich an:
         </p>
         <p>
           <a href={`mailto:${c.privacyEmail}`}><strong>{c.privacyEmail}</strong></a>
           <br />
-          {c.legalName ? c.legalName : "[Firmenname]"}<br />
-          {c.street ? `${c.street}, ${c.postalCode} ${c.city}` : "[Adresse]"}
+          {c.legalName ? c.legalName : ""}
         </p>
       </section>
 
       <section className="legal-section">
-        <h2>7. Änderungen dieser Cookie-Richtlinie</h2>
+        <h2>7. Änderungen</h2>
         <p>
           Wir können diese Richtlinie anpassen, wenn sich die eingesetzten Technologien oder gesetzlichen Anforderungen ändern.
           Die jeweils aktuelle Fassung ist auf dieser Seite abrufbar.
         </p>
-        <p><strong>Stand: November 2026</strong></p>
       </section>
     </LegalDocument>
   );

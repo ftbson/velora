@@ -38,6 +38,14 @@ export interface CompanyConfig {
   returnShippingCostPolicy: string;   // Qui paie les frais de retour (ex: "Kostenlose Rücksendung bei Widerruf innerhalb der Frist")
   returnRefundDurationDays: number;   // Délai remboursement en jours (ex: 14)
   warrantyText: string;               // Texte garantie (ex: "Herstellergarantie gemäß Schweizer Obligationenrecht. 2 Jahre auf Neuwaren.")
+  damageReportDays: number;           // Délai signalement dommages/transport (ex: 2)
+
+  // Conservation des données (pour Datenschutz)
+  dataRetentionAccountDays: number;       // Conservation données compte (ex: 30)
+  dataRetentionOrderYears: number;        // Conservation données commande (ex: 10)
+  dataRetentionInvoiceYears: number;      // Conservation factures (ex: 10)
+  dataRetentionContactYears: number;      // Conservation contact (ex: 2)
+  dataRetentionLogsDays: number;          // Conservation logs techniques (ex: 90)
 
   // TVA - exemption possible
   vatExempt: boolean | null;          // true si non assujetti à la TVA (ex: petite entreprise, OSS), null = non défini
@@ -53,6 +61,9 @@ export interface CompanyConfig {
 
   // Paiement (pour mentions légales)
   paymentProviders: string[];  // Ex: ["Stripe (Karte, TWINT)", "Banküberweisung"]
+
+  // Politique de retour acceptée (pour metadata)
+  returnPolicyAccepted: boolean; // true si le client a confirmé la politique de retour
 }
 
 /**
@@ -99,6 +110,14 @@ export const companyConfig: CompanyConfig = {
   returnShippingCostPolicy: "Kostenlose Rücksendung bei Widerruf innerhalb der Frist. Bei Garantiefällen übernimmt VELORA die Rücksendekosten.", // À REMPLIR : Politique frais retour
   returnRefundDurationDays: 14,     // À REMPLIR : Délai remboursement (jours)
   warrantyText: "Herstellergarantie gemäß Schweizer Obligationenrecht (OR). 2 Jahre Gewährleistung auf Neuwaren ab Lieferung. Batterien und Verschleißteile ausgenommen.", // À REMPLIR : Texte garantie
+  damageReportDays: 2,              // À REMPLIR : Délai signalement dommages/transport (jours)
+
+  // Conservation des données (pour Datenschutz) - À REMPLIR
+  dataRetentionAccountDays: 30,       // Conservation données compte après suppression (jours)
+  dataRetentionOrderYears: 10,        // Conservation données commande (années, Art. 958a OR)
+  dataRetentionInvoiceYears: 10,      // Conservation factures (années, Art. 958a OR)
+  dataRetentionContactYears: 2,       // Conservation contact (années)
+  dataRetentionLogsDays: 90,          // Conservation logs techniques (jours)
 
   // TVA - exemption possible
   vatExempt: null,                 // À REMPLIR : true si non assujetti à la TVA (ex: petite entreprise, OSS), null = non défini
@@ -114,6 +133,9 @@ export const companyConfig: CompanyConfig = {
 
   // Paiement (pour mentions légales)
   paymentProviders: ["Banküberweisung"], // À REMPLIR : Ajouter "Stripe (Karte, TWINT)" après intégration
+
+  // Politique de retour acceptée (pour metadata)
+  returnPolicyAccepted: false, // À REMPLIR : true si le client a confirmé la politique de retour
 };
 
 /**
@@ -143,6 +165,12 @@ export const REQUIRED_FIELDS: (keyof CompanyConfig)[] = [
   "returnShippingCostPolicy",
   "returnRefundDurationDays",
   "warrantyText",
+  "damageReportDays",
+  "dataRetentionAccountDays",
+  "dataRetentionOrderYears",
+  "dataRetentionInvoiceYears",
+  "dataRetentionContactYears",
+  "dataRetentionLogsDays",
   "siteUrl",
 ];
 
