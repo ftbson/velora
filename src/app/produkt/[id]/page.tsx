@@ -8,7 +8,6 @@ import { companyConfig, getSiteUrl } from "@/config/company";
 import type { Metadata } from "next";
 
 const c = companyConfig;
-const siteUrl = c.siteUrl.replace(/\/$/, "");
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -21,14 +20,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
   }
 
-  const productUrl = `${siteUrl}/produkt/${product.id}`;
-  const ogImage = product.image || `${siteUrl}/img/og-default.jpg`;
+  const productUrl = getSiteUrl(`/produkt/${product.id}`);
+  const ogImage = product.image || getSiteUrl("/img/og-default.jpg");
 
   // Only include "Schweizer" references if country and uid are filled
   const isSwissShop = c.country && c.uid;
 
   return {
-    title: `${product.title} | VELORA`,
+    title: product.title,
     description: product.description.slice(0, 160),
     alternates: {
       canonical: productUrl,
@@ -140,8 +139,8 @@ interface ProductJsonLd {
 }
 
 function generateProductJsonLd(product: typeof productsData[0], c: typeof companyConfig): ProductJsonLd {
-  const siteUrl = c.siteUrl.replace(/\/$/, "");
-  const productUrl = `${siteUrl}/produkt/${product.id}`;
+  const productUrl = getSiteUrl(`/produkt/${product.id}`);
+  const logoUrl = getSiteUrl("/img/logo.png");
 
   // Availability mapping
   const availabilityMap: Record<string, string> = {
@@ -155,7 +154,7 @@ function generateProductJsonLd(product: typeof productsData[0], c: typeof compan
     : "https://schema.org/InStock";
 
   // Images array
-  const images = product.image ? [product.image] : [`${siteUrl}/img/logo.png`];
+  const images = product.image ? [product.image] : [logoUrl];
 
   // Base JSON-LD
   const jsonLd: ProductJsonLd = {
@@ -183,7 +182,7 @@ function generateProductJsonLd(product: typeof productsData[0], c: typeof compan
     },
   };
 
-  // Add GTIN/MPN if available (from extended product fields)
+  // Add GTIN/MPN only if available (from extended product fields)
   // These would come from database in production
   if ((product as any).gtin) {
     jsonLd.gtin = (product as any).gtin;

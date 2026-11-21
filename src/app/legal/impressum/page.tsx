@@ -44,6 +44,11 @@ function hasAnbieterInfo(): boolean {
   return !!(c.legalName && c.street && c.postalCode && c.city);
 }
 
+// Helper to check if supervisory authority should be shown
+function hasSupervisoryAuthority(): boolean {
+  return !!c.supervisoryAuthority;
+}
+
 export default function ImpressumPage() {
   const address = getFormattedAddress();
 
@@ -108,11 +113,9 @@ export default function ImpressumPage() {
         <p>
           {c.vatNumber ? (
             <>Mehrwertsteuernummer: <strong>{c.vatNumber}</strong></>
-          ) : c.vatExempt ? (
-            <span>Nicht mehrwertsteuerpflichtig (Kleinunternehmer / OSS)</span>
-          ) : (
-            <span>Nicht mehrwertsteuerpflichtig</span>
-          )}
+          ) : c.vatExempt === true ? (
+            <span>nicht mehrwertsteuerpflichtig</span>
+          ) : null}
         </p>
       </section>
 
@@ -127,7 +130,24 @@ export default function ImpressumPage() {
         </section>
       )}
 
-      {/* OS platform link removed - EU-specific, not applicable for CH-only shop */}
+      {hasSupervisoryAuthority() && (
+        <section className="legal-section">
+          <h2>Aufsichtsbehörde</h2>
+          <p>{c.supervisoryAuthority}</p>
+        </section>
+      )}
+
+      {c.osPlatformUrl && (
+        <section className="legal-section">
+          <h2>Streitschlichtung</h2>
+          <p>
+            Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+            <a href={c.osPlatformUrl} target="_blank" rel="noopener noreferrer">
+              {c.osPlatformUrl}
+            </a>
+          </p>
+        </section>
+      )}
 
     </LegalDocument>
   );

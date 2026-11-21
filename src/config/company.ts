@@ -25,6 +25,8 @@ export interface CompanyConfig {
   // Protection des données (nLPD)
   privacyEmail: string;        // Email pour demandes RGPD/nLPD (peut être identique à email)
   privacyAuthority: string;    // Autorité de surveillance compétente (ex: "Eidgenössischer Datenschutz- und Öffentlichkeitsbeauftragter (EDÖB)")
+  supervisoryAuthority: string; // Aufsichtsbehörde für Impressum (optional, branchenspezifisch)
+  osPlatformUrl: string;       // URL plateforme OS pour Impressum (optional, ex: "https://ec.europa.eu/consumers/odr/")
 
   // Livraison
   shippingCarrier: string;     // Transporteur (ex: "Planzer, DPD Schweiz, Poste Suisse")
@@ -38,7 +40,7 @@ export interface CompanyConfig {
   warrantyText: string;               // Texte garantie (ex: "Herstellergarantie gemäß Schweizer Obligationenrecht. 2 Jahre auf Neuwaren.")
 
   // TVA - exemption possible
-  vatExempt: boolean;                 // true si non assujetti à la TVA (ex: petite entreprise, OSS)
+  vatExempt: boolean | null;          // true si non assujetti à la TVA (ex: petite entreprise, OSS), null = non défini
 
   // Marque & Site
   brandName: string;           // Nom de marque affiché (ex: "VELORA")
@@ -84,6 +86,8 @@ export const companyConfig: CompanyConfig = {
   // Protection des données - À REMPLIR
   privacyEmail: "kontact@veloras.ch", // À REMPLIR : Email protection données
   privacyAuthority: "Eidgenössischer Datenschutz- und Öffentlichkeitsbeauftragter (EDÖB), Feldeggweg 1, 3003 Bern", // À REMPLIR : Autorité
+  supervisoryAuthority: "",           // À REMPLIR : Aufsichtsbehörde (falls branchenspezifisch reguliert)
+  osPlatformUrl: "",                  // À REMPLIR : OS-Plattform URL (falls zutreffend)
 
   // Livraison - À REMPLIR
   shippingCarrier: "Planzer / DPD Schweiz / Poste Suisse", // À REMPLIR : Transporteur(s)
@@ -97,7 +101,7 @@ export const companyConfig: CompanyConfig = {
   warrantyText: "Herstellergarantie gemäß Schweizer Obligationenrecht (OR). 2 Jahre Gewährleistung auf Neuwaren ab Lieferung. Batterien und Verschleißteile ausgenommen.", // À REMPLIR : Texte garantie
 
   // TVA - exemption possible
-  vatExempt: false,                 // À REMPLIR : true si non assujetti à la TVA (ex: petite entreprise, OSS)
+  vatExempt: null,                 // À REMPLIR : true si non assujetti à la TVA (ex: petite entreprise, OSS), null = non défini
 
   // Marque & Site
   brandName: "VELORA",
