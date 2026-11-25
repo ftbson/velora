@@ -88,7 +88,7 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
         </div>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      {/* <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <button
           type="button"
           onClick={() => handlePayment("card")}
@@ -140,9 +140,9 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
           <span>Mit TWINT bezahlen</span>
           {isLoading && <span className="spinner" style={{ width: "18px", height: "18px", border: "2px solid transparent", borderTopColor: "#D52B1E", borderRadius: "50%", animation: "spin 1s linear infinite" }}></span>}
         </button>
-      </div>
+      </div> */}
 
-      <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
+      {/* <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
         <button
           type="button"
           onClick={onCancel}
@@ -158,7 +158,7 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
         >
           Zurück zur Banküberweisung
         </button>
-      </div>
+      </div> */}
 
       <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid #e5e7eb" }}>
         <p style={{ fontSize: "0.8125rem", color: "#9ca3af", textAlign: "center", lineHeight: 1.5 }}>
