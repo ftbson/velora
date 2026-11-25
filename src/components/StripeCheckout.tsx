@@ -64,7 +64,7 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
       <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
         {/* <div className="icon-wrapper" style={{ marginBottom: "1rem" }}>
           <i className="fa-solid fa-credit-card" style={{ fontSize: "2.5rem", color: "#D52B1E" }}></i>
-        </div> */}
+        </div> */} 
         {/* <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem" }}>
           Sichere Online-Zahlung
         </h2>
@@ -88,8 +88,8 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
         </div>
       )}
 
-      {/* <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <button
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        {/* <button
           type="button"
           onClick={() => handlePayment("card")}
           disabled={isLoading}
@@ -113,12 +113,14 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
           <i className="fa-solid fa-credit-card" style={{ fontSize: "1.125rem" }}></i>
           <span>Mit Karte bezahlen (Visa, Mastercard, Amex)</span>
           {isLoading && <span className="spinner" style={{ width: "18px", height: "18px", border: "2px solid transparent", borderTopColor: "#fff", borderRadius: "50%", animation: "spin 1s linear infinite" }}></span>}
-        </button>
+        </button> */}
 
         <button
           type="button"
-          onClick={() => handlePayment("twint")}
-          disabled={isLoading}
+          onClick={() => {
+            const message = "Guten Tag, ich m\u00F6chte mit TWINT bezahlen. Bitte senden Sie mir eine g\u00FCltige TWINT-Nummer. Mir ist bekannt, dass f\u00FCr TWINT-Zahlungen bestimmte Limiten gelten.";
+            window.location.href = `https://wa.me/41767529493?text=${encodeURIComponent(message)}`;
+          }}
           style={{
             display: "flex",
             alignItems: "center",
@@ -137,10 +139,10 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
           }}
         >
           <i className="fa-solid fa-mobile-screen" style={{ fontSize: "1.125rem", color: "#D52B1E" }}></i>
-          <span>Mit TWINT bezahlen</span>
-          {isLoading && <span className="spinner" style={{ width: "18px", height: "18px", border: "2px solid transparent", borderTopColor: "#D52B1E", borderRadius: "50%", animation: "spin 1s linear infinite" }}></span>}
+          <span>TWINT-Nummer per WhatsApp anfragen</span>
+          
         </button>
-      </div> */}
+      </div>
 
       {/* <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
         <button
