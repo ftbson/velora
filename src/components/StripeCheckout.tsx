@@ -62,9 +62,9 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
   return (
     <div className="stripe-checkout-container" style={{ padding: "1.5rem" }}>
       <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-        <div className="icon-wrapper" style={{ marginBottom: "1rem" }}>
+        {/* <div className="icon-wrapper" style={{ marginBottom: "1rem" }}>
           <i className="fa-solid fa-credit-card" style={{ fontSize: "2.5rem", color: "#D52B1E" }}></i>
-        </div>
+        </div> */}
         {/* <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem" }}>
           Sichere Online-Zahlung
         </h2>
