@@ -65,12 +65,12 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
         <div className="icon-wrapper" style={{ marginBottom: "1rem" }}>
           <i className="fa-solid fa-credit-card" style={{ fontSize: "2.5rem", color: "#D52B1E" }}></i>
         </div>
-        <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem" }}>
+        {/* <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem" }}>
           Sichere Online-Zahlung
         </h2>
         <p style={{ color: "#6b7280", fontSize: "0.9375rem" }}>
           Sie werden zu Stripe weitergeleitet, um die Zahlung abzuschliessen.
-        </p>
+        </p> */}
       </div>
 
       {error && (
@@ -160,12 +160,12 @@ export default function StripeCheckout({ orderId, onSuccess, onCancel, onError }
         </button>
       </div> */}
 
-      <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid #e5e7eb" }}>
+      {/* <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid #e5e7eb" }}>
         <p style={{ fontSize: "0.8125rem", color: "#9ca3af", textAlign: "center", lineHeight: 1.5 }}>
           <strong>Sicherheit:</strong> Die Zahlung wird über <strong>Stripe</strong> (PCI DSS Level 1 zertifiziert) abgewickelt.
           VELORA erhält keine vollständigen Kartendaten. Ihre Daten werden verschlüsselt übertragen.
         </p>
-      </div>
+      </div> */}
 
       <style jsx>{`
         @keyframes spin {
